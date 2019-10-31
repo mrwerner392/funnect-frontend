@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
 import { userLoginRequest } from '../actions/userActions';
-
 class FormContainer extends Component {
 
-  renderAccountForm = () => {
-    const { userLoginRequest } = this.props
-    return <AccountForm userLoginRequest={ userLoginRequest }/>
-  }
-
-  renderPostForm = () => {
-    return <div>Hi</div>
-  }
-
   render() {
-    const { renderAccountForm, renderPostForm } = this
+    const { props: {userLoginRequest, userCreateProfileRequest, formType},
+            renderAccountForm,
+            renderPostForm } = this
+
     return (
       <div>
-        { true ? renderAccountForm() : renderPostForm() }
+        <AccountForm userLoginRequest={ userLoginRequest }
+                      userCreateProfileRequest={ null }
+                      formType={ formType }
+                      />
+        {formType === 'login'
+          ? <p>Or <span><NavLink exact to='/create-profile'>Create a Profile</NavLink></span></p>
+          : <p>Or <span><NavLink exact to='/login'>Log In</NavLink></span></p> }
       </div>
     )
   }
