@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { userLoginRequest } from '../actions/userActions';
-import { connect } from 'react-redux';
 
 class AccountForm extends Component {
 
@@ -17,6 +15,7 @@ class AccountForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
+    console.log(this.props);
     this.props.userLoginRequest(this.state)
   }
 
@@ -40,8 +39,4 @@ class AccountForm extends Component {
 
 }
 
-const mapDispatchToProps = {
-  userLoginRequest
-}
-
-export default connect(null, mapDispatchToProps)(AccountForm)
+export default AccountForm;

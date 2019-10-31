@@ -21,6 +21,7 @@ export const userLoginRequest = user => dispatch => {
   .then(res => res.json())
   .then(({token, user}) => {
     localStorage.token = token
+    localStorage.id = user.id
     dispatch(userLogin(user))
   })
 }
