@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import userReducer from './reducers/userReducer'
+import userReducer from './reducers/userReducer';
+import {BrowserRouter as Router} from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -14,9 +15,11 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
-  <Provider store={ store }>
-    <App />
-  </Provider>
+  <Router>
+    <Provider store={ store }>
+      <App />
+    </Provider>
+  </Router>
   , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
