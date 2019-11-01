@@ -7,6 +7,7 @@ class AccountForm extends Component {
   state = {
     username: '',
     password: '',
+    first_name: '',
     age: null,
     bio: '',
     college: '',
@@ -42,10 +43,15 @@ class AccountForm extends Component {
   }
 
   renderCreateProfileFormInputs = () => {
-    const { age, bio, college, occupation, interests, interestOptions } = this.state
+    const { first_name, age, bio, college, occupation, interests, interestOptions } = this.state
 
     return (
       <Fragment>
+        <input type='text'
+                name='first_name'
+                value={ first_name }
+                placeholder='first name'
+                />
         <input type='number'
                 name='age'
                 value={ age }
