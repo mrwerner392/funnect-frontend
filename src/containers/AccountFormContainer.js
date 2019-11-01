@@ -9,7 +9,7 @@ class FormContainer extends Component {
     const { loginRequest, createUserRequest, formType } = this.props
 
     return (
-      <div>
+      <div id='account-form-container'>
         <AccountForm loginRequest={ loginRequest }
                       createUserRequest={ createUserRequest }
                       formType={ formType }
