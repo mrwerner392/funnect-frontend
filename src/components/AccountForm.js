@@ -9,6 +9,7 @@ class AccountForm extends Component {
     password: '',
     first_name: '',
     age: null,
+    gender: '',
     bio: '',
     college: '',
     occupation: '',
@@ -38,12 +39,12 @@ class AccountForm extends Component {
 
   handleCreateSubmit = evt => {
     evt.preventDefault();
-    const { username, password, age, bio, college, occupation, interests } = this.state
+    const { username, password, first_name, age, gender, bio, college, occupation, interests } = this.state
     this.props.createUserRequest({ username, password, age, bio, college, occupation, interests })
   }
 
   renderCreateProfileFormInputs = () => {
-    const { first_name, age, bio, college, occupation, interests, interestOptions } = this.state
+    const { first_name, age, gender, bio, college, occupation, interests, interestOptions } = this.state
 
     return (
       <Fragment>
@@ -56,6 +57,11 @@ class AccountForm extends Component {
                 name='age'
                 value={ age }
                 placeholder='age'
+                />
+        <input type='text'
+                name='gender'
+                value={ gender }
+                placeholder='gender'
                 />
         <input type='text'
                 name='bio'
