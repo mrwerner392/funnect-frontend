@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
-import { loginRequest, createUserRequest, setUser } from '../actions/userActions';
+import { setUser } from '../actions/userActions';
+import { getAllPosts } from '../actions/postsActions';
 
 const URL = 'http://localhost:3000'
 
@@ -13,6 +14,7 @@ class FormContainer extends Component {
   }
 
   handleLoginRequest = ({ username, password }) => {
+    const { setUser, getAllPosts } = this.props
     const config = {
       method: 'POST',
       headers: {
@@ -33,7 +35,8 @@ class FormContainer extends Component {
         localStorage.token = responseData.token
         localStorage.id = responseData.user.id
         setUser(responseData.user)
-        // getAllPosts()
+        console.log('get posts');
+        getAllPosts()
       }
     })
   }
@@ -59,6 +62,7 @@ class FormContainer extends Component {
         localStorage.token = responseData.token
         localStorage.id = responseData.user.id
         setUser(responseData.user)
+
       }
     })
   }
@@ -83,7 +87,8 @@ class FormContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  setUser
+  setUser,
+  getAllPosts
 }
 
 export default connect(null, mapDispatchToProps)(FormContainer)

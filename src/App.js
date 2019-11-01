@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.user);
+    console.log(this.props.user, this.props.posts);
     return (
       <div className='App'>
         <Switch>
@@ -63,7 +63,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    posts: state.posts
   }
 }
 
