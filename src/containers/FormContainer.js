@@ -13,7 +13,7 @@ class FormContainer extends Component {
     return (
       <div>
         <AccountForm loginRequest={ loginRequest }
-                      createUserRequest={ null }
+                      createUserRequest={ createUserRequest }
                       formType={ formType }
                       />
         {formType === 'login'

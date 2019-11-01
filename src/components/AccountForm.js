@@ -19,9 +19,10 @@ class AccountForm extends Component {
 
   handleChange = evt => {
     if (evt.target.name === 'interests') {
+      const interest = evt.target.value
       this.setState(prevState => {
         return {
-          interests: [...prevState.interests, evt.target.value]
+          interests: [...prevState.interests, interest]
         }
       })
     } else {
@@ -40,7 +41,7 @@ class AccountForm extends Component {
   handleCreateSubmit = evt => {
     evt.preventDefault();
     const { username, password, first_name, age, gender, bio, college, occupation, interests } = this.state
-    this.props.createUserRequest({ username, password, age, bio, college, occupation, interests })
+    this.props.createUserRequest({ username, password, first_name, age, gender, bio, college, occupation, interests })
   }
 
   renderCreateProfileFormInputs = () => {
@@ -106,8 +107,10 @@ class AccountForm extends Component {
     const { state: {username, password},
             props: {formType},
             handleChange,
-            handleSubmit,
+            handleLoginSubmit,
+            handleCreateSubmit,
             renderCreateProfileFormInputs } = this
+
     return (
       <form onChange={ handleChange }
             onSubmit={ formType === 'login' ? handleLoginSubmit : handleCreateSubmit }>
