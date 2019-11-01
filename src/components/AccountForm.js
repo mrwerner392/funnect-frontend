@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+const URL = 'http://localhost:3000'
+
 class AccountForm extends Component {
 
   state = {
@@ -9,14 +11,14 @@ class AccountForm extends Component {
     bio: '',
     college: '',
     occupation: '',
-    interests: []
+    interests: [],
+    interestOptions: []
   }
 
   handleChange = evt => {
     if (evt.target.name === 'interests') {
       this.setState(prevState => {
         return {
-          ...prevState,
           interests: [...prevState.interests, evt.target.value]
         }
       })
@@ -34,32 +36,34 @@ class AccountForm extends Component {
   }
 
   renderCreateProfileFormInputs = () => {
-    const { age, bio, college, occupation, interests } = this.state
+    const { age, bio, college, occupation, interests, interestOptions } = this.state
+
     return (
       <Fragment>
         <input type='number'
                 name='age'
                 value={ age }
-                placeholder='username'
+                placeholder='age'
                 />
         <input type='text'
                 name='bio'
                 value={ bio }
-                placeholder='username'
+                placeholder='bio'
                 />
         <input type='text'
                 name='college'
                 value={ college }
-                placeholder='username'
+                placeholder='college'
                 />
         <input type='text'
                 name='occupation'
                 value={ occupation }
-                placeholder='username'
+                placeholder='occupation'
                 />
         <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
         <select id='user-interest-select' name='interests'>
-          { renderInterestOptions() }
+          { <option></option> }
+          { interestOptions.map(option => <option key={ option } value={ option }>{ option }</option>) }
         </select>
         <p>{ interests.join(', ') }</p>
       </Fragment>
@@ -67,10 +71,25 @@ class AccountForm extends Component {
 
   }
 
+
+  componentDidMount() {
+    if (this.props.formType === 'create-profile') {
+      fetch(URL + '/interests')
+      .then(res => res.json())
+      .then(interests => {
+        this.setState({
+          interestOptions: interests.map(interest => interest.name)
+        })
+      })
+    }
+  }
+
   render() {
     const { state: {username, password},
+            props: {formType},
             handleChange,
-            handleSubmit } = this
+            handleSubmit,
+            renderCreateProfileFormInputs } = this
     return (
       <form onChange={ this.handleChange } onSubmit={ this.handleSubmit }>
         <input type='text'
@@ -83,6 +102,7 @@ class AccountForm extends Component {
                 value={ password }
                 placeholder='password'
                 />
+        { formType === 'create-profile' ? renderCreateProfileFormInputs() : null }
         <input type='submit' />
       </form>
     )
