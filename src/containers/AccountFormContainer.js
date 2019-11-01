@@ -8,6 +8,10 @@ const URL = 'http://localhost:3000'
 
 class FormContainer extends Component {
 
+  state = {
+    errors: null
+  }
+
   handleLoginRequest = ({ username, password }) => {
     const config = {
       method: 'POST',
@@ -20,23 +24,54 @@ class FormContainer extends Component {
 
     fetch(URL + '/login', config)
     .then(res => res.json())
-    .then(({token, user}) => {
-      localStorage.token = token
-      localStorage.id = user.id
-      setUser(user)
-      // getAllPosts()
+    .then(responseData => {
+      if (responseData.errors) {
+        this.setState({
+          errors: responseData.errors
+        })
+      } else {
+        localStorage.token = responseData.token
+        localStorage.id = responseData.user.id
+        setUser(responseData.user)
+        // getAllPosts()
+      }
+    })
+  }
+
+  handleCreateUserRequest = (user) => {
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(user)
+    }
+
+    fetch(URL + '/users', config)
+    .then(res => res.json())
+    .then(responseData => {
+      if (responseData.errors) {
+        this.setState({
+          errors: responseData.errors
+        })
+      } else {
+        localStorage.token = responseData.token
+        localStorage.id = responseData.user.id
+        setUser(responseData.user)
+      }
     })
   }
 
   render() {
-    const { handleLoginRequest, props:{createUserRequest, formType} } = this
+    const { state: { errors }, props: { formType }, handleLoginRequest, handleCreateUserRequest } = this
 
     return (
       <div id='account-form-container'>
         <AccountForm handleLoginRequest={ handleLoginRequest }
-                      createUserRequest={ createUserRequest }
-                      setUser={ setUser }
+                      handleCreateUserRequest={ handleCreateUserRequest }
                       formType={ formType }
+                      errors={ errors }
                       />
         { formType === 'login'
           ? <p>Or <span><NavLink exact to='/create-profile'>Create a Profile</NavLink></span></p>
