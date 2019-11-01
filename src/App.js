@@ -39,7 +39,7 @@ class App extends Component {
                   />
           <Route exact
                   path='/posts'
-                  render={ () => <ContentContainer content='posts'/> }
+                  render={ () => <ContentContainer contentType='posts'/> }
                   />
           <Route exact
                   path='/:slug'
