@@ -6,9 +6,7 @@ import { loginRequest, createUserRequest } from '../actions/userActions';
 class FormContainer extends Component {
 
   render() {
-    const { props: {loginRequest, createUserRequest, formType},
-            renderAccountForm,
-            renderPostForm } = this
+    const { loginRequest, createUserRequest, formType } = this.props
 
     return (
       <div>

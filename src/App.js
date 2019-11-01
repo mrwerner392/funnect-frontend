@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom'
-import FormContainer from './containers/FormContainer'
+import AccountFormContainer from './containers/AccountFormContainer'
 import NotFound from './components/NotFound'
 import { getUser } from './actions/userActions'
 import './App.css';
@@ -23,10 +23,10 @@ class App extends Component {
         <Switch>
           <Route exact
                   path='/login'
-                  render={() => <FormContainer formType='login' /> } />
+                  render={() => <AccountFormContainer formType='login' /> } />
           <Route exact
                   path='/create-profile'
-                  render={() => <FormContainer formType='create-profile' /> } />
+                  render={() => <AccountFormContainer formType='create-profile' /> } />
           <Route component={ NotFound } />
         </Switch>
       </div>
