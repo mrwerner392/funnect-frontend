@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
-import { userLoginRequest } from '../actions/userActions';
+import { loginRequest, createUserRequest } from '../actions/userActions';
 class FormContainer extends Component {
 
   render() {
-    const { props: {userLoginRequest, userCreateProfileRequest, formType},
+    const { props: {loginRequest, createUserRequest, formType},
             renderAccountForm,
             renderPostForm } = this
 
     return (
       <div>
-        <AccountForm userLoginRequest={ userLoginRequest }
-                      userCreateProfileRequest={ null }
+        <AccountForm loginRequest={ loginRequest }
+                      createUserRequest={ null }
                       formType={ formType }
                       />
         {formType === 'login'
@@ -26,7 +26,8 @@ class FormContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  userLoginRequest
+  loginRequest,
+  createUserRequest
 }
 
 export default connect(null, mapDispatchToProps)(FormContainer)

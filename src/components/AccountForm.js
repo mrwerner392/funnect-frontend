@@ -29,10 +29,16 @@ class AccountForm extends Component {
     };
   }
 
-  handleSubmit = evt => {
+  handleLoginSubmit = evt => {
     evt.preventDefault();
-    console.log(this.props);
-    this.props.userLoginRequest(this.state)
+    const { username, password } = this.state
+    this.props.loginRequest({ username, password })
+  }
+
+  handleCreateSubmit = evt => {
+    evt.preventDefault();
+    const { username, password, age, bio, college, occupation, interests } = this.state
+    this.props.createUserRequest({ username, password, age, bio, college, occupation, interests })
   }
 
   renderCreateProfileFormInputs = () => {
@@ -91,7 +97,8 @@ class AccountForm extends Component {
             handleSubmit,
             renderCreateProfileFormInputs } = this
     return (
-      <form onChange={ this.handleChange } onSubmit={ this.handleSubmit }>
+      <form onChange={ handleChange }
+            onSubmit={ formType === 'login' ? handleLoginSubmit : handleCreateSubmit }>
         <input type='text'
                 name='username'
                 value={ username }

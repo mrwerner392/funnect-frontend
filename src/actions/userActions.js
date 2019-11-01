@@ -1,13 +1,13 @@
 const URL = 'http://localhost:3000'
 
-const userLogin = user => {
+const setUser = user => {
   return {
     type: 'SET_USER',
     user
   }
 }
 
-export const userLoginRequest = user => dispatch => {
+export const loginRequest = user => dispatch => {
   const config = {
     method: 'POST',
     headers: {
@@ -22,6 +22,21 @@ export const userLoginRequest = user => dispatch => {
   .then(({token, user}) => {
     localStorage.token = token
     localStorage.id = user.id
-    dispatch(userLogin(user))
+    dispatch(setUser(user))
   })
+}
+
+export const createUserRequest = user => dispatch => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(user)
+  }
+
+  fetch(URL + '/users', config)
+  .then(res => res.json())
+  .then(console.log)
 }
