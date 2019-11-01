@@ -12,7 +12,7 @@ class App extends Component {
   renderContent = (renderProps, contentType) => {
     const slug = renderProps.match.params.slug
     if (slug === this.props.user.username) {
-      return <ContentContainer content={ contentType }/>
+      return <ContentContainer contentType={ contentType }/>
     } else {
       return <NotFound />
     }
