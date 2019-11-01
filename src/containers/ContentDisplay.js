@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ContentDisplay extends Component {
 
@@ -27,4 +28,10 @@ class ContentDisplay extends Component {
 
 }
 
-export default ContentDisplay
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(ContentDisplay)
