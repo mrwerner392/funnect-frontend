@@ -9,10 +9,10 @@ import './App.css';
 
 class App extends Component {
 
-  renderUser = renderProps => {
+  renderContent = (renderProps, contentType) => {
     const slug = renderProps.match.params.slug
     if (slug === this.props.user.username) {
-      return <ContentContainer content='user'/>
+      return <ContentContainer content={ contentType }/>
     } else {
       return <NotFound />
     }
@@ -42,13 +42,17 @@ class App extends Component {
                   render={ () => <ContentContainer content='posts'/> }
                   />
           <Route exact
-                  path='/events'
-                  render={ () => <ContentContainer content='events'/> }
+                  path='/:slug'
+                  render={ renderProps => this.renderContent(renderProps, 'user') }
                   />
           <Route exact
-            path='/:slug'
-            render={ this.renderUser }
-            />
+                  path='/:slug/posts'
+                  render={ renderProps => this.renderContent(renderProps, 'user-posts') }
+                  />
+          <Route exact
+                  path='/:slug/events'
+                  render={ renderProps => this.renderContent(renderProps, 'user-events') }
+                  />
           <Route component={ NotFound } />
         </Switch>
       </div>
