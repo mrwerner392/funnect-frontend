@@ -2,19 +2,20 @@ const URL = 'http://localhost:3000';
 
 const setPosts = posts => {
   return {
-    type: 'SET_POSTS',
+    type: 'SET_AVAILABLE_POSTS',
     posts
   }
 }
 
-export const getAllPosts = () => dispatch => {
+export const getAvailablePosts = () => dispatch => {
   const config = {
     headers: {
       'Authorization': localStorage.token
     }
   }
-
-  fetch(URL + '/posts', config)
+  console.log('fetch to available');
+  fetch(URL + `/users/${localStorage.id}/available_posts`, config)
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))
+  // .then(console.log)
 }

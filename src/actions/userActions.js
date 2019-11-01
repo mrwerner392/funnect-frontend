@@ -45,7 +45,7 @@ export const setUser = user => dispatch => {
 //   })
 // }
 
-export const getUser = user => dispatch => {
+export const getUser = () => dispatch => {
   const config = {
     headers: {
       'Authorization': localStorage.token

@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
 import { setUser } from '../actions/userActions';
-import { getAllPosts } from '../actions/postsActions';
+import { getAvailablePosts } from '../actions/availablePostsActions';
+import { getCreatedPosts } from '../actions/myCreatedPostsActions'
 
 const URL = 'http://localhost:3000'
 
@@ -14,7 +15,7 @@ class FormContainer extends Component {
   }
 
   handleLoginRequest = ({ username, password }) => {
-    const { setUser, getAllPosts } = this.props
+    const { setUser, getAvailablePosts, getCreatedPosts } = this.props
     const config = {
       method: 'POST',
       headers: {
@@ -35,8 +36,8 @@ class FormContainer extends Component {
         localStorage.token = responseData.token
         localStorage.id = responseData.user.id
         setUser(responseData.user)
-        console.log('get posts');
-        getAllPosts()
+        getAvailablePosts()
+        getCreatedPosts()
       }
     })
   }
@@ -88,7 +89,8 @@ class FormContainer extends Component {
 
 const mapDispatchToProps = {
   setUser,
-  getAllPosts
+  getAvailablePosts,
+  getCreatedPosts
 }
 
 export default connect(null, mapDispatchToProps)(FormContainer)
