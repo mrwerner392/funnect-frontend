@@ -44,3 +44,15 @@ export const createUserRequest = user => dispatch => {
     dispatch(setUser(user))
   })
 }
+
+export const getUser = user => dispatch => {
+  const config = {
+    headers: {
+      'Authorization': localStorage.token
+    }
+  }
+
+  fetch(URL + `/users/${localStorage.id}`, config)
+  .then(res => res.json())
+  .then(user => dispatch(setUser(user)))
+}

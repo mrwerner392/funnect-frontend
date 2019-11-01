@@ -3,9 +3,18 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom'
 import FormContainer from './containers/FormContainer'
 import NotFound from './components/NotFound'
+import { getUser } from './actions/userActions'
 import './App.css';
 
+const URL = 'http://localhost:3000'
+
 class App extends Component {
+
+  componentDidMount() {
+    if (localStorage.token) {
+      this.props.getUser()
+    }
+  }
 
   render() {
     console.log(this.props.state);
@@ -29,4 +38,8 @@ const mapStateToProps = state => {
   return {state}
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  getUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
