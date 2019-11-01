@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ProfileInfo from '../components/ProfileInfo';
 
 class ContentDisplay extends Component {
 
   renderContent = () => {
+    const { user } = this.props
     switch (this.props.contentType) {
       case 'user':
-        return <div>user</div>
+        return <ProfileInfo user={ user } />
       case 'user-posts':
         return <div>user-posts</div>
       case 'user-events':
