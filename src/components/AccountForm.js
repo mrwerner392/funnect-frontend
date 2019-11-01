@@ -35,7 +35,7 @@ class AccountForm extends Component {
   handleLoginSubmit = evt => {
     evt.preventDefault();
     const { username, password } = this.state
-    this.props.loginRequest({ username, password })
+    this.props.handleLoginRequest({ username, password })
   }
 
   handleCreateSubmit = evt => {

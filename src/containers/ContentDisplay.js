@@ -20,6 +20,7 @@ class ContentDisplay extends Component {
     }
   }
 
+
   render() {
     return (
       <div id='content-display'>

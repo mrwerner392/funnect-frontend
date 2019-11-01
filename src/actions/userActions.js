@@ -1,10 +1,10 @@
 const URL = 'http://localhost:3000'
 
-const setUser = user => {
-  return {
+export const setUser = user => dispatch => {
+  dispatch({
     type: 'SET_USER',
     user
-  }
+  })
 }
 
 export const loginRequest = user => dispatch => {
@@ -55,4 +55,5 @@ export const getUser = user => dispatch => {
   fetch(URL + `/users/${localStorage.id}`, config)
   .then(res => res.json())
   .then(user => dispatch(setUser(user)))
+
 }

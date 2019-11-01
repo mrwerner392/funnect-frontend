@@ -9,7 +9,6 @@ class ProfileInfo extends Component {
   }
 
   render() {
-    console.log(this.props.user);
     const { props: {
               user: {
                 username,
@@ -18,8 +17,7 @@ class ProfileInfo extends Component {
                 gender,
                 bio,
                 college,
-                occupation,
-                interests
+                occupation
               }
             },
             renderInterests } = this

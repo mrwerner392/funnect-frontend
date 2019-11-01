@@ -21,6 +21,7 @@ class App extends Component {
   componentDidMount() {
     if (localStorage.token) {
       this.props.getUser()
+      // this.props.getPosts()
     }
   }
 
