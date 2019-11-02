@@ -18,3 +18,7 @@ export const getEventsHosting = () => dispatch => {
   .then(res => res.json())
   .then(events => dispatch(setEvents(events)))
 }
+
+export const setEventsHostingFilter = filter => dispatch => {
+  dispatch({ type: 'SET_EVENTS_HOSTING_FILTER', filter })
+}
