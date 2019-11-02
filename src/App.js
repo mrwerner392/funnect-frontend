@@ -5,6 +5,9 @@ import AccountFormContainer from './containers/AccountFormContainer'
 import ContentContainer from './containers/ContentContainer'
 import NotFound from './components/NotFound'
 import { getUser } from './actions/userActions'
+import { getAvailablePosts } from './actions/availablePostsActions';
+import { getCreatedPosts } from './actions/myCreatedPostsActions';
+import { getPostsInterestedIn } from './actions/postsImInterestedInActions'
 import './App.css';
 
 class App extends Component {
@@ -19,21 +22,26 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const { getUser, getAvailablePosts, getCreatedPosts, getPostsInterestedIn} = this.props
     if (localStorage.token) {
-      this.props.getUser()
-      // this.props.getPosts()
+      console.log('mounted');
+      console.log(localStorage);
+      getUser()
+      getAvailablePosts()
+      getCreatedPosts()
+      getPostsInterestedIn()
     }
   }
 
   render() {
     return (
       <div className='App'>
-        <NavLink to='/login'>login</NavLink>
-        <NavLink to='/create-profile'>create-profile</NavLink>
-        <NavLink to='/posts'>posts</NavLink>
-        <NavLink to='/matt18'>matt18</NavLink>
-        <NavLink to='/matt18/posts'>matt18/posts</NavLink>
-        <NavLink to='/matt18/events'>matt18/events</NavLink>
+        <NavLink to='/login'> login |</NavLink>
+        <NavLink to='/create-profile'>| create-profile |</NavLink>
+        <NavLink to='/posts'>| posts |</NavLink>
+        <NavLink to='/matt18'>| matt18 |</NavLink>
+        <NavLink to='/matt18/posts'>| matt18/posts |</NavLink>
+        <NavLink to='/matt18/events'>| matt18/events </NavLink>
         <Switch>
           <Route exact
                   path='/login'
@@ -77,7 +85,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  getUser
+  getUser,
+  getAvailablePosts,
+  getCreatedPosts,
+  getPostsInterestedIn
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
