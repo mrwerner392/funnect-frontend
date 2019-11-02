@@ -8,6 +8,7 @@ import availablePostsReducer from './reducers/availablePostsReducer';
 import myCreatedPostsReducer from './reducers/myCreatedPostsReducer';
 import postsImInterestedInReducer from './reducers/postsImInterestedInReducer';
 import eventsImHostingReducer from './reducers/eventsImHostingReducer';
+import eventsImAttendingReducer from './reducers/eventsImAttendingReducer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   availablePosts: availablePostsReducer,
   createdPosts: myCreatedPostsReducer,
   postsInterestedIn: postsImInterestedInReducer,
-  eventsHosting: eventsImHostingReducer
+  eventsHosting: eventsImHostingReducer,
+  eventsAttending: eventsImAttendingReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

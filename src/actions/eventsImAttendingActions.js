@@ -16,5 +16,5 @@ export const getEventsAttending = () => dispatch => {
 
   fetch(URL + `/users/${localStorage.id}/events_attended`, config)
   .then(res => res.json())
-  .then(console.log)
+  .then(events => dispatch(setEvents(events)))
 }
