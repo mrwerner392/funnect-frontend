@@ -1,4 +1,4 @@
-export default (state = {posts: []}, action) => {
+export default (state = {posts: [], filter: 'active'}, action) => {
   switch (action.type) {
     case 'SET_CREATED_POSTS':
       return {
