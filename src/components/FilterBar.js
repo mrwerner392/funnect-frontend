@@ -22,6 +22,14 @@ class FilterBar extends Component {
     )
   }
 
+  renderAvailablePostsTopicOptions = () => {
+    
+  }
+
+  renderAvailablePostsNeighborhoodOptions = () => {
+
+  }
+
   renderMyPostsFilterBar = () => {
     const { handleFilter } = this.props
     return (
