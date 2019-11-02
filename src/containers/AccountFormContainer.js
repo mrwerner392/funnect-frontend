@@ -6,6 +6,8 @@ import { setUser } from '../actions/userActions';
 import { getAvailablePosts } from '../actions/availablePostsActions';
 import { getCreatedPosts } from '../actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from '../actions/postsImInterestedInActions'
+import { getEventsHosting } from '../actions/eventsImHostingActions'
+import { getEventsAttending } from '../actions/eventsImAttendingActions'
 
 const URL = 'http://localhost:3000'
 
@@ -16,7 +18,12 @@ class FormContainer extends Component {
   }
 
   handleLoginRequest = ({ username, password }) => {
-    const { setUser, getAvailablePosts, getCreatedPosts, getPostsInterestedIn } = this.props
+    const { setUser,
+            getAvailablePosts,
+            getCreatedPosts,
+            getPostsInterestedIn,
+            getEventsHosting,
+            getEventsAttending } = this.props
     const config = {
       method: 'POST',
       headers: {
@@ -40,6 +47,8 @@ class FormContainer extends Component {
         getAvailablePosts()
         getCreatedPosts()
         getPostsInterestedIn()
+        getEventsHosting()
+        getEventsAttending()
       }
     })
   }
@@ -93,7 +102,9 @@ const mapDispatchToProps = {
   setUser,
   getAvailablePosts,
   getCreatedPosts,
-  getPostsInterestedIn
+  getPostsInterestedIn,
+  getEventsHosting,
+  getEventsAttending
 }
 
 export default connect(null, mapDispatchToProps)(FormContainer)
