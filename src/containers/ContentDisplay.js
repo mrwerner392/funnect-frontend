@@ -29,25 +29,30 @@ class ContentDisplay extends Component {
   renderCreatedPosts = () => {
     const { createdPosts, createdPostsFilter } = this.props
     const posts = createdPosts.filter(post => post.status === createdPostsFilter)
-    console.log(posts);
+
     return posts.map(post => {
       return (
         <div>
           <p>{ post.topic.name }</p>
           <p>{ post.neighborhood.name }</p>
           <p>{ post.user.username }</p>
+          <p>{ post.status }</p>
         </div>
       )
     })
   }
 
   renderPostsInterestedIn = () => {
-    return this.props.postsInterestedIn.map(post => {
+    const { postsInterestedIn, postsInterestedInFilter } = this.props
+    const posts = postsInterestedIn.filter(post => post.status === postsInterestedInFilter)
+
+    return posts.map(post => {
       return (
         <div>
           <p>{ post.topic.name }</p>
           <p>{ post.neighborhood.name }</p>
           <p>{ post.user.username }</p>
+          <p>{ post.status }</p>
         </div>
       )
     })
@@ -126,6 +131,7 @@ const mapStateToProps = state => {
     createdPosts: state.createdPosts.posts,
     createdPostsFilter: state.createdPosts.filter,
     postsInterestedIn: state.postsInterestedIn.posts,
+    postsInterestedInFilter: state.postsInterestedIn.filter,
     eventsHosting: state.eventsHosting.events,
     eventsAttending: state.eventsAttending.events
   }

@@ -3,16 +3,20 @@ import { connect } from 'react-redux';
 import FilterBar from '../components/FilterBar';
 import ContentDisplay from './ContentDisplay';
 import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
+import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
 
 class ContentContainer extends Component {
 
   handleFilter = evt => {
-    const { props: {contentType, setCreatedPostsFilter} } = this
+    const { props: {contentType,
+                    setCreatedPostsFilter,
+                    setPostsInterestedInFilter} } = this
     const filter = evt.target.value
 
     switch (contentType) {
       case 'user-posts':
         setCreatedPostsFilter(filter)
+        setPostsInterestedInFilter(filter)
         break
       default:
         break
@@ -38,7 +42,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  setCreatedPostsFilter
+  setCreatedPostsFilter,
+  setPostsInterestedInFilter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer)
