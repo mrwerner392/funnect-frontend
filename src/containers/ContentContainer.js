@@ -7,12 +7,12 @@ import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
 class ContentContainer extends Component {
 
   handleFilter = evt => {
-    const { props: {contentType} } = this
+    const { props: {contentType, setCreatedPostsFilter} } = this
     const filter = evt.target.value
 
     switch (contentType) {
       case 'user-posts':
-        setCreatedPostsFilter('active')
+        setCreatedPostsFilter(filter)
         break
       default:
         break

@@ -21,5 +21,6 @@ export const getCreatedPosts = () => dispatch => {
 }
 
 export const setCreatedPostsFilter = filter => dispatch => {
+  console.log('set filter action');
   dispatch({type: 'SET_CREATED_POSTS_FILTER', filter})
 }

@@ -83,7 +83,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('app', state);
+  // console.log('app', state);
   return {
     user: state.user,
     availablePosts: state.availablePosts,

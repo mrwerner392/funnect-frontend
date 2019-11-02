@@ -6,6 +6,7 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         posts: action.posts
       }
     case 'SET_CREATED_POSTS_FILTER':
+      console.log('reducer hit');
       return {
         ...state,
         filter: action.filter
