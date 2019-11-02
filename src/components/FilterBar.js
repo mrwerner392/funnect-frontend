@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions'
 
 class FilterBar extends Component {
 
@@ -31,21 +32,30 @@ class FilterBar extends Component {
   }
 
   renderAvailablePostsTopicFilter = () => {
-    const { topics } = this.props
+    const { props: {topics}, handleAvailablePostsFilterChange } = this
     return (
-      <select>
+      <select name='topics' onChange={ handleAvailablePostsFilterChange }>
         { topics.map(topic => <option key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
       </select>
     )
   }
 
   renderAvailablePostsNeighborhoodFilter = () => {
-    const { neighborhoods } = this.props
+    const { props: {neighborhoods}, handleAvailablePostsFilterChange } = this
     return (
-      <select>
+      <select name='neighborhoods' onChange={ handleAvailablePostsFilterChange }>
         { neighborhoods.map(neighborhood => <option key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
       </select>
     )
+  }
+
+  handleAvailablePostsFilterChange = evt => {
+    const { name, value } = evt.target
+    const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
+    console.log(name, value);
+    name === 'topics'
+      ? setAvailablePostsTopicFilter(value)
+      : setAvailablePostsNeighborhoodFilter(value)
   }
 
   renderMyPostsFilterBar = () => {
@@ -108,4 +118,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(FilterBar)
+const mapDispatchToProps = {
+  setAvailablePostsTopicFilter,
+  setAvailablePostsNeighborhoodFilter
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterBar)
