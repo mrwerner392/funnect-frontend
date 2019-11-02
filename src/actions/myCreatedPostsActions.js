@@ -19,3 +19,7 @@ export const getCreatedPosts = () => dispatch => {
   .then(posts => dispatch(setPosts(posts)))
 
 }
+
+export const setCreatedPostsFilter = filter => dispatch => {
+  dispatch({type: 'SET_CREATED_POSTS_FILTER', filter})
+}

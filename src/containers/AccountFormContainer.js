@@ -24,6 +24,7 @@ class FormContainer extends Component {
             getPostsInterestedIn,
             getEventsHosting,
             getEventsAttending } = this.props
+            
     const config = {
       method: 'POST',
       headers: {
