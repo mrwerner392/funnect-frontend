@@ -69,12 +69,15 @@ class ContentDisplay extends Component {
   }
 
   renderEventsHosting = () => {
-    return this.props.eventsHosting.map(event => {
+    const { eventsHosting, eventsHostingFilter } = this.props
+    const events = eventsHosting.filter(event => event.status === eventsHostingFilter)
+    return events.map(event => {
       return (
         <div>
           <p>{ event.description }</p>
           <p>{ event.location }</p>
           <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
+          <p>{ event.status }</p>
         </div>
       )
     })
@@ -133,6 +136,7 @@ const mapStateToProps = state => {
     postsInterestedIn: state.postsInterestedIn.posts,
     postsInterestedInFilter: state.postsInterestedIn.filter,
     eventsHosting: state.eventsHosting.events,
+    eventsHostingFilter: state.eventsHosting.filter,
     eventsAttending: state.eventsAttending.events
   }
 }

@@ -20,7 +20,7 @@ class ContentContainer extends Component {
         setCreatedPostsFilter(filter)
         setPostsInterestedInFilter(filter)
         break
-      case 'user-posts':
+      case 'user-events':
         setEventsHostingFilter(filter)
       default:
         break
