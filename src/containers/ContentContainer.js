@@ -4,13 +4,15 @@ import FilterBar from '../components/FilterBar';
 import ContentDisplay from './ContentDisplay';
 import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
 import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
+import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
 
 class ContentContainer extends Component {
 
   handleFilter = evt => {
     const { props: {contentType,
                     setCreatedPostsFilter,
-                    setPostsInterestedInFilter} } = this
+                    setPostsInterestedInFilter,
+                    setEventsHostingFilter} } = this
     const filter = evt.target.value
 
     switch (contentType) {
@@ -18,6 +20,8 @@ class ContentContainer extends Component {
         setCreatedPostsFilter(filter)
         setPostsInterestedInFilter(filter)
         break
+      case 'user-posts':
+        setEventsHostingFilter(filter)
       default:
         break
     }
@@ -43,7 +47,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setCreatedPostsFilter,
-  setPostsInterestedInFilter
+  setPostsInterestedInFilter,
+  setEventsHostingFilter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer)
