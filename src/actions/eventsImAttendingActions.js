@@ -18,3 +18,7 @@ export const getEventsAttending = () => dispatch => {
   .then(res => res.json())
   .then(events => dispatch(setEvents(events)))
 }
+
+export const setEventsAttendingFilter = filter => dispatch => {
+  dispatch ({ type: 'SET_EVENTS_ATTENDING_FILTER', filter })
+}
