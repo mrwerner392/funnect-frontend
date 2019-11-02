@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
 import { setUser } from '../actions/userActions';
 import { getAvailablePosts } from '../actions/availablePostsActions';
-import { getCreatedPosts } from '../actions/myCreatedPostsActions'
+import { getCreatedPosts } from '../actions/myCreatedPostsActions';
+import { getPostsInterestedIn } from '../actions/postsImInterestedInActions'
 
 const URL = 'http://localhost:3000'
 
@@ -15,7 +16,7 @@ class FormContainer extends Component {
   }
 
   handleLoginRequest = ({ username, password }) => {
-    const { setUser, getAvailablePosts, getCreatedPosts } = this.props
+    const { setUser, getAvailablePosts, getCreatedPosts, getPostsInterestedIn } = this.props
     const config = {
       method: 'POST',
       headers: {
@@ -38,6 +39,7 @@ class FormContainer extends Component {
         setUser(responseData.user)
         getAvailablePosts()
         getCreatedPosts()
+        getPostsInterestedIn()
       }
     })
   }
@@ -90,7 +92,8 @@ class FormContainer extends Component {
 const mapDispatchToProps = {
   setUser,
   getAvailablePosts,
-  getCreatedPosts
+  getCreatedPosts,
+  getPostsInterestedIn
 }
 
 export default connect(null, mapDispatchToProps)(FormContainer)
