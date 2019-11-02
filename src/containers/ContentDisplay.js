@@ -51,10 +51,11 @@ class ContentDisplay extends Component {
   }
 
   renderMyEvents = () => {
-    const { renderEventsHosting } = this
+    const { renderEventsHosting, renderEventsAttending } = this
     return (
       <div>
         { renderEventsHosting() }
+        { renderEventsAttending() }
       </div>
     )
   }
@@ -70,6 +71,19 @@ class ContentDisplay extends Component {
       )
     })
   }
+
+  renderEventsAttending = () => {
+    return this.props.eventsAttending.map(event => {
+      return (
+        <div>
+          <p>{ event.description }</p>
+          <p>{ event.location }</p>
+          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
+        </div>
+      )
+    })
+  }
+
 
   renderContent = () => {
     const { props: {user, contentType},
@@ -108,7 +122,8 @@ const mapStateToProps = state => {
     availablePosts: state.availablePosts.posts,
     createdPosts: state.createdPosts.posts,
     postsInterestedIn: state.postsInterestedIn.posts,
-    eventsHosting: state.eventsHosting.events
+    eventsHosting: state.eventsHosting.events,
+    eventsAttending: state.eventsAttending.events
   }
 }
 
