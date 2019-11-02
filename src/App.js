@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, NavLink } from 'react-router-dom'
 import AccountFormContainer from './containers/AccountFormContainer'
 import ContentContainer from './containers/ContentContainer'
 import NotFound from './components/NotFound'
@@ -28,6 +28,12 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <NavLink to='/login'>login</NavLink>
+        <NavLink to='/create-profile'>create-profile</NavLink>
+        <NavLink to='/posts'>posts</NavLink>
+        <NavLink to='/matt18'>matt18</NavLink>
+        <NavLink to='/matt18/posts'>matt18/posts</NavLink>
+        <NavLink to='/matt18/events'>matt18/events</NavLink>
         <Switch>
           <Route exact
                   path='/login'
