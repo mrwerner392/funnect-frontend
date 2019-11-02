@@ -4,12 +4,18 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import userReducer from './reducers/userReducer';
+import availablePostsReducer from './reducers/availablePostsReducer';
+import myCreatedPostsReducer from './reducers/myCreatedPostsReducer';
+import postsImInterestedInReducer from './reducers/postsImInterestedInReducer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const reducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  availablePosts: availablePostsReducer,
+  createdPosts: myCreatedPostsReducer,
+  postsInterestedIn: postsImInterestedInReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))
