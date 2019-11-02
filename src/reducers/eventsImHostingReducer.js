@@ -5,6 +5,11 @@ export default (state = {events: []}, action) => {
         ...state,
         events: action.events
       }
+    case 'SET_EVENTS_HOSTING_FILTER':
+      return {
+        ...state,
+        filter: action.filter
+      }
     default:
       return state
   }
