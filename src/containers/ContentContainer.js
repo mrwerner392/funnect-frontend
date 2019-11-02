@@ -5,6 +5,7 @@ import ContentDisplay from './ContentDisplay';
 import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
 import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
 import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
+import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
 
 class ContentContainer extends Component {
 
@@ -12,7 +13,8 @@ class ContentContainer extends Component {
     const { props: {contentType,
                     setCreatedPostsFilter,
                     setPostsInterestedInFilter,
-                    setEventsHostingFilter} } = this
+                    setEventsHostingFilter,
+                    setEventsAttendingFilter} } = this
     const filter = evt.target.value
 
     switch (contentType) {
@@ -22,6 +24,7 @@ class ContentContainer extends Component {
         break
       case 'user-events':
         setEventsHostingFilter(filter)
+        setEventsAttendingFilter(filter)
       default:
         break
     }
@@ -48,7 +51,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   setCreatedPostsFilter,
   setPostsInterestedInFilter,
-  setEventsHostingFilter
+  setEventsHostingFilter,
+  setEventsAttendingFilter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentContainer)
