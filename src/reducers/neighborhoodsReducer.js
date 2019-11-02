@@ -3,7 +3,7 @@ export default (state = [], action) => {
     case 'SET_NEIGHBORHOODS':
       return [
         ...state,
-        action.neighborhoods
+        ...action.neighborhoods
       ]
     default:
       return state

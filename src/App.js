@@ -27,16 +27,19 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const { getUser,
+      getAvailablePosts,
+      getCreatedPosts,
+      getPostsInterestedIn,
+      getEventsHosting,
+      getEventsAttending,
+      getTopics,
+      getNeighborhoods,
+      getInterests } = this.props
+
+    getInterests()
+
     if (localStorage.token) {
-      const { getUser,
-        getAvailablePosts,
-        getCreatedPosts,
-        getPostsInterestedIn,
-        getEventsHosting,
-        getEventsAttending,
-        getTopics,
-        getNeighborhoods,
-        getInterests } = this.props
 
       getUser()
       getAvailablePosts()
@@ -46,7 +49,6 @@ class App extends Component {
       getEventsAttending()
       getTopics()
       getNeighborhoods()
-      getInterests()
     }
   }
 

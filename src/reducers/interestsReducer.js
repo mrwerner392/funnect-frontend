@@ -3,7 +3,7 @@ export default (state = [], action) => {
     case 'SET_INTERESTS':
       return [
         ...state,
-        action.interests
+        ...action.interests
       ]
     default:
       return state

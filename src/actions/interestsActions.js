@@ -8,13 +8,7 @@ const setInterests = interests => {
 }
 
 export const getInterests = () => dispatch => {
-  const config = {
-    headers: {
-      'Authorization': localStorage.token
-    }
-  }
-
-  fetch(URL + '/interests', config)
+  fetch(URL + '/interests')
   .then(res => res.json())
   .then(interests => dispatch(setInterests(interests)))
 }
