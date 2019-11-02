@@ -12,6 +12,7 @@ import { getEventsHosting } from './actions/eventsImHostingActions';
 import { getEventsAttending } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
+import { getInterests } from './actions/interestsActions';
 import './App.css';
 
 class App extends Component {
@@ -34,7 +35,8 @@ class App extends Component {
         getEventsHosting,
         getEventsAttending,
         getTopics,
-        getNeighborhoods } = this.props
+        getNeighborhoods,
+        getInterests } = this.props
 
       getUser()
       getAvailablePosts()
@@ -44,6 +46,7 @@ class App extends Component {
       getEventsAttending()
       getTopics()
       getNeighborhoods()
+      getInterests()
     }
   }
 
@@ -109,7 +112,8 @@ const mapDispatchToProps = {
   getEventsHosting,
   getEventsAttending,
   getTopics,
-  getNeighborhoods
+  getNeighborhoods,
+  getInterests
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
