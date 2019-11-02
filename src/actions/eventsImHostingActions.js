@@ -16,5 +16,5 @@ export const getEventsHosting = () => dispatch => {
 
   fetch(URL + `/users/${localStorage.id}/created_events`, config)
   .then(res => res.json())
-  .then(console.log)
+  .then(events => dispatch(setEvents(events)))
 }
