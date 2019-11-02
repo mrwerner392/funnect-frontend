@@ -7,10 +7,10 @@ import NotFound from './components/NotFound'
 import { getUser } from './actions/userActions'
 import { getAvailablePosts } from './actions/availablePostsActions';
 import { getCreatedPosts } from './actions/myCreatedPostsActions';
-import { getPostsInterestedIn } from './actions/postsImInterestedInActions'
-import { getEventsHosting } from './actions/eventsImHostingActions'
-import { getEventsAttending } from './actions/eventsImAttendingActions'
-import { getTopics } from './actions/topicsActions'
+import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
+import { getEventsHosting } from './actions/eventsImHostingActions';
+import { getEventsAttending } from './actions/eventsImAttendingActions';
+import { getTopics } from './actions/topicsActions';
 import './App.css';
 
 class App extends Component {
