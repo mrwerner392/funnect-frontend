@@ -9,6 +9,7 @@ import { getAvailablePosts } from './actions/availablePostsActions';
 import { getCreatedPosts } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions'
 import { getEventsHosting } from './actions/eventsImHostingActions'
+import { getEventsAttending } from './actions/eventsImAttendingActions'
 import './App.css';
 
 class App extends Component {
@@ -28,13 +29,15 @@ class App extends Component {
         getAvailablePosts,
         getCreatedPosts,
         getPostsInterestedIn,
-        getEventsHosting } = this.props
-        
+        getEventsHosting,
+        getEventsAttending } = this.props
+
       getUser()
       getAvailablePosts()
       getCreatedPosts()
       getPostsInterestedIn()
       getEventsHosting()
+      getEventsAttending()
     }
   }
 
@@ -86,7 +89,8 @@ const mapStateToProps = state => {
     availablePosts: state.availablePosts,
     createdPosts: state.createdPosts,
     postsInterestedIn: state.postsInterestedIn,
-    eventsHosting: state.eventsHosting
+    eventsHosting: state.eventsHosting,
+    eventsAttending: state.eventsAttending
   }
 }
 
@@ -95,7 +99,8 @@ const mapDispatchToProps = {
   getAvailablePosts,
   getCreatedPosts,
   getPostsInterestedIn,
-  getEventsHosting
+  getEventsHosting,
+  getEventsAttending
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
