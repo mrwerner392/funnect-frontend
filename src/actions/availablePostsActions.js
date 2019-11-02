@@ -13,7 +13,7 @@ export const getAvailablePosts = () => dispatch => {
       'Authorization': localStorage.token
     }
   }
-  console.log('fetching available posts');
+
   fetch(URL + `/users/${localStorage.id}/available_posts`, config)
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))

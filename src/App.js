@@ -8,6 +8,7 @@ import { getUser } from './actions/userActions'
 import { getAvailablePosts } from './actions/availablePostsActions';
 import { getCreatedPosts } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions'
+import { getEventsHosting } from './actions/eventsImHostingActions'
 import './App.css';
 
 class App extends Component {
@@ -22,14 +23,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { getUser, getAvailablePosts, getCreatedPosts, getPostsInterestedIn} = this.props
     if (localStorage.token) {
-      console.log('mounted');
-      console.log(localStorage);
+      const { getUser,
+        getAvailablePosts,
+        getCreatedPosts,
+        getPostsInterestedIn,
+        getEventsHosting } = this.props
+        
       getUser()
       getAvailablePosts()
       getCreatedPosts()
       getPostsInterestedIn()
+      getEventsHosting()
     }
   }
 
@@ -80,7 +85,8 @@ const mapStateToProps = state => {
     user: state.user,
     availablePosts: state.availablePosts,
     createdPosts: state.createdPosts,
-    postsInterestedIn: state.postsInterestedIn
+    postsInterestedIn: state.postsInterestedIn,
+    eventsHosting: state.eventsHosting
   }
 }
 
@@ -88,7 +94,8 @@ const mapDispatchToProps = {
   getUser,
   getAvailablePosts,
   getCreatedPosts,
-  getPostsInterestedIn
+  getPostsInterestedIn,
+  getEventsHosting
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

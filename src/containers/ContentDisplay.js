@@ -81,12 +81,12 @@ class ContentDisplay extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('contentdisplay', state);
   return {
     user: state.user,
     availablePosts: state.availablePosts.posts,
     createdPosts: state.createdPosts.posts,
-    postsInterestedIn: state.postsInterestedIn.posts
+    postsInterestedIn: state.postsInterestedIn.posts,
+    eventsHosting: state.eventsHosting.posts
   }
 }
 
