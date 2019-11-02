@@ -1,4 +1,4 @@
-export default (state = {posts: [], filter: ''}, action) => {
+export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, action) => {
   switch (action.type) {
     case 'SET_AVAILABLE_POSTS':
       return {

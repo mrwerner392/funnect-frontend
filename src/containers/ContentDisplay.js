@@ -5,7 +5,17 @@ import ProfileInfo from '../components/ProfileInfo';
 class ContentDisplay extends Component {
 
   renderAvailablePosts = () => {
-    return this.props.availablePosts.map(post => {
+    let { availablePosts, topicFilter, neighborhoodFilter } = this.props
+    console.log(availablePosts, topicFilter, neighborhoodFilter);
+    availablePosts = topicFilter
+      ? availablePosts.filter(post => post.topic.name === topicFilter)
+      : availablePosts
+    console.log(availablePosts);
+    availablePosts = neighborhoodFilter
+      ? availablePosts.filter(post => post.neighborhood.name === neighborhoodFilter)
+      : availablePosts
+    console.log(availablePosts);
+    return availablePosts.map(post => {
       return (
         <div>
           <p>{ post.topic.name }</p>
@@ -136,6 +146,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     availablePosts: state.availablePosts.posts,
+    topicFilter: state.availablePosts.topicFilter,
+    neighborhoodFilter: state.availablePosts.neighborhoodFilter,
     createdPosts: state.createdPosts.posts,
     createdPostsFilter: state.createdPosts.filter,
     postsInterestedIn: state.postsInterestedIn.posts,
