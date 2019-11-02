@@ -1,10 +1,10 @@
-export default (state = {}, action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case 'SET_TOPICS':
-      return {
+      return [
         ...state,
-        topics: action.topics
-      }
+        action.topics
+      ]
     default:
       return state
   }
