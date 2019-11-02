@@ -1,4 +1,4 @@
-export default (state: {}, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case 'SET_TOPICS':
       return {
@@ -6,6 +6,6 @@ export default (state: {}, action) => {
         topics: action.topics
       }
     default:
-      state
+      return state
   }
 }
