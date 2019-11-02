@@ -33,10 +33,11 @@ class FilterBar extends Component {
   }
 
   renderMyEventsFilterBar = () => {
+    const { handleFilter } = this.props
     return (
       <div>
-        <button className='filter-button'>Active</button>
-        <button className='filter-button'>Past</button>
+        <button className='filter-button' value='active' onClick={ handleFilter }>Active</button>
+        <button className='filter-button' value='past' onClick={ handleFilter }>Past</button>
       </div>
     )
   }
