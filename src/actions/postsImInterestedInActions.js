@@ -18,3 +18,7 @@ export const getPostsInterestedIn = () => dispatch => {
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))
 }
+
+export const setPostsInterestedInFilter = filter => dispatch => {
+  dispatch({ type: 'SET_POSTS_INTERESTED_IN_FILTER', filter })
+}
