@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class FilterBar extends Component {
 
   renderUserFilterBar = () => {
+    // buttons here for page redirect, not actual filtering
+    const { username } = this.props.user
     return (
       <div>
-        <button className='filter-button'>Posts</button>
-        <button className='filter-button'>Events</button>
+        <NavLink exact to={ `/${ username }/posts` } className='user-navlink'>Posts</NavLink>
+        <NavLink exact to={ `/${ username }/events` } className='user-navlink'>Events</NavLink>
       </div>
     )
   }

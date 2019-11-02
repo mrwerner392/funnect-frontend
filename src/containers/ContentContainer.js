@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import FilterBar from '../components/FilterBar';
 import ContentDisplay from './ContentDisplay'
 
 class ContentContainer extends Component {
 
   render() {
+    const { props: {contentType, user} } = this
     return (
       <div id='content-container'>
-        <FilterBar contentType={ this.props.contentType } />
-        <ContentDisplay contentType={ this.props.contentType } />
+        <FilterBar contentType={ contentType } user={ user }/>
+        <ContentDisplay contentType={ contentType } />
       </div>
     )
   }
 
 }
 
-export default ContentContainer
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(ContentContainer)
