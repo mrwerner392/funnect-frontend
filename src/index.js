@@ -10,6 +10,7 @@ import postsImInterestedInReducer from './reducers/postsImInterestedInReducer';
 import eventsImHostingReducer from './reducers/eventsImHostingReducer';
 import eventsImAttendingReducer from './reducers/eventsImAttendingReducer';
 import topicsReducer from './reducers/topicsReducer';
+import neighborhoodsReducer from './reducers/neighborhoodsReducer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   postsInterestedIn: postsImInterestedInReducer,
   eventsHosting: eventsImHostingReducer,
   eventsAttending: eventsImAttendingReducer,
-  topics: topicsReducer
+  topics: topicsReducer,
+  neighborhoods: neighborhoodsReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))
