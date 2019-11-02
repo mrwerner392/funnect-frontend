@@ -27,7 +27,6 @@ class ContentDisplay extends Component {
   }
 
   renderCreatedPosts = () => {
-    console.log(this.props);
     return this.props.createdPosts.map(post => {
       return (
         <div>
