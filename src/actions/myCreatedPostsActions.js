@@ -13,10 +13,9 @@ export const getCreatedPosts = () => dispatch => {
       'Authorization': localStorage.token
     }
   }
-  console.log('fetch to created');
+
   fetch(URL + `/users/${localStorage.id}/created_posts`, config)
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))
-  // .then(console.log)
 
 }
