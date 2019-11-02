@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class FilterBar extends Component {
 
@@ -15,19 +16,36 @@ class FilterBar extends Component {
   }
 
   renderAvailablePostsFilterBar = () => {
+    const { renderAvailablePostsTopicFilter,
+            renderAvailablePostsNeighborhoodFilter } = this
     return (
       <div>
-        Available Posts Filter
+        <div>
+          Topic Filter: { renderAvailablePostsTopicFilter() }
+        </div>
+        <div>
+          Topic Filter: { renderAvailablePostsNeighborhoodFilter() }
+        </div>
       </div>
     )
   }
 
-  renderAvailablePostsTopicOptions = () => {
-    
+  renderAvailablePostsTopicFilter = () => {
+    const { topics } = this.props
+    return (
+      <select>
+        { topics.map(topic => <option key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
+      </select>
+    )
   }
 
-  renderAvailablePostsNeighborhoodOptions = () => {
-
+  renderAvailablePostsNeighborhoodFilter = () => {
+    const { neighborhoods } = this.props
+    return (
+      <select>
+        { neighborhoods.map(neighborhood => <option key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
+      </select>
+    )
   }
 
   renderMyPostsFilterBar = () => {
@@ -83,4 +101,11 @@ class FilterBar extends Component {
 
 }
 
-export default FilterBar
+const mapStateToProps = state => {
+  return {
+    topics: state.topics,
+    neighborhoods: state.neighborhoods
+  }
+}
+
+export default connect(mapStateToProps)(FilterBar)
