@@ -50,10 +50,32 @@ class ContentDisplay extends Component {
     })
   }
 
+  renderMyEvents = () => {
+    const { renderEventsHosting } = this
+    return (
+      <div>
+        { renderEventsHosting() }
+      </div>
+    )
+  }
+
+  renderEventsHosting = () => {
+    return this.props.eventsHosting.map(event => {
+      return (
+        <div>
+          <p>{ event.description }</p>
+          <p>{ event.location }</p>
+          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
+        </div>
+      )
+    })
+  }
+
   renderContent = () => {
     const { props: {user, contentType},
             renderAvailablePosts,
-            renderMyPosts } = this
+            renderMyPosts,
+            renderMyEvents } = this
 
     switch (contentType) {
       case 'user':
@@ -61,7 +83,7 @@ class ContentDisplay extends Component {
       case 'user-posts':
         return renderMyPosts()
       case 'user-events':
-        return <div>user-events</div>
+        return renderMyEvents()
       case 'posts':
         return renderAvailablePosts()
       default:
@@ -86,7 +108,7 @@ const mapStateToProps = state => {
     availablePosts: state.availablePosts.posts,
     createdPosts: state.createdPosts.posts,
     postsInterestedIn: state.postsInterestedIn.posts,
-    eventsHosting: state.eventsHosting.posts
+    eventsHosting: state.eventsHosting.events
   }
 }
 
