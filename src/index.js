@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import userReducer from './reducers/userReducer';
+import { ActionCableProvider } from 'react-actioncable-provider';
 import availablePostsReducer from './reducers/availablePostsReducer';
 import myCreatedPostsReducer from './reducers/myCreatedPostsReducer';
 import postsImInterestedInReducer from './reducers/postsImInterestedInReducer';
@@ -32,9 +33,11 @@ const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Router>
-    <Provider store={ store }>
-      <App />
-    </Provider>
+    <ActionCableProvider>
+      <Provider store={ store }>
+        <App />
+      </Provider>
+    </ActionCableProvider>
   </Router>
   , document.getElementById('root'));
 
