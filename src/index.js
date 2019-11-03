@@ -33,7 +33,7 @@ const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Router>
-    <ActionCableProvider>
+    <ActionCableProvider url='ws://localhost:3000/cable'>
       <Provider store={ store }>
         <App />
       </Provider>
