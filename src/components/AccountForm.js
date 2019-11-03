@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-
-const URL = 'http://localhost:3000'
+import { connect } from 'react-redux';
 
 class AccountForm extends Component {
 
@@ -14,7 +13,6 @@ class AccountForm extends Component {
     college: '',
     occupation: '',
     interests: [],
-    interestOptions: []
   }
 
   handleChange = evt => {
@@ -45,7 +43,14 @@ class AccountForm extends Component {
   }
 
   renderCreateProfileFormInputs = () => {
-    const { first_name, age, gender, bio, college, occupation, interests, interestOptions } = this.state
+    const { state: {first_name,
+                    age,
+                    gender,
+                    bio,
+                    college,
+                    occupation,
+                    interests},
+            props: {interestOptions} } = this
 
     return (
       <Fragment>
@@ -82,25 +87,16 @@ class AccountForm extends Component {
         <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
         <select id='user-interest-select' name='interests'>
           { <option></option> }
-          { interestOptions.map(option => <option key={ option } value={ option }>{ option }</option>) }
+          {
+            interestOptions.map(interest => {
+              return <option key={ interest.id } value={ interest.name }>{ interest.name }</option>
+            })
+          }
         </select>
         <p>{ interests.join(', ') }</p>
       </Fragment>
     )
 
-  }
-
-
-  componentDidMount() {
-    if (this.props.formType === 'create-profile') {
-      fetch(URL + '/interests')
-      .then(res => res.json())
-      .then(interests => {
-        this.setState({
-          interestOptions: interests.map(interest => interest.name)
-        })
-      })
-    }
   }
 
   render() {
@@ -133,4 +129,10 @@ class AccountForm extends Component {
 
 }
 
-export default AccountForm;
+const mapStateToProps = state => {
+  return {
+    interestOptions: state.interests
+  }
+}
+
+export default connect(mapStateToProps)(AccountForm);

@@ -1,11 +1,11 @@
-export default (state = {posts: [], filter: 'active'}, action) => {
+export default (state = {events: []}, action) => {
   switch (action.type) {
-    case 'SET_POSTS_INTERESTED_IN':
+    case 'SET_EVENTS_ATTENDING':
       return {
         ...state,
-        posts: action.posts
+        events: action.events
       }
-    case 'SET_POSTS_INTERESTED_IN_FILTER':
+    case 'SET_EVENTS_ATTENDING_FILTER':
       return {
         ...state,
         filter: action.filter

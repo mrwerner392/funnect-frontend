@@ -13,9 +13,16 @@ export const getAvailablePosts = () => dispatch => {
       'Authorization': localStorage.token
     }
   }
-  console.log('fetching available posts');
+
   fetch(URL + `/users/${localStorage.id}/available_posts`, config)
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))
-  // .then(console.log)
+}
+
+export const setAvailablePostsTopicFilter = filter => dispatch => {
+  dispatch({ type: 'SET_AVAILABLE_POSTS_TOPIC_FILTER', filter })
+}
+
+export const setAvailablePostsNeighborhoodFilter = filter => dispatch => {
+  dispatch({ type: 'SET_AVAILABLE_POSTS_NEIGHBORHOOD_FILTER', filter })
 }

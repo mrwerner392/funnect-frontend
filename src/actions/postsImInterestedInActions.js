@@ -13,8 +13,12 @@ export const getPostsInterestedIn = () => dispatch => {
       'Authorization': localStorage.token
     }
   }
-  console.log('fetching interested posts');
+
   fetch(URL + `/users/${localStorage.id}/posts_interested_in`, config)
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))
+}
+
+export const setPostsInterestedInFilter = filter => dispatch => {
+  dispatch({ type: 'SET_POSTS_INTERESTED_IN_FILTER', filter })
 }
