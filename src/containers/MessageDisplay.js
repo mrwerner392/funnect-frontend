@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Message from '../components/Message'
+import Message from '../components/Message';
+import { ActionCable } from 'react-actioncable-provider';
 
 class MessageDisplay extends Component {
 
@@ -7,6 +8,7 @@ class MessageDisplay extends Component {
     return (
       <div>
         MessageDisplay
+        <ActionCable />
         <Message />
         <Message />
       </div>
