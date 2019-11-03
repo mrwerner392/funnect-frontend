@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { createNewPost } from '../actions/myCreatedPostsActions'
 
 class PostForm extends Component {
 
@@ -31,16 +32,25 @@ class PostForm extends Component {
     })
   }
 
+  handleSubmit = evt => {
+    evt.preventDefault()
+    const { createNewPost } = this.props
+    createNewPost(this.state)
+  }
+
   render() {
     const { state: {neighborhood,
                     topic,
                     description,
                     day,
                     time_of_day},
-            renderNeighborhoodOptions, renderTopicOptions, handleChange } = this
+            renderNeighborhoodOptions,
+            renderTopicOptions,
+            handleChange,
+            handleSubmit } = this
 
     return (
-      <form onChange={ handleChange }>
+      <form onChange={ handleChange } onSubmit={ handleSubmit }>
         Choose Neighborhood:
         <select name='neighborhood' value={ neighborhood }>
           { renderNeighborhoodOptions() }
@@ -71,4 +81,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(PostForm);
+const mapDispatchToProps = {
+  createNewPost
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
