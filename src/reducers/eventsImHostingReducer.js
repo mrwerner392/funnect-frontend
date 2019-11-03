@@ -5,6 +5,13 @@ export default (state = {events: [], filter: 'active'}, action) => {
         ...state,
         events: action.events
       }
+    case 'ADD_EVENT_HOSTING':
+      return {
+        ...state,
+        events: [
+          ...state.events, action.event 
+        ]
+      }
     case 'SET_EVENTS_HOSTING_FILTER':
       return {
         ...state,
