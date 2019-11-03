@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { newEventHosting } from '../actions/eventsImHostingActions';
 
 class PostCard extends Component {
 
@@ -7,8 +8,9 @@ class PostCard extends Component {
     attendees: []
   }
 
-  handleCreateEvent = () => {
-    console.log('clicked');
+  handleCreateEvent = postId => {
+    const { props: {newEventHosting}, state: {attendees} } = this
+    newEventHosting({post_id: postId, user_id: localStorage.id, attendees})
   }
 
   handleAddToEventList = id => {
@@ -56,7 +58,7 @@ class PostCard extends Component {
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
           { renderInterestedUsers(post) }
-          <button disabled={ attendees.length ? null : 'true' } onClick={ handleCreateEvent }>Create Event</button>
+          <button disabled={ attendees.length ? null : 'true' } onClick={ () => handleCreateEvent(post.id) }>Create Event</button>
         </Fragment>
     )
   }
@@ -79,4 +81,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(PostCard)
+const mapDispatchToProps = {
+  newEventHosting
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostCard)

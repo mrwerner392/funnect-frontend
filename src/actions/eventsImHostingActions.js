@@ -30,8 +30,8 @@ export const newEventHosting = eventInfo => dispatch => {
   const config = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
-      'Accept': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': localStorage.token
     },
     body: JSON.stringify(eventInfo)
