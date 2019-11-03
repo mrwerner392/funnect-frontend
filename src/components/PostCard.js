@@ -3,14 +3,51 @@ import { connect } from 'react-redux';
 
 class PostCard extends Component {
 
+  state = {
+    attendees: []
+  }
+
   handleCreateEvent = () => {
     console.log('clicked');
   }
 
+  handleAddToEventList = id => {
+    this.setState(prevState => {
+      return {
+        attendees: [...prevState.attendees, id]
+      }
+    })
+  }
+
+  renderInterestedUsers = post => {
+    const {state: {attendees}, handleAddToEventList} = this
+    return(
+      <Fragment>
+        {
+          post.interested_users.map(user => (
+            <div>
+              <p>{ user.username }</p>
+              <p>{ user.age }</p>
+              <p>{ user.gender }</p>
+              <p>{ user.bio }</p>
+              <p>{ user.college }</p>
+              <p>{ user.occupation }</p>
+              <button onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
+            </div>
+          ))
+        }
+      </Fragment>
+    )
+  }
+
   renderPost = () => {
-    const { props: {renderProps, createdPosts}, handleCreateEvent } = this
+    console.log(this.state);
+    const { state: {attendees},
+            props: {renderProps, createdPosts},
+            handleCreateEvent, renderInterestedUsers } = this
     const postId = renderProps.match.params.postSlug
     const post = createdPosts.find(post => post.id === parseInt(postId, 10))
+    console.log(post);
 
     return (
         <Fragment>
@@ -18,7 +55,8 @@ class PostCard extends Component {
           <p>{ post.neighborhood.name }</p>
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
-          <button onClick={ handleCreateEvent }>Create Event</button>
+          { renderInterestedUsers(post) }
+          <button disabled={ attendees.length ? 'false' : 'true' } onClick={ handleCreateEvent }>Create Event</button>
         </Fragment>
     )
   }
