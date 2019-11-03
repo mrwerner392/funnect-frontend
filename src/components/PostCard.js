@@ -41,7 +41,7 @@ class PostCard extends Component {
   }
 
   renderPost = () => {
-    console.log(this.state);
+    console.log(this.state.attendees.length);
     const { state: {attendees},
             props: {renderProps, createdPosts},
             handleCreateEvent, renderInterestedUsers } = this
@@ -56,7 +56,7 @@ class PostCard extends Component {
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
           { renderInterestedUsers(post) }
-          <button disabled={ attendees.length ? 'false' : 'true' } onClick={ handleCreateEvent }>Create Event</button>
+          <button disabled={ attendees.length ? null : 'true' } onClick={ handleCreateEvent }>Create Event</button>
         </Fragment>
     )
   }
