@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, NavLink } from 'react-router-dom'
-import AccountFormContainer from './containers/AccountFormContainer'
-import ContentContainer from './containers/ContentContainer'
-import NotFound from './components/NotFound'
-import { getUser } from './actions/userActions'
+import { Route, Switch, NavLink } from 'react-router-dom';
+import AccountFormContainer from './containers/AccountFormContainer';
+import PostFormContainer from './containers/PostFormContainer';
+import ContentContainer from './containers/ContentContainer';
+import NotFound from './components/NotFound';
+import { getUser } from './actions/userActions';
 import { getAvailablePosts } from './actions/availablePostsActions';
 import { getCreatedPosts } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
@@ -60,7 +61,8 @@ class App extends Component {
         <NavLink to='/posts'>| posts |</NavLink>
         <NavLink to='/matt18'>| matt18 |</NavLink>
         <NavLink to='/matt18/posts'>| matt18/posts |</NavLink>
-        <NavLink to='/matt18/events'>| matt18/events </NavLink>
+        <NavLink to='/matt18/events'>| matt18/events |</NavLink>
+        <NavLink to='/create-post'>| create-post </NavLink>
         <Switch>
           <Route exact
                   path='/login'
@@ -72,7 +74,11 @@ class App extends Component {
                   />
           <Route exact
                   path='/posts'
-                  render={ () => <ContentContainer contentType='posts'/> }
+                  render={ () => <ContentContainer contentType='posts' /> }
+                  />
+          <Route exact
+                  path='/create-post'
+                  render={ () => <PostFormContainer /> }
                   />
           <Route exact
                   path='/:slug'

@@ -6,15 +6,15 @@ class ContentDisplay extends Component {
 
   renderAvailablePosts = () => {
     let { availablePosts, topicFilter, neighborhoodFilter } = this.props
-    console.log(availablePosts, topicFilter, neighborhoodFilter);
+
     availablePosts = topicFilter
       ? availablePosts.filter(post => post.topic.name === topicFilter)
       : availablePosts
-    console.log(availablePosts);
+
     availablePosts = neighborhoodFilter
       ? availablePosts.filter(post => post.neighborhood.name === neighborhoodFilter)
       : availablePosts
-    console.log(availablePosts);
+
     return availablePosts.map(post => {
       return (
         <div>
@@ -28,6 +28,7 @@ class ContentDisplay extends Component {
 
   renderMyPosts = () => {
     const { renderCreatedPosts, renderPostsInterestedIn } = this
+
     return (
       <div>
         { renderCreatedPosts() }
@@ -70,6 +71,7 @@ class ContentDisplay extends Component {
 
   renderMyEvents = () => {
     const { renderEventsHosting, renderEventsAttending } = this
+
     return (
       <div>
         { renderEventsHosting() }

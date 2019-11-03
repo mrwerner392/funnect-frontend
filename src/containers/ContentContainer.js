@@ -25,6 +25,7 @@ class ContentContainer extends Component {
       case 'user-events':
         setEventsHostingFilter(filter)
         setEventsAttendingFilter(filter)
+        break
       default:
         break
     }
