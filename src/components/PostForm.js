@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 class PostForm extends Component {
@@ -18,14 +18,34 @@ class PostForm extends Component {
     ))
   }
 
+  renderTopicOptions = () => {
+    const { topics } = this.props
+    return topics.map(topic => (
+      <option key={ topic.id } value={ topic.id }>{ topic.name }</option>
+    ))
+  }
+
   render() {
-    const { renderNeighborhoodOptions } = this
+    const { renderNeighborhoodOptions, renderTopicOptions } = this
     return (
       <form>
         Choose Neighborhood:
-        <select>
+        <select name='neighborhood'>
           { renderNeighborhoodOptions() }
         </select>
+        Choose Topic:
+        <select name='topic'>
+          { renderTopicOptions() }
+        </select>
+        Description:
+        <textarea name='description' />
+        When?
+        <Fragment>
+          <input type='radio' name='today' value='Today' /><span>Today</span>
+          <input type='radio' name='tomorrow' value='Tomorrow' /><span>Tomorrow</span>
+        </Fragment>
+        Time of Day:
+        <input type='text' name='time_of_day' placeholder='e.g. Late Afternoon' />
       </form>
     )
   }
@@ -34,7 +54,8 @@ class PostForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    neighborhoods: state.neighborhoods
+    neighborhoods: state.neighborhoods,
+    topics: state.topics
   }
 }
 
