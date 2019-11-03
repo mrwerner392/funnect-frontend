@@ -6,10 +6,10 @@ const setEvents = events => {
     events
   }
 }
-// 
-// const newMessage = events => {
-//
-// }
+
+const newEventAttendingMessage = message => dispatch => {
+  dispatch({ type: 'ADD_EVENT_ATTENDING_MESSAGE', message })
+}
 
 export const getEventsAttending = () => dispatch => {
   const config = {

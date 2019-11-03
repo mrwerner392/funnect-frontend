@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
-import Message from '../components/Message';
+import { connect } from 'react-redux';
 import { ActionCable } from 'react-actioncable-provider';
+import Message from '../components/Message';
+import addEventHostingMessage from '../actions/eventsImHostingActions'
+import addEventAttendingMessage from '../actions/eventsImHostingActions'
 
 class MessageDisplay extends Component {
 
   handleNewMessage = message => {
-    console.log('new message');
+
   }
 
   render() {
     const { props: {eventId}, handleNewMessage } = this
-    console.log(eventId);
     return (
       <div>
         MessageDisplay
         <ActionCable
               channel={ {channel: 'EventChatsChannel', event_id: eventId} }
-              onReceived={ handleNewMessage }/>
+              onReceived={ handleNewMessage } />
         <Message />
         <Message />
       </div>
 
     )
   }
+
+}
+
+const mapStateToProps = state => {
+  eventsHosting: state.eventsHosting.events,
+  eventsAttending: state.eventsAttending.events
+}
+
+const mapDispatchToProps = {
 
 }
 

@@ -10,6 +10,20 @@ export default (state = {events: []}, action) => {
         ...state,
         filter: action.filter
       }
+    case 'ADD_EVENT_ATTENDING_MESSAGE':
+      return {
+        ...state,
+        events: state.events.map(event => {
+          if (event.id === action.message.event_id) {
+            return {
+              ...event,
+              messages: [...event.messages, action.message]
+            }
+          } else {
+            return event
+          }
+        })
+      }
     default:
       return state
   }
