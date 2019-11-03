@@ -3,31 +3,32 @@ import { connect } from 'react-redux';
 
 class PostCard extends Component {
 
+  handleCreateEvent = () => {
+    console.log('clicked');
+  }
+
   renderPost = () => {
-    const { renderProps, createdPosts } = this.props
+    const { props: {renderProps, createdPosts}, handleCreateEvent } = this
     const postId = renderProps.match.params.postSlug
-    const post = createdPosts.find(post => post.id === parseInt(postId, 10)) || null
+    const post = createdPosts.find(post => post.id === parseInt(postId, 10))
 
     return (
-      post
-        ?
         <Fragment>
           <p>{ post.topic.name }</p>
           <p>{ post.neighborhood.name }</p>
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
+          <button onClick={ handleCreateEvent }>Create Event</button>
         </Fragment>
-        :
-        null
     )
   }
 
   render() {
-    const { renderPost } = this
+    const { props: {createdPosts}, renderPost } = this
 
     return (
       <div>
-        { renderPost() }
+        { createdPosts.length ? renderPost() : null }
       </div>
     )
   }
