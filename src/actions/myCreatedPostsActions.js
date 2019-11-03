@@ -7,6 +7,13 @@ const setPosts = posts => {
   }
 }
 
+const addPost = post => {
+  return {
+    type: 'ADD_CREATED_POST',
+    post
+  }
+}
+
 export const getCreatedPosts = () => dispatch => {
   const config = {
     headers: {
@@ -18,6 +25,22 @@ export const getCreatedPosts = () => dispatch => {
   .then(res => res.json())
   .then(posts => dispatch(setPosts(posts)))
 
+}
+
+export const createNewPost = postInfo => dispatch => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': localStorage.token
+    }
+    body: JSON.stringify(postInfo)
+  }
+
+  fetch(URL + '/posts', config)
+  .then(res => res.json())
+  .then(console.log)
 }
 
 export const setCreatedPostsFilter = filter => dispatch => {
