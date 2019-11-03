@@ -39,7 +39,7 @@ export const newEventHosting = eventInfo => dispatch => {
 
   fetch(URL + '/events', config)
   .then(res => res.json())
-  .then(console.log)
+  .then(event => dispatch(addEvent(event)))
 }
 
 export const setEventsHostingFilter = filter => dispatch => {
