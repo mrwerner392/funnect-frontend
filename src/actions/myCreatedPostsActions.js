@@ -34,7 +34,7 @@ export const createNewPost = postInfo => dispatch => {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': localStorage.token
-    }
+    },
     body: JSON.stringify(postInfo)
   }
 

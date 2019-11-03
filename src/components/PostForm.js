@@ -35,7 +35,7 @@ class PostForm extends Component {
   handleSubmit = evt => {
     evt.preventDefault()
     const { createNewPost } = this.props
-    createNewPost(this.state)
+    createNewPost({ ...this.state, id: localStorage.id })
   }
 
   render() {
@@ -68,6 +68,7 @@ class PostForm extends Component {
         </Fragment>
         Time of Day:
         <input type='text' name='time_of_day' value={ time_of_day } placeholder='e.g. Late Afternoon' />
+        <input type='submit' />
       </form>
     )
   }
