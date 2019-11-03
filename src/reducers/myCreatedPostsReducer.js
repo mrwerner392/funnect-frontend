@@ -5,6 +5,14 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         ...state,
         posts: action.posts
       }
+    case 'ADD_CREATED_POSTS':
+      return {
+        ...state,
+        posts: [
+          ...state.posts,
+          action.post
+        ]
+      }
     case 'SET_CREATED_POSTS_FILTER':
       return {
         ...state,
