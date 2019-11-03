@@ -5,11 +5,11 @@ import MessageForm from '../components/MessageForm'
 class ChatContainer extends Component {
 
   render() {
+    const { eventId } = this.props
     return (
-      <div>
-        ChatContainer
-        <MessageDisplay />
-        <MessageForm />
+      <div className='chat-container'>
+        <MessageDisplay eventId={ eventId } />
+        <MessageForm eventId={ eventId } />
       </div>
     )
   }

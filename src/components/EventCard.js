@@ -18,7 +18,7 @@ class EventCard extends Component {
           <p>{ event.location }</p>
           <p>Time</p>
           <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <ChatContainer />
+          <ChatContainer eventId={ event.id }/>
         </Fragment>
       )
     }

@@ -25,3 +25,10 @@ input {
   display: block;
   margin: auto;
 }
+
+.chat-container {
+  margin: auto;
+  height: 300px;
+  width: 300px;
+  background-color: lime;
+}
