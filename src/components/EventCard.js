@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import ChatContainer from '../containers/ChatContainer'
 
 class EventCard extends Component {
 
@@ -11,12 +12,13 @@ class EventCard extends Component {
     if (event) {
       return (
         <Fragment>
-        <p>Description</p>
-        <p>{ event.description }</p>
-        <p>Meet at</p>
-        <p>{ event.location }</p>
-        <p>Time</p>
-        <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
+          <p>Description</p>
+          <p>{ event.description }</p>
+          <p>Meet at</p>
+          <p>{ event.location }</p>
+          <p>Time</p>
+          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
+          <ChatContainer />
         </Fragment>
       )
     }
