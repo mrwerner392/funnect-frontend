@@ -8,7 +8,12 @@ import addEventAttendingMessage from '../actions/eventsImHostingActions'
 class MessageDisplay extends Component {
 
   handleNewMessage = message => {
-
+    const { eventsHosting, eventsAttending } = this.props
+    if (eventsHosting.find(event => event.user.id === localStorage.id)) {
+      addEventHostingMessage(message)
+    } else {
+      addEventAttendingMessage(message)
+    }
   }
 
   render() {
@@ -29,12 +34,15 @@ class MessageDisplay extends Component {
 }
 
 const mapStateToProps = state => {
-  eventsHosting: state.eventsHosting.events,
-  eventsAttending: state.eventsAttending.events
+  return {
+    eventsHosting: state.eventsHosting.events,
+    eventsAttending: state.eventsAttending.events
+  }
 }
 
 const mapDispatchToProps = {
-
+  addEventHostingMessage,
+  addEventAttendingMessage
 }
 
-export default MessageDisplay
+export default connect(mapStateToProps, mapDispatchToProps)(MessageDisplay)
