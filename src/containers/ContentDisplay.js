@@ -38,7 +38,8 @@ class ContentDisplay extends Component {
   }
 
   renderCreatedPosts = () => {
-    const { createdPosts, createdPostsFilter } = this.props
+    const { props: {createdPosts, createdPostsFilter},
+            handleCreateEvent } = this
     const posts = createdPosts.filter(post => post.status === createdPostsFilter)
 
     return posts.map(post => {
@@ -48,9 +49,14 @@ class ContentDisplay extends Component {
           <p>{ post.neighborhood.name }</p>
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
+          <button onClick={ () => handleCreateEvent(post.id) }>Create Event</button>
         </div>
       )
     })
+  }
+
+  handleCreateEvent = id => {
+    console.log(id);
   }
 
   renderPostsInterestedIn = () => {
