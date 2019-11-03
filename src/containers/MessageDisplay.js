@@ -4,17 +4,18 @@ import { ActionCable } from 'react-actioncable-provider';
 
 class MessageDisplay extends Component {
 
-  handleNewMessage = message  => {
+  handleNewMessage = message => {
     console.log('new message');
   }
 
   render() {
     const { props: {eventId}, handleNewMessage } = this
+    console.log(eventId);
     return (
       <div>
         MessageDisplay
         <ActionCable
-              channel={{channel: 'EventChatsChannel', event_id: { eventId }}}
+              channel={ {channel: 'EventChatsChannel', event_id: eventId} }
               onReceived={ handleNewMessage }/>
         <Message />
         <Message />
