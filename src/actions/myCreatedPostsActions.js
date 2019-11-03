@@ -40,7 +40,7 @@ export const createNewPost = postInfo => dispatch => {
 
   fetch(URL + '/posts', config)
   .then(res => res.json())
-  .then(console.log)
+  .then(post => dispatch(addPost(post)))
 }
 
 export const setCreatedPostsFilter = filter => dispatch => {
