@@ -25,27 +25,39 @@ class PostForm extends Component {
     ))
   }
 
+  handleChange = evt => {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
   render() {
-    const { renderNeighborhoodOptions, renderTopicOptions } = this
+    const { state: {neighborhood,
+                    topic,
+                    description,
+                    day,
+                    time_of_day},
+            renderNeighborhoodOptions, renderTopicOptions, handleChange } = this
+
     return (
-      <form>
+      <form onChange={ handleChange }>
         Choose Neighborhood:
-        <select name='neighborhood'>
+        <select name='neighborhood' value={ neighborhood }>
           { renderNeighborhoodOptions() }
         </select>
         Choose Topic:
-        <select name='topic'>
+        <select name='topic' value={ topic }>
           { renderTopicOptions() }
         </select>
         Description:
-        <textarea name='description' />
+        <textarea name='description' value={ description }/>
         When?
         <Fragment>
-          <input type='radio' name='today' value='Today' /><span>Today</span>
-          <input type='radio' name='tomorrow' value='Tomorrow' /><span>Tomorrow</span>
+          <input type='radio' name='day' value='Today' checked={ day === 'Today' }/><span>Today</span>
+          <input type='radio' name='day' value='Tomorrow' checked={ day === 'Tomorrow' }/><span>Tomorrow</span>
         </Fragment>
         Time of Day:
-        <input type='text' name='time_of_day' placeholder='e.g. Late Afternoon' />
+        <input type='text' name='time_of_day' value={ time_of_day } placeholder='e.g. Late Afternoon' />
       </form>
     )
   }
