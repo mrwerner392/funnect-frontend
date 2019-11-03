@@ -39,8 +39,7 @@ class ContentDisplay extends Component {
   }
 
   renderCreatedPosts = () => {
-    const { props: {createdPosts, createdPostsFilter},
-            handleCreateEvent } = this
+    const { user, createdPosts, createdPostsFilter } = this.props
     const posts = createdPosts.filter(post => post.status === createdPostsFilter)
 
     return posts.map(post => {
@@ -50,14 +49,10 @@ class ContentDisplay extends Component {
           <p>{ post.neighborhood.name }</p>
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
-          <button onClick={ () => handleCreateEvent(post.id) }>Create Event</button>
+          <NavLink exact to={ `/${user.username}/posts/${post.id}` }>View Details</NavLink>
         </div>
       )
     })
-  }
-
-  handleCreateEvent = id => {
-    console.log(id);
   }
 
   renderPostsInterestedIn = () => {

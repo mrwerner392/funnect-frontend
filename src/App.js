@@ -4,6 +4,7 @@ import { Route, Switch, NavLink } from 'react-router-dom';
 import AccountFormContainer from './containers/AccountFormContainer';
 import PostFormContainer from './containers/PostFormContainer';
 import ContentContainer from './containers/ContentContainer';
+import PostCard from './components/PostCard'
 import NotFound from './components/NotFound';
 import { getUser } from './actions/userActions';
 import { getAvailablePosts } from './actions/availablePostsActions';
@@ -91,6 +92,10 @@ class App extends Component {
           <Route exact
                   path='/:slug/events'
                   render={ renderProps => this.renderContent(renderProps, 'user-events') }
+                  />
+          <Route exact
+                  path='/:slug/posts/:postSlug'
+                  render={ renderProps => <PostCard renderProps={ renderProps } /> }
                   />
           <Route component={ NotFound } />
         </Switch>
