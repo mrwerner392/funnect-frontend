@@ -5,7 +5,6 @@ class ProfileInfoEditForm extends Component {
 
   state = {
     username: '',
-    password: '',
     first_name: '',
     age: null,
     gender: '',
@@ -33,8 +32,17 @@ class ProfileInfoEditForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    // const {  } = this.state
     console.log('update');
+    const { username, first_name, age, gender, bio, college, occupation, interests } = this.state
+    const config = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.token
+      },
+      body: JSON.stringify({ username, first_name, age, gender, bio, college, occupation, interests })
+    }
   }
 
   render() {
