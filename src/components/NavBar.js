@@ -15,7 +15,7 @@ class NavBar extends Component {
     const { props: {user: {username}}, handleLogout } = this
     return (
       <div>
-        <NavLink exact to='/posts' >MatChat</NavLink>
+        <NavLink exact to={ username ? '/posts' : '/login' } >MatChat</NavLink>
         { username
           ?
           <Fragment>
