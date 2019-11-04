@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { removeAvailablePost } from '../actions/availablePostsActions'
 
 class Post extends Component {
 
   handleInterestedClick = id => {
-    console.log('interested', id);
+    const { removeAvailablePost } = this.props
+    console.log(id);
+    removeAvailablePost(id)
   }
 
   handleNotInterestedClick = id => {
@@ -69,4 +72,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Post)
+const mapDispatchToProps = {
+  removeAvailablePost
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
