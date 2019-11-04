@@ -7,6 +7,12 @@ export const setUser = user => dispatch => {
   })
 }
 
+export const clearUser = () => dispatch => {
+  dispatch({
+    type: 'CLEAR_USER',
+  })
+}
+
 // export const loginRequest = user => dispatch => {
 //   const config = {
 //     method: 'POST',
