@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { addAvailablePost } from '../actions/availablePostsActions';
 import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
 import { removeAvailablePost } from '../actions/availablePostsActions';
 import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
@@ -9,12 +10,13 @@ class Post extends Component {
 
   handleInterestedClick = post => {
     const { addPostInterestedIn, removeAvailablePost } = this.props
-    removeAvailablePost(post.id)
     addPostInterestedIn(post)
+    removeAvailablePost(post.id)
   }
 
   handleNotInterestedClick = post => {
-    const { removePostInterestedIn } = this.props
+    const { addAvailablePost, removePostInterestedIn } = this.props
+    addAvailablePost(post)
     removePostInterestedIn(post.id)
   }
 
@@ -76,6 +78,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+  addAvailablePost,
   addPostInterestedIn,
   removeAvailablePost,
   removePostInterestedIn
