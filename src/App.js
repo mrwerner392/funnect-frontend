@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, NavLink } from 'react-router-dom';
+import NavBar from './components/NavBar'
 import AccountFormContainer from './containers/AccountFormContainer';
 import PostFormContainer from './containers/PostFormContainer';
 import ContentContainer from './containers/ContentContainer';
@@ -58,6 +59,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <NavBar />
         <NavLink to='/login'> login |</NavLink>
         <NavLink to='/create-profile'>| create-profile |</NavLink>
         <NavLink to='/posts'>| posts |</NavLink>
