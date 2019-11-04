@@ -18,9 +18,13 @@ class Post extends Component {
         <p>{ interestedIds.length } users are interested <span><NavLink exact to={ `/${user.username}/posts/${post.id}` }>Manage Post</NavLink></span></p>
       )
     } else if (interestedIds.includes(user.id)) {
-
+      return (
+        <p>You and { interestedIds.length - 1 } are interested<span><button>{ "I'm Not Interested" }</button></span></p>
+      )
     } else {
-
+      return (
+        <p>{ interestedIds.length } users are interested <span><button>{ "I'm Interested" }</button></span></p>
+      )
     }
   }
 
