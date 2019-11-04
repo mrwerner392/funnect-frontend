@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+const URL = 'http://localhost:3000'
+
 class ProfileInfoEditForm extends Component {
 
   state = {
@@ -33,7 +35,15 @@ class ProfileInfoEditForm extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     console.log('update');
-    const { username, first_name, age, gender, bio, college, occupation, interests } = this.state
+    const { state: {username,
+                    first_name,
+                    age,
+                    gender,
+                    bio,
+                    college,
+                    occupation,
+                    interests},
+            props: {user} } = this
     const config = {
       method: 'PATCH',
       headers: {
@@ -43,6 +53,10 @@ class ProfileInfoEditForm extends Component {
       },
       body: JSON.stringify({ username, first_name, age, gender, bio, college, occupation, interests })
     }
+
+    fetch(URL + `/users/${user.id}`, config)
+    .then(res => res.json())
+    .then(console.log)
   }
 
   render() {
