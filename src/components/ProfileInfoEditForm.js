@@ -82,40 +82,40 @@ class ProfileInfoEditForm extends Component {
         { errors ? <p>{ errors }</p> : null}
         <input type='text'
                 name='username'
-                value={ username }
+                value={ user.username }
                 placeholder='username'
                 />
         <input type='text'
                 name='first_name'
-                value={ first_name }
+                value={ user.first_name }
                 placeholder='first name'
                 />
         <input type='number'
                 name='age'
-                value={ age }
+                value={ user.age }
                 placeholder='age'
                 />
         <input type='text'
                 name='gender'
-                value={ gender }
+                value={ user.gender }
                 placeholder='gender'
                 />
         <input type='text'
                 name='bio'
-                value={ bio }
+                value={ user.bio }
                 placeholder='bio'
                 />
         <input type='text'
                 name='college'
-                value={ college }
+                value={ user.college }
                 placeholder='college'
                 />
         <input type='text'
                 name='occupation'
-                value={ occupation }
+                value={ user.occupation }
                 placeholder='occupation'
                 />
-        <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
+        {/*<label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
         <select id='user-interest-select' name='interests'>
           { <option></option> }
           {
@@ -124,7 +124,7 @@ class ProfileInfoEditForm extends Component {
             })
           }
         </select>
-        <p>{ interests.join(', ') }</p>
+        <p>{ interests.join(', ') }</p>*/}
         <input type='submit' />
       </form>
     )
