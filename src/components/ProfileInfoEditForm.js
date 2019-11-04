@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setUser } from '../actions/userActions'
 
 const URL = 'http://localhost:3000'
 
@@ -43,7 +44,7 @@ class ProfileInfoEditForm extends Component {
                     college,
                     occupation,
                     interests},
-            props: {user} } = this
+            props: {user, dispatch, setUser} } = this
     const config = {
       method: 'PATCH',
       headers: {
@@ -56,7 +57,7 @@ class ProfileInfoEditForm extends Component {
 
     fetch(URL + `/users/${user.id}`, config)
     .then(res => res.json())
-    .then(console.log)
+    .then(user => setUser(user))
   }
 
   render() {
@@ -132,10 +133,17 @@ class ProfileInfoEditForm extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.user);
   return {
     user: state.user,
     interestOptions: state.interests
   }
 }
 
-export default connect(mapStateToProps)(ProfileInfoEditForm);
+const mapDispatchToProps = dispatch => {
+  return{
+    setUser: user => dispatch(setUser(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileInfoEditForm);
