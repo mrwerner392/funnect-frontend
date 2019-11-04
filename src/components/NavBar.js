@@ -15,14 +15,14 @@ class NavBar extends Component {
     const { props: {user: {username}}, handleLogout } = this
     return (
       <div>
-        <NavLink exact to={ username ? '/posts' : '/login' } >MatChat</NavLink>
+        <NavLink className='nav' exact to={ username ? '/posts' : '/login' } >MatChat</NavLink>
         { username
           ?
           <Fragment>
-            <NavLink exact to={ `/${username}` } >{ username }</NavLink>
-            <NavLink exact to='/posts' >Home</NavLink>
-            <NavLink exact to='/create-post' >New Post</NavLink>
-            <NavLink exact to='/login' onClick={ handleLogout } >Log Out</NavLink>
+            <NavLink className='nav' exact to={ `/${username}` } >{ username }</NavLink>
+            <NavLink className='nav' exact to='/posts' >Home</NavLink>
+            <NavLink className='nav' exact to='/create-post' >New Post</NavLink>
+            <NavLink className='nav' exact to='/login' onClick={ handleLogout } >Log Out</NavLink>
           </Fragment>
           :
           null
