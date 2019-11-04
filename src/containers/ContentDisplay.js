@@ -54,13 +54,7 @@ class ContentDisplay extends Component {
     const { postsInterestedIn, postsInterestedInFilter } = this.props
     const posts = postsInterestedIn.filter(post => post.status === postsInterestedInFilter)
 
-    return posts.map(post => {
-      return (
-        <Fragment>
-          <Post key={ post.id } post={ post } />
-        </Fragment>
-      )
-    })
+    return posts.map(post => <Post key={ post.id } post={ post } />)
   }
 
   renderMyEvents = () => {
@@ -78,28 +72,14 @@ class ContentDisplay extends Component {
     const { user, eventsHosting, eventsHostingFilter } = this.props
     const events = eventsHosting.filter(event => event.status === eventsHostingFilter)
 
-    return events.map(event => {
-      return (
-        <Fragment>
-          <Event key={ event.id } event={ event } />
-          <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
-        </Fragment>
-      )
-    })
+    return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
   renderEventsAttending = () => {
     const { user, eventsAttending, eventsAttendingFilter } = this.props
     const events = eventsAttending.filter(event => event.status === eventsAttendingFilter)
 
-    return events.map(event => {
-      return (
-        <Fragment>
-          <Event key={ event.id } event={ event } />
-          <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
-        </Fragment>
-      )
-    })
+    return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
 
