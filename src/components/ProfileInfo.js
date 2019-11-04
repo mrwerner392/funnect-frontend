@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class ProfileInfo extends Component {
 
@@ -32,6 +33,7 @@ class ProfileInfo extends Component {
         <li id='profile-college'>{ college }</li>
         <li id='profile-occupation'>{ occupation }</li>
         <li id='profile-interests'>{ renderInterests() }</li>
+        <NavLink exact to={ `/${username}/edit` } >Edit Profile</NavLink>
       </Fragment>
     )
   }
