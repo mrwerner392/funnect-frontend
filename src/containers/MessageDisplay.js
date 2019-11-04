@@ -22,11 +22,9 @@ class MessageDisplay extends Component {
   }
 
   renderMessages = () => {
-    console.log('rendering messages');
     const { eventId, eventsHosting, eventsAttending } = this.props
     const myEvents = [...eventsHosting, ...eventsAttending]
     const event = myEvents.find(event => event.id === parseInt(eventId, 10))
-    console.log(event.messages);
     return event.messages.map(message => <p>{ message.content }</p>)
   }
 
@@ -47,7 +45,6 @@ class MessageDisplay extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.eventsHosting);
   return {
     eventsHosting: state.eventsHosting.events,
     eventsAttending: state.eventsAttending.events

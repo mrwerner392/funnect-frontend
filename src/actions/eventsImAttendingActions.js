@@ -7,8 +7,8 @@ const setEvents = events => {
   }
 }
 
-export const addEventAttendingMessage = message => dispatch => {
-  dispatch({ type: 'ADD_EVENT_ATTENDING_MESSAGE', message })
+export const addEventAttendingMessage = (message, eventId) => dispatch => {
+  dispatch({ type: 'ADD_EVENT_ATTENDING_MESSAGE', message, eventId })
 }
 
 export const getEventsAttending = () => dispatch => {
