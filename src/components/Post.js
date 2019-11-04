@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { removeAvailablePost } from '../actions/availablePostsActions'
-import { addPostInterestedIn } from '../actions/postsImInterestedInActions'
+import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
+import { removeAvailablePost } from '../actions/availablePostsActions';
+import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
 
 class Post extends Component {
 
   handleInterestedClick = post => {
-    const { removeAvailablePost, addPostInterestedIn } = this.props
+    const { addPostInterestedIn, removeAvailablePost } = this.props
     removeAvailablePost(post.id)
     addPostInterestedIn(post)
   }
 
-  handleNotInterestedClick = id => {
-    // const { a}
-    console.log('not interested', id)
+  handleNotInterestedClick = post => {
+    const { removePostInterestedIn } = this.props
+    removePostInterestedIn(post.id)
   }
 
   renderUserInterests = interests => {
@@ -75,8 +76,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+  addPostInterestedIn,
   removeAvailablePost,
-  addPostInterestedIn
+  removePostInterestedIn
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)
