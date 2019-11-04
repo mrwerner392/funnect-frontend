@@ -83,7 +83,7 @@ class ContentDisplay extends Component {
   }
 
   renderEventsHosting = () => {
-    const { eventsHosting, eventsHostingFilter } = this.props
+    const { user, eventsHosting, eventsHostingFilter } = this.props
     const events = eventsHosting.filter(event => event.status === eventsHostingFilter)
 
     return events.map(event => {
@@ -93,13 +93,14 @@ class ContentDisplay extends Component {
           <p>{ event.location }</p>
           <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
           <p>{ event.status }</p>
+          <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
         </div>
       )
     })
   }
 
   renderEventsAttending = () => {
-    const { eventsAttending, eventsAttendingFilter } = this.props
+    const { user, eventsAttending, eventsAttendingFilter } = this.props
     const events = eventsAttending.filter(event => event.status === eventsAttendingFilter)
 
     return events.map(event => {
@@ -109,6 +110,7 @@ class ContentDisplay extends Component {
           <p>{ event.location }</p>
           <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
           <p>{ event.status }</p>
+          <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
         </div>
       )
     })

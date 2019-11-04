@@ -8,6 +8,8 @@ import { getCreatedPosts } from '../actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from '../actions/postsImInterestedInActions'
 import { getEventsHosting } from '../actions/eventsImHostingActions'
 import { getEventsAttending } from '../actions/eventsImAttendingActions'
+import { getTopics } from '../actions/topicsActions';
+import { getNeighborhoods } from '../actions/neighborhoodsActions';
 
 const URL = 'http://localhost:3000'
 
@@ -23,8 +25,10 @@ class FormContainer extends Component {
             getCreatedPosts,
             getPostsInterestedIn,
             getEventsHosting,
-            getEventsAttending } = this.props
-            
+            getEventsAttending,
+            getTopics,
+            getNeighborhoods } = this.props
+
     const config = {
       method: 'POST',
       headers: {
@@ -50,6 +54,8 @@ class FormContainer extends Component {
         getPostsInterestedIn()
         getEventsHosting()
         getEventsAttending()
+        getTopics()
+        getNeighborhoods()
       }
     })
   }
@@ -105,7 +111,9 @@ const mapDispatchToProps = {
   getCreatedPosts,
   getPostsInterestedIn,
   getEventsHosting,
-  getEventsAttending
+  getEventsAttending,
+  getTopics,
+  getNeighborhoods
 }
 
 export default connect(null, mapDispatchToProps)(FormContainer)
