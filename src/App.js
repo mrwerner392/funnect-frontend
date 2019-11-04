@@ -82,6 +82,10 @@ class App extends Component {
                   render={ renderProps => this.renderContent(renderProps, 'user') }
                   />
           <Route exact
+                  path='/:slug/edit'
+                  render={ renderProps => this.renderContent(renderProps, 'user-edit') }
+                  />
+          <Route exact
                   path='/:slug/posts'
                   render={ renderProps => this.renderContent(renderProps, 'user-posts') }
                   />

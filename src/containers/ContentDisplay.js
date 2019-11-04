@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ProfileInfo from '../components/ProfileInfo';
+import ProfileInfoEditForm from '../components/ProfileInfoEditForm'
 
 class ContentDisplay extends Component {
 
@@ -126,6 +127,8 @@ class ContentDisplay extends Component {
     switch (contentType) {
       case 'user':
         return <ProfileInfo user={ user } />
+      case 'user-edit':
+        return <ProfileInfoEditForm />
       case 'user-posts':
         return renderMyPosts()
       case 'user-events':
