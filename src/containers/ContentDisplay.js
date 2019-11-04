@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ProfileInfo from '../components/ProfileInfo';
 import ProfileInfoEditForm from '../components/ProfileInfoEditForm'
+import Post from '../components/Post'
 
 class ContentDisplay extends Component {
 
@@ -19,11 +20,7 @@ class ContentDisplay extends Component {
 
     return availablePosts.map(post => {
       return (
-        <div>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-        </div>
+        <Post key={ post.id } post={ post } />
       )
     })
   }
