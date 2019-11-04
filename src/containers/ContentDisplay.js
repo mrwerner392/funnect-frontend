@@ -45,7 +45,6 @@ class ContentDisplay extends Component {
       return (
         <Fragment>
           <Post key={ post.id } post={ post } />
-          <NavLink exact to={ `/${user.username}/posts/${post.id}` }>View Details</NavLink>
         </Fragment>
       )
     })
