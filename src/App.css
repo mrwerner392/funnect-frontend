@@ -32,3 +32,13 @@ input {
   width: 300px;
   background-color: lime;
 }
+
+.post {
+  border-style: solid;
+  margin: 1%;
+}
+
+.event {
+  border-style: solid;
+  margin: 1%;
+}

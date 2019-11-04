@@ -28,7 +28,7 @@ class Post extends Component {
     const { props: {post, user}, renderUserInterests, renderPostFooter } = this
     console.log(post.user);
     return (
-      <div className='Post'>
+      <div className='post'>
         <p>{ post.topic.name }</p>
         <p>{ post.neighborhood.name }</p>
         <p>{ post.time_of_day }</p>
