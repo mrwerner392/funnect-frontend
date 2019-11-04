@@ -5,6 +5,8 @@ export default (state = {}, action) => {
         ...state,
         ...action.user
       }
+    case 'CLEAR_USER':
+      return {}
     default:
       return state
   }

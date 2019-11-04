@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import NavBar from './components/NavBar'
 import AccountFormContainer from './containers/AccountFormContainer';
 import PostFormContainer from './containers/PostFormContainer';
 import ContentContainer from './containers/ContentContainer';
@@ -58,13 +59,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <NavLink to='/login'> login |</NavLink>
-        <NavLink to='/create-profile'>| create-profile |</NavLink>
-        <NavLink to='/posts'>| posts |</NavLink>
-        <NavLink to='/matt18'>| matt18 |</NavLink>
-        <NavLink to='/matt18/posts'>| matt18/posts |</NavLink>
-        <NavLink to='/matt18/events'>| matt18/events |</NavLink>
-        <NavLink to='/create-post'>| create-post </NavLink>
+        <NavBar />
         <Switch>
           <Route exact
                   path='/login'
@@ -85,6 +80,10 @@ class App extends Component {
           <Route exact
                   path='/:slug'
                   render={ renderProps => this.renderContent(renderProps, 'user') }
+                  />
+          <Route exact
+                  path='/:slug/edit'
+                  render={ renderProps => this.renderContent(renderProps, 'user-edit') }
                   />
           <Route exact
                   path='/:slug/posts'

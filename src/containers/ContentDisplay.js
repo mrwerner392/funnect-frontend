@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ProfileInfo from '../components/ProfileInfo';
+import ProfileInfoEditForm from '../components/ProfileInfoEditForm';
+import Post from '../components/Post';
+import Event from '../components/Event';
 
 class ContentDisplay extends Component {
 
@@ -18,11 +21,7 @@ class ContentDisplay extends Component {
 
     return availablePosts.map(post => {
       return (
-        <div>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-        </div>
+        <Post key={ post.id } post={ post } />
       )
     })
   }
@@ -31,10 +30,10 @@ class ContentDisplay extends Component {
     const { renderCreatedPosts, renderPostsInterestedIn } = this
 
     return (
-      <div>
+      <Fragment>
         { renderCreatedPosts() }
         { renderPostsInterestedIn() }
-      </div>
+      </Fragment>
     )
   }
 
@@ -44,13 +43,9 @@ class ContentDisplay extends Component {
 
     return posts.map(post => {
       return (
-        <div>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-          <p>{ post.status }</p>
-          <NavLink exact to={ `/${user.username}/posts/${post.id}` }>View Details</NavLink>
-        </div>
+        <Fragment>
+          <Post key={ post.id } post={ post } />
+        </Fragment>
       )
     })
   }
@@ -59,26 +54,17 @@ class ContentDisplay extends Component {
     const { postsInterestedIn, postsInterestedInFilter } = this.props
     const posts = postsInterestedIn.filter(post => post.status === postsInterestedInFilter)
 
-    return posts.map(post => {
-      return (
-        <div>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-          <p>{ post.status }</p>
-        </div>
-      )
-    })
+    return posts.map(post => <Post key={ post.id } post={ post } />)
   }
 
   renderMyEvents = () => {
     const { renderEventsHosting, renderEventsAttending } = this
 
     return (
-      <div>
+      <Fragment>
         { renderEventsHosting() }
         { renderEventsAttending() }
-      </div>
+      </Fragment>
     )
   }
 
@@ -86,34 +72,14 @@ class ContentDisplay extends Component {
     const { user, eventsHosting, eventsHostingFilter } = this.props
     const events = eventsHosting.filter(event => event.status === eventsHostingFilter)
 
-    return events.map(event => {
-      return (
-        <div>
-          <p>{ event.description }</p>
-          <p>{ event.location }</p>
-          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <p>{ event.status }</p>
-          <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
-        </div>
-      )
-    })
+    return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
   renderEventsAttending = () => {
     const { user, eventsAttending, eventsAttendingFilter } = this.props
     const events = eventsAttending.filter(event => event.status === eventsAttendingFilter)
 
-    return events.map(event => {
-      return (
-        <div>
-          <p>{ event.description }</p>
-          <p>{ event.location }</p>
-          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <p>{ event.status }</p>
-          <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
-        </div>
-      )
-    })
+    return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
 
@@ -126,6 +92,8 @@ class ContentDisplay extends Component {
     switch (contentType) {
       case 'user':
         return <ProfileInfo user={ user } />
+      case 'user-edit':
+        return <ProfileInfoEditForm />
       case 'user-posts':
         return renderMyPosts()
       case 'user-events':

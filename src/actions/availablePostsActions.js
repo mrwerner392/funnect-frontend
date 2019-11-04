@@ -19,6 +19,14 @@ export const getAvailablePosts = () => dispatch => {
   .then(posts => dispatch(setPosts(posts)))
 }
 
+export const addAvailablePost = post => dispatch => {
+  dispatch({ type: 'ADD_AVAILABLE_POST', post })
+}
+
+export const removeAvailablePost = id => dispatch => {
+  dispatch({ type: 'REMOVE_AVAILABLE_POST', id })
+}
+
 export const setAvailablePostsTopicFilter = filter => dispatch => {
   dispatch({ type: 'SET_AVAILABLE_POSTS_TOPIC_FILTER', filter })
 }
