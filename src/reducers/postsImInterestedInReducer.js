@@ -5,6 +5,14 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         ...state,
         posts: action.posts
       }
+    case 'ADD_POST_INTERESTED_IN':
+      return {
+        ...state,
+        posts: [
+          ...state.posts,
+          action.post
+        ]
+      }
     case 'SET_POSTS_INTERESTED_IN_FILTER':
       return {
         ...state,

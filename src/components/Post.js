@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { removeAvailablePost } from '../actions/availablePostsActions'
+import { addPostInterestedIn } from '../actions/postsImInterestedInActions'
 
 class Post extends Component {
 
-  handleInterestedClick = id => {
-    const { removeAvailablePost } = this.props
-    console.log(id);
-    removeAvailablePost(id)
+  handleInterestedClick = post => {
+    const { removeAvailablePost, addPostInterestedIn } = this.props
+    removeAvailablePost(post.id)
+    addPostInterestedIn(post)
   }
 
   handleNotInterestedClick = id => {
+    // const { a}
     console.log('not interested', id)
   }
 
@@ -32,11 +34,11 @@ class Post extends Component {
       )
     } else if (interestedIds.includes(user.id)) {
       return (
-        <p>You and { interestedIds.length - 1 } are interested<span><button onClick={ () => handleNotInterestedClick(post.id) }>{ "I'm Not Interested" }</button></span></p>
+        <p>You and { interestedIds.length - 1 } are interested<span><button onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button></span></p>
       )
     } else {
       return (
-        <p>{ interestedIds.length } users are interested <span><button onClick={ () => handleInterestedClick(post.id) }>{ "I'm Interested" }</button></span></p>
+        <p>{ interestedIds.length } users are interested <span><button onClick={ () => handleInterestedClick(post) }>{ "I'm Interested" }</button></span></p>
       )
     }
   }
@@ -73,7 +75,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  removeAvailablePost
+  removeAvailablePost,
+  addPostInterestedIn
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)
