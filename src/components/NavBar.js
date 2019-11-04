@@ -10,6 +10,7 @@ class NavBar extends Component {
       <div>
         <NavLink exact to={ `/${username}` } >{ username }</NavLink>
         <NavLink exact to='/posts'>Home</NavLink>
+        <NavLink exact to='/create-post'>New Post</NavLink>
       </div>
     )
   }
