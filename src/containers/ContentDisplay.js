@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ProfileInfo from '../components/ProfileInfo';
@@ -29,10 +29,10 @@ class ContentDisplay extends Component {
     const { renderCreatedPosts, renderPostsInterestedIn } = this
 
     return (
-      <div>
+      <Fragment>
         { renderCreatedPosts() }
         { renderPostsInterestedIn() }
-      </div>
+      </Fragment>
     )
   }
 
@@ -42,13 +42,10 @@ class ContentDisplay extends Component {
 
     return posts.map(post => {
       return (
-        <div>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-          <p>{ post.status }</p>
+        <Fragment>
+          <Post key={ post.id } post={ post } />
           <NavLink exact to={ `/${user.username}/posts/${post.id}` }>View Details</NavLink>
-        </div>
+        </Fragment>
       )
     })
   }
@@ -59,12 +56,9 @@ class ContentDisplay extends Component {
 
     return posts.map(post => {
       return (
-        <div>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-          <p>{ post.status }</p>
-        </div>
+        <Fragment>
+          <Post key={ post.id } post={ post } />
+        </Fragment>
       )
     })
   }
