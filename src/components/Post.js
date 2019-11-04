@@ -13,7 +13,7 @@ class Post extends Component {
         <p>{ post.user.username }</p>
         {
           post.user.id === user.id
-          ? <NavLink exact to={ `/${user.username}/posts/${post.id}` }>View Details</NavLink>
+          ? <NavLink exact to={ `/${user.username}/posts/${post.id}` }>Manage Post</NavLink>
           : null
         }
       </div>
