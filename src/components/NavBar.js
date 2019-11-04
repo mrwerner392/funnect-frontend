@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
@@ -15,10 +15,18 @@ class NavBar extends Component {
     const { props: {user: {username}}, handleLogout } = this
     return (
       <div>
-        <NavLink exact to={ `/${username}` } >{ username }</NavLink>
-        <NavLink exact to='/posts' >Home</NavLink>
-        <NavLink exact to='/create-post' >New Post</NavLink>
-        <NavLink exact to='/login' onClick={ handleLogout } >Log Out</NavLink>
+        <NavLink exact to='/posts' >MatChat</NavLink>
+        { username
+          ?
+          <Fragment>
+            <NavLink exact to={ `/${username}` } >{ username }</NavLink>
+            <NavLink exact to='/posts' >Home</NavLink>
+            <NavLink exact to='/create-post' >New Post</NavLink>
+            <NavLink exact to='/login' onClick={ handleLogout } >Log Out</NavLink>
+          </Fragment>
+          :
+          null
+        }
       </div>
     )
   }
@@ -26,7 +34,6 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.user);
   return {
     user: state.user
   }
