@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ProfileInfo from '../components/ProfileInfo';
-import ProfileInfoEditForm from '../components/ProfileInfoEditForm'
-import Post from '../components/Post'
+import ProfileInfoEditForm from '../components/ProfileInfoEditForm';
+import Post from '../components/Post';
+import Event from '../components/Event';
 
 class ContentDisplay extends Component {
 
@@ -67,10 +68,10 @@ class ContentDisplay extends Component {
     const { renderEventsHosting, renderEventsAttending } = this
 
     return (
-      <div>
+      <Fragment>
         { renderEventsHosting() }
         { renderEventsAttending() }
-      </div>
+      </Fragment>
     )
   }
 
@@ -80,13 +81,10 @@ class ContentDisplay extends Component {
 
     return events.map(event => {
       return (
-        <div>
-          <p>{ event.description }</p>
-          <p>{ event.location }</p>
-          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <p>{ event.status }</p>
+        <Fragment>
+          <Event key={ event.id } event={ event } />
           <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
-        </div>
+        </Fragment>
       )
     })
   }
@@ -97,13 +95,10 @@ class ContentDisplay extends Component {
 
     return events.map(event => {
       return (
-        <div>
-          <p>{ event.description }</p>
-          <p>{ event.location }</p>
-          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <p>{ event.status }</p>
+        <Fragment>
+          <Event key={ event.id } event={ event } />
           <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
-        </div>
+        </Fragment>
       )
     })
   }
