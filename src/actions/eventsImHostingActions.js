@@ -14,12 +14,9 @@ const addEvent = event => {
   }
 }
 
-// const addMessage = message => {
-//   return {
-//     type: 'ADD_MESSAGE'
-//     message
-//   }
-// }
+export const addEventHostingMessage = message => dispatch => {
+  dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message })
+}
 
 export const getEventsHosting = () => dispatch => {
   const config = {

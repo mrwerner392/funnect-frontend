@@ -9,8 +9,22 @@ export default (state = {events: [], filter: 'active'}, action) => {
       return {
         ...state,
         events: [
-          ...state.events, action.event 
+          ...state.events, action.event
         ]
+      }
+    case 'ADD_EVENT_HOSTING_MESSAGE':
+      return {
+        ...state,
+        events: state.events.map(event => {
+          if (event.id === action.message.event_id) {
+            return {
+              ...event,
+              messages: [...event.messages, action.message]
+            }
+          } else {
+            return event
+          }
+        })
       }
     case 'SET_EVENTS_HOSTING_FILTER':
       return {

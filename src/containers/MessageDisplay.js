@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ActionCable } from 'react-actioncable-provider';
 import Message from '../components/Message';
-import addEventHostingMessage from '../actions/eventsImHostingActions'
-import addEventAttendingMessage from '../actions/eventsImHostingActions'
+import { addEventHostingMessage } from '../actions/eventsImHostingActions'
+import { addEventAttendingMessage } from '../actions/eventsImAttendingActions'
 
 class MessageDisplay extends Component {
 
@@ -16,16 +16,22 @@ class MessageDisplay extends Component {
     }
   }
 
+  renderMessages = () => {
+    const { eventId, eventsHosting, eventsAttending } = this.props
+    const myEvents = [...eventsHosting, ...eventsAttending]
+    const event = myEvents.find(event => event.id === parseInt(eventId, 10))
+    return event.messages.map(message => <p>{ message.content }</p>)
+  }
+
   render() {
-    const { props: {eventId}, handleNewMessage } = this
+    const { props: {eventId}, handleNewMessage, renderMessages } = this
     return (
       <div>
         MessageDisplay
         <ActionCable
               channel={ {channel: 'EventChatsChannel', event_id: eventId} }
               onReceived={ handleNewMessage } />
-        <Message />
-        <Message />
+        { renderMessages() }
       </div>
 
     )
