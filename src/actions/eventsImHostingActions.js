@@ -14,8 +14,8 @@ const addEvent = event => {
   }
 }
 
-export const addEventHostingMessage = message => dispatch => {
-  dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message })
+export const addEventHostingMessage = (message, eventId) => dispatch => {
+  dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message, eventId })
 }
 
 export const getEventsHosting = () => dispatch => {

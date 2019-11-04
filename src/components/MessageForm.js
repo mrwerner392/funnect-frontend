@@ -32,7 +32,7 @@ class MessageForm extends Component {
 
     fetch(URL + '/messages', config)
     .then(res => res.json())
-    .then(console.log)
+    // .then(console.log)
   }
 
   render() {

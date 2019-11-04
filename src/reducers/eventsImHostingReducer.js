@@ -13,10 +13,13 @@ export default (state = {events: [], filter: 'active'}, action) => {
         ]
       }
     case 'ADD_EVENT_HOSTING_MESSAGE':
+      console.log(action);
       return {
         ...state,
         events: state.events.map(event => {
-          if (event.id === action.message.event_id) {
+          if (event.id === action.eventId) {
+            console.log(state.events);
+            console.log(event);
             return {
               ...event,
               messages: [...event.messages, action.message]

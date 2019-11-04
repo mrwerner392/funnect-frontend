@@ -11,6 +11,7 @@ export default (state = {events: []}, action) => {
         filter: action.filter
       }
     case 'ADD_EVENT_ATTENDING_MESSAGE':
+      console.log('here');
       return {
         ...state,
         events: state.events.map(event => {

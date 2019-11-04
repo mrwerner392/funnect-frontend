@@ -26,7 +26,7 @@ class EventCard extends Component {
 
   render() {
     const { props: {eventsHosting, eventsAttending}, renderEvent } = this
-    console.log(eventsHosting, eventsAttending);
+
     return (
       <div>
         {
