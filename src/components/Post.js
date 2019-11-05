@@ -9,8 +9,8 @@ import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
 class Post extends Component {
 
   handleInterestedClick = post => {
-    const { addPostInterestedIn, removeAvailablePost } = this.props
-    addPostInterestedIn(post)
+    const { user, addPostInterestedIn, removeAvailablePost } = this.props
+    addPostInterestedIn(post.id, user.id)
     removeAvailablePost(post.id)
   }
 
