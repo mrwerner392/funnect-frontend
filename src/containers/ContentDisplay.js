@@ -117,6 +117,7 @@ class ContentDisplay extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     user: state.user,
     availablePosts: state.availablePosts.posts,

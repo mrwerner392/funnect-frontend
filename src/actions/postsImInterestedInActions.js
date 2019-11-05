@@ -14,6 +14,13 @@ const addPost = post => {
   }
 }
 
+const removePost = id => {
+  return {
+    type: 'REMOVE_POST_INTERESTED_IN',
+    id
+  }
+}
+
 export const getPostsInterestedIn = () => dispatch => {
   const config = {
     headers: {
@@ -46,8 +53,26 @@ export const addPostInterestedIn = (post_id, user_id) => dispatch => {
   // dispatch({ type: 'ADD_POST_INTERESTED_IN', post })
 }
 
-export const removePostInterestedIn = id => dispatch => {
-  dispatch({ type: 'REMOVE_POST_INTERESTED_IN', id })
+export const removePostInterestedIn = (post_id, user_id) => dispatch => {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': localStorage.token
+    },
+    body: JSON.stringify({
+      post_id,
+      user_id
+    })
+
+  }
+
+  console.log(config);
+  fetch(URL + '/post_interests', config)
+  .then(res => res.json())
+  .then(response => dispatch(removePost(post_id)))
+  // dispatch({ type: 'REMOVE_POST_INTERESTED_IN', id })
 }
 
 export const setPostsInterestedInFilter = filter => dispatch => {

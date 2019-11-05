@@ -10,14 +10,16 @@ class Post extends Component {
 
   handleInterestedClick = post => {
     const { user, addPostInterestedIn, removeAvailablePost } = this.props
+    console.log(post.id, user.id);
     addPostInterestedIn(post.id, user.id)
     removeAvailablePost(post.id)
   }
 
   handleNotInterestedClick = post => {
-    const { addAvailablePost, removePostInterestedIn } = this.props
-    addAvailablePost(post)
-    removePostInterestedIn(post.id)
+    const { user, addAvailablePost, removePostInterestedIn } = this.props
+    console.log(post.id, user.id);
+    addAvailablePost(post, user.id)
+    removePostInterestedIn(post.id, user.id)
   }
 
   renderUserInterests = interests => {
@@ -37,7 +39,7 @@ class Post extends Component {
       )
     } else if (interestedIds.includes(user.id)) {
       return (
-        <p>You and { interestedIds.length - 1 } are interested<span><button onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button></span></p>
+        <p>You and { interestedIds.length - 1 } others are interested<span><button onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button></span></p>
       )
     } else {
       return (
