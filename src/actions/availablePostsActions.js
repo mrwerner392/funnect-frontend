@@ -7,6 +7,10 @@ const setPosts = posts => {
   }
 }
 
+export const clearPosts = () => dispatch => {
+  dispatch({ type: 'CLEAR_AVAILABLE_POSTS' })
+}
+
 export const getAvailablePosts = () => dispatch => {
   const config = {
     headers: {
