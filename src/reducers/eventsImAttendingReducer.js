@@ -1,9 +1,15 @@
-export default (state = {events: [], filter 'active'}, action) => {
+export default (state = {events: [], filter: 'active'}, action) => {
   switch (action.type) {
     case 'SET_EVENTS_ATTENDING':
       return {
         ...state,
         events: action.events
+      }
+    case 'CLEAR_EVENTS_ATTENDING':
+      return {
+        ...state,
+        events: [],
+        filter: 'active'
       }
     case 'SET_EVENTS_ATTENDING_FILTER':
       return {
