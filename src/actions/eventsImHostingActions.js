@@ -50,22 +50,6 @@ export const newEventHosting = eventInfo => dispatch => {
   .then(event => dispatch(addEvent(event)))
 }
 
-// export const newMessageOnEventImHosting = message => dispatch => {
-//   const config = {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//       'Authorization': localStorage.id
-//     },
-//     body: JSON.stringify(message)
-//   }
-//
-//   fetch(URL + '/messages', config)
-//   .then(res =>res.json())
-//   .then(console.log)
-// }
-
 export const setEventsHostingFilter = filter => dispatch => {
   dispatch({ type: 'SET_EVENTS_HOSTING_FILTER', filter })
 }
