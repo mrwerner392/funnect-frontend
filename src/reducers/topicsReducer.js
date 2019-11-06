@@ -5,6 +5,8 @@ export default (state = [], action) => {
         ...state,
         ...action.topics
       ]
+    case 'CLEAR_TOPICS':
+      return []
     default:
       return state
   }
