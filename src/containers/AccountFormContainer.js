@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
 import { setUser } from '../actions/userActions';
@@ -27,7 +27,8 @@ class FormContainer extends Component {
             getEventsHosting,
             getEventsAttending,
             getTopics,
-            getNeighborhoods } = this.props
+            getNeighborhoods,
+            history } = this.props
 
     const config = {
       method: 'POST',
@@ -56,6 +57,7 @@ class FormContainer extends Component {
         getEventsAttending()
         getTopics()
         getNeighborhoods()
+        history.push('/posts')
       }
     })
   }
@@ -65,7 +67,7 @@ class FormContainer extends Component {
             getAvailablePosts,
             getTopics,
             getNeighborhoods } = this.props
-            
+
     const config = {
       method: 'POST',
       headers: {
@@ -123,4 +125,4 @@ const mapDispatchToProps = {
   getNeighborhoods
 }
 
-export default connect(null, mapDispatchToProps)(FormContainer)
+export default withRouter(connect(null, mapDispatchToProps)(FormContainer))
