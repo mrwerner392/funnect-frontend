@@ -84,37 +84,37 @@ class ProfileInfoEditForm extends Component {
           { errors ? <p>{ errors }</p> : null}
           <input type='text'
                   name='username'
-                  value={ user.username }
+                  value={ username }
                   placeholder='username'
                   />
           <input type='text'
                   name='first_name'
-                  value={ user.first_name }
+                  value={ first_name }
                   placeholder='first name'
                   />
           <input type='number'
                   name='age'
-                  value={ user.age }
+                  value={ age }
                   placeholder='age'
                   />
           <input type='text'
                   name='gender'
-                  value={ user.gender }
+                  value={ gender }
                   placeholder='gender'
                   />
           <input type='text'
                   name='bio'
-                  value={ user.bio }
+                  value={ bio }
                   placeholder='bio'
                   />
           <input type='text'
                   name='college'
-                  value={ user.college }
+                  value={ college }
                   placeholder='college'
                   />
           <input type='text'
                   name='occupation'
-                  value={ user.occupation }
+                  value={ occupation }
                   placeholder='occupation'
                   />
           {/*<label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
