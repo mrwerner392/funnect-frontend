@@ -60,7 +60,37 @@ class ProfileInfoEditForm extends Component {
     .then(user => setUser(user))
   }
 
+  handleRemoveInterest = index => {
+    this.setState(prevState => {
+      return {
+        interests: [
+          ...prevState.interests.slice(0, index),
+          ...prevState.interests.slice(index + 1)
+        ]
+      }
+    })
+  }
+
+  renderInterests = () => {
+    const { state: {interests}, handleRemoveInterest } = this
+    return interests.map((interest, index) => (
+      <li key={ interest }>
+        { interest }
+        <button onClick={ () => handleRemoveInterest(index) }>x</button>
+      </li>
+    ))
+  }
+
+  componentDidMount() {
+    const { user } = this.props
+    const interests = user.interests.map(interest => interest.name)
+    this.setState({
+      interests
+    })
+  }
+
   render() {
+    console.log(this.state.interests);
     const { state: {username,
                     first_name,
                     age,
@@ -73,7 +103,8 @@ class ProfileInfoEditForm extends Component {
             props: {user,
                     interestOptions},
             handleChange,
-            handleSubmit } = this
+            handleSubmit,
+            renderInterests } = this
 
     return (
       <Fragment>
@@ -110,7 +141,7 @@ class ProfileInfoEditForm extends Component {
                   value={ occupation || user.occupation }
                   />
           <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
-          <select id='user-interest-select' name='interests' value={ interests[interests.length - 1]}>
+          <select id='user-interest-select' name='interests' value={ interests[interests.length - 1] }>
             { <option></option> }
             {
               interestOptions.map(interest => {
@@ -118,7 +149,7 @@ class ProfileInfoEditForm extends Component {
               })
             }
           </select>
-          <p>{ interests.join(', ') }</p>
+          <p>{ renderInterests() }</p>
           <input type='submit' />
         </form>
         <NavLink exact to={ `/${ user.username }` } >Cancel</NavLink>
