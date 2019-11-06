@@ -36,7 +36,6 @@ class ProfileInfoEditForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    console.log('update');
     const { state: {username,
                     first_name,
                     age,
@@ -84,38 +83,31 @@ class ProfileInfoEditForm extends Component {
           { errors ? <p>{ errors }</p> : null}
           <input type='text'
                   name='username'
-                  value={ username }
-                  placeholder='username'
+                  value={ username || user.username }
                   />
           <input type='text'
                   name='first_name'
-                  value={ first_name }
-                  placeholder='first name'
+                  value={ first_name || user.first_name}
                   />
           <input type='number'
                   name='age'
-                  value={ age }
-                  placeholder='age'
+                  value={ age || user.age }
                   />
           <input type='text'
                   name='gender'
-                  value={ gender }
-                  placeholder='gender'
+                  value={ gender || user.gender }
                   />
           <input type='text'
                   name='bio'
-                  value={ bio }
-                  placeholder='bio'
+                  value={ bio || user.bio }
                   />
           <input type='text'
                   name='college'
-                  value={ college }
-                  placeholder='college'
+                  value={ college || user.college }
                   />
           <input type='text'
                   name='occupation'
-                  value={ occupation }
-                  placeholder='occupation'
+                  value={ occupation || user.occupation }
                   />
           <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
           <select id='user-interest-select' name='interests' value={ interests[interests.length - 1]}>
