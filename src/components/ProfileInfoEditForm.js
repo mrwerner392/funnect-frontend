@@ -20,6 +20,7 @@ class ProfileInfoEditForm extends Component {
   }
 
   handleChange = evt => {
+    console.log('change');
     if (evt.target.name === 'interests') {
       const interest = evt.target.value
       this.setState(prevState => {
@@ -35,6 +36,7 @@ class ProfileInfoEditForm extends Component {
   }
 
   handleSubmit = evt => {
+    console.log('submit');
     evt.preventDefault();
     const { state: {username,
                     first_name,
@@ -45,6 +47,12 @@ class ProfileInfoEditForm extends Component {
                     occupation,
                     interests},
             props: {user, dispatch, setUser} } = this
+    const userInterests = user.interests.map(interest => interest.name)
+    const new_interests =
+              interests.sort().join('') === userInterests.sort().join('')
+              ? null
+              : interests
+    console.log(new_interests);
     const config = {
       method: 'PATCH',
       headers: {
@@ -52,7 +60,7 @@ class ProfileInfoEditForm extends Component {
         'Accept': 'application/json',
         'Authorization': localStorage.token
       },
-      body: JSON.stringify({ username, first_name, age, gender, bio, college, occupation, interests })
+      body: JSON.stringify({ username, first_name, age, gender, bio, college, occupation, new_interests })
     }
 
     fetch(URL + `/users/${user.id}`, config)
@@ -62,6 +70,7 @@ class ProfileInfoEditForm extends Component {
   }
 
   handleRemoveInterest = index => {
+    console.log('remove');
     this.setState(prevState => {
       return {
         interests: [
@@ -77,7 +86,7 @@ class ProfileInfoEditForm extends Component {
     return interests.map((interest, index) => (
       <li key={ interest }>
         { interest }
-        <button onClick={ () => handleRemoveInterest(index) }>x</button>
+        <button type='button' onClick={ () => handleRemoveInterest(index) }>x</button>
       </li>
     ))
   }
