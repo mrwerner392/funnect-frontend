@@ -12,6 +12,12 @@ export default (state = {events: [], filter: 'active'}, action) => {
           ...state.events, action.event
         ]
       }
+    case 'CLEAR_EVENTS_HOSTING':
+      return {
+        ...state,
+        events: [],
+        filter: 'active'
+      }
     case 'ADD_EVENT_HOSTING_MESSAGE':
       return {
         ...state,
