@@ -2,18 +2,20 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
+import { clearAvailablePosts } from '../actions/availablePostsActions'
 
 class NavBar extends Component {
 
   handleLogout = () => {
-    const { clearUser } = this.props
+    const { clearUser,
+            clearAvailablePosts } = this.props
     localStorage.clear();
     clearUser();
+    clearAvailablePosts();
   }
 
   render() {
     const { props: {user: {username}}, handleLogout } = this
-    console.log(username);
     return (
       <div>
         <NavLink className='nav' exact to={ username ? '/posts' : '/login' } >MatChat</NavLink>
@@ -42,7 +44,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    clearUser: () => dispatch(clearUser())
+    clearUser: () => dispatch(clearUser()),
+    clearAvailablePosts: () => dispatch(clearAvailablePosts())
   }
 }
 

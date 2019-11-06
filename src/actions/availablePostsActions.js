@@ -7,7 +7,7 @@ const setPosts = posts => {
   }
 }
 
-export const clearPosts = () => dispatch => {
+export const clearAvailablePosts = () => dispatch => {
   dispatch({ type: 'CLEAR_AVAILABLE_POSTS' })
 }
 
