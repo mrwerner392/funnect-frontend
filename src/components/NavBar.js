@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
 import { clearAvailablePosts } from '../actions/availablePostsActions'
+import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
 
 class NavBar extends Component {
 
   handleLogout = () => {
     const { clearUser,
-            clearAvailablePosts } = this.props
+            clearAvailablePosts,
+            clearPostsInterestedIn } = this.props
     localStorage.clear();
     clearUser();
     clearAvailablePosts();
+    clearPostsInterestedIn();
   }
 
   render() {
@@ -45,7 +48,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     clearUser: () => dispatch(clearUser()),
-    clearAvailablePosts: () => dispatch(clearAvailablePosts())
+    clearAvailablePosts: () => dispatch(clearAvailablePosts()),
+    clearPostsInterestedIn: () => dispatch(clearPostsInterestedIn()),
   }
 }
 

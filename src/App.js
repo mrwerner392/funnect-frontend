@@ -110,17 +110,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
   console.log('app', state);
-  return {}
-  // return {
-  //   user: state.user,
-  //   availablePosts: state.availablePosts,
-  //   createdPosts: state.createdPosts,
-  //   postsInterestedIn: state.postsInterestedIn,
-  //   eventsHosting: state.eventsHosting,
-  //   eventsAttending: state.eventsAttending,
-  //   topics: state.topics,
-  //   neighborhoods: state.neighborhoods
-  // }
+  return {
+    user: state.user,
+    availablePosts: state.availablePosts,
+    createdPosts: state.createdPosts,
+    postsInterestedIn: state.postsInterestedIn,
+    eventsHosting: state.eventsHosting,
+    eventsAttending: state.eventsAttending,
+    topics: state.topics,
+    neighborhoods: state.neighborhoods
+  }
 }
 
 const mapDispatchToProps = {

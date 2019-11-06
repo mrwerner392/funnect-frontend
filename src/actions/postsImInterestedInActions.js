@@ -21,7 +21,7 @@ const removePost = id => {
   }
 }
 
-const clearPosts = () => dispatch => {
+export const clearPostsInterestedIn = () => dispatch => {
   dispatch({ type: 'CLEAR_POSTS_INTERESTED_IN' })
 }
 
