@@ -13,6 +13,7 @@ import eventsImAttendingReducer from './reducers/eventsImAttendingReducer';
 import topicsReducer from './reducers/topicsReducer';
 import neighborhoodsReducer from './reducers/neighborhoodsReducer';
 import interestsReducer from './reducers/interestsReducer';
+import contentTypeReducer from './reducers/contentTypeReducer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   topics: topicsReducer,
   neighborhoods: neighborhoodsReducer,
   interests: interestsReducer
+  contentType: contentTypeReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))
