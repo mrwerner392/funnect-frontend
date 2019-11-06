@@ -18,6 +18,12 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         ...state,
         posts: state.posts.filter(post => post.id !== action.id)
       }
+    case 'CLEAR_POSTS_INTERESTED_IN':
+      return {
+        ...state,
+        posts: [],
+        filter: 'filter'
+      }
     case 'SET_POSTS_INTERESTED_IN_FILTER':
       return {
         ...state,
