@@ -7,6 +7,10 @@ const setTopics = topics => {
   }
 }
 
+export const clearTopics = () => dispatch => {
+  dispatch({ type: 'CLEAR_TOPICS' })
+}
+
 export const getTopics = () => dispatch => {
   const config = {
     headers: {
