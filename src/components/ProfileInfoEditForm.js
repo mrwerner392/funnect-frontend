@@ -10,7 +10,7 @@ class ProfileInfoEditForm extends Component {
   state = {
     username: '',
     first_name: '',
-    age: null,
+    age: '',
     gender: '',
     bio: '',
     college: '',
@@ -117,8 +117,8 @@ class ProfileInfoEditForm extends Component {
                   value={ occupation }
                   placeholder='occupation'
                   />
-          {/*<label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
-          <select id='user-interest-select' name='interests'>
+          <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
+          <select id='user-interest-select' name='interests' value={ interests[interests.length - 1]}>
             { <option></option> }
             {
               interestOptions.map(interest => {
@@ -126,7 +126,7 @@ class ProfileInfoEditForm extends Component {
               })
             }
           </select>
-          <p>{ interests.join(', ') }</p>*/}
+          <p>{ interests.join(', ') }</p>
           <input type='submit' />
         </form>
         <NavLink exact to={ `/${ user.username }` } >Cancel</NavLink>
