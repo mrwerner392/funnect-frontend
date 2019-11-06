@@ -66,7 +66,8 @@ class FormContainer extends Component {
     const { setUser,
             getAvailablePosts,
             getTopics,
-            getNeighborhoods } = this.props
+            getNeighborhoods,
+            history } = this.props
 
     const config = {
       method: 'POST',
@@ -91,6 +92,7 @@ class FormContainer extends Component {
         getAvailablePosts()
         getTopics()
         getNeighborhoods()
+        history.push('/posts')
       }
     })
   }
