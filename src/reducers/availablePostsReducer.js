@@ -23,7 +23,7 @@ export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, ac
     case 'CLEAR_AVAILABLE_POSTS':
       return {
         ...state,
-        posts: {},
+        posts: [],
         topicFilter: '',
         neighborhoodFilter: ''
       }

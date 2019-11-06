@@ -21,6 +21,10 @@ const removePost = id => {
   }
 }
 
+const clearPosts = () => dispatch => {
+  dispatch({ type: 'CLEAR_AVAILABLE_POSTS' })
+}
+
 export const getPostsInterestedIn = () => dispatch => {
   const config = {
     headers: {
