@@ -14,6 +14,10 @@ const addPost = post => {
   }
 }
 
+export const clearCreatedPosts = () => dispatch => {
+  dispatch({ type: 'CLEAR_CREATED_POSTS' })
+}
+
 export const getCreatedPosts = () => dispatch => {
   const config = {
     headers: {
