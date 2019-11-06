@@ -19,8 +19,8 @@ export const getAvailablePosts = () => dispatch => {
   .then(posts => dispatch(setPosts(posts)))
 }
 
-export const addAvailablePost = post => dispatch => {
-  dispatch({ type: 'ADD_AVAILABLE_POST', post })
+export const addAvailablePost = (post, userId) => dispatch => {
+  dispatch({ type: 'ADD_AVAILABLE_POST', post, userId })
 }
 
 export const removeAvailablePost = id => dispatch => {

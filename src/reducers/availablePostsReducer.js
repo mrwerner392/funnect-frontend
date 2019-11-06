@@ -6,11 +6,14 @@ export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, ac
         posts: action.posts
       }
     case 'ADD_AVAILABLE_POST':
+      console.log(state, action);
       return {
         ...state,
         posts: [
           ...state.posts,
-          action.post
+          {...action.post,
+            interested_users: action.post.interested_users.filter(user => user.id !== action.userId)
+          }
         ]
       }
     case 'REMOVE_AVAILABLE_POST':

@@ -10,7 +10,7 @@ class ProfileInfoEditForm extends Component {
   state = {
     username: '',
     first_name: '',
-    age: null,
+    age: '',
     gender: '',
     bio: '',
     college: '',
@@ -36,7 +36,6 @@ class ProfileInfoEditForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    console.log('update');
     const { state: {username,
                     first_name,
                     age,
@@ -58,10 +57,55 @@ class ProfileInfoEditForm extends Component {
 
     fetch(URL + `/users/${user.id}`, config)
     .then(res => res.json())
+    // .then(console.log)
     .then(user => setUser(user))
   }
 
+  handleRemoveInterest = index => {
+    this.setState(prevState => {
+      return {
+        interests: [
+          ...prevState.interests.slice(0, index),
+          ...prevState.interests.slice(index + 1)
+        ]
+      }
+    })
+  }
+
+  renderInterests = () => {
+    const { state: {interests}, handleRemoveInterest } = this
+    return interests.map((interest, index) => (
+      <li key={ interest }>
+        { interest }
+        <button onClick={ () => handleRemoveInterest(index) }>x</button>
+      </li>
+    ))
+  }
+
+  componentDidMount() {
+    const { username,
+            first_name,
+            age,
+            gender,
+            bio,
+            college,
+            occupation,
+            interests } = this.props.user
+    const interestNames = interests.map(interest => interest.name)
+    this.setState({
+      username,
+      first_name,
+      age,
+      gender,
+      bio,
+      college,
+      occupation,
+      interests: interestNames
+    })
+  }
+
   render() {
+    console.log(this.state.interests);
     const { state: {username,
                     first_name,
                     age,
@@ -74,7 +118,8 @@ class ProfileInfoEditForm extends Component {
             props: {user,
                     interestOptions},
             handleChange,
-            handleSubmit } = this
+            handleSubmit,
+            renderInterests } = this
 
     return (
       <Fragment>
@@ -84,41 +129,34 @@ class ProfileInfoEditForm extends Component {
           { errors ? <p>{ errors }</p> : null}
           <input type='text'
                   name='username'
-                  value={ user.username }
-                  placeholder='username'
+                  value={ username || user.username }
                   />
           <input type='text'
                   name='first_name'
-                  value={ user.first_name }
-                  placeholder='first name'
+                  value={ first_name || user.first_name}
                   />
           <input type='number'
                   name='age'
-                  value={ user.age }
-                  placeholder='age'
+                  value={ age || user.age }
                   />
           <input type='text'
                   name='gender'
-                  value={ user.gender }
-                  placeholder='gender'
+                  value={ gender || user.gender }
                   />
           <input type='text'
                   name='bio'
-                  value={ user.bio }
-                  placeholder='bio'
+                  value={ bio || user.bio }
                   />
           <input type='text'
                   name='college'
-                  value={ user.college }
-                  placeholder='college'
+                  value={ college || user.college }
                   />
           <input type='text'
                   name='occupation'
-                  value={ user.occupation }
-                  placeholder='occupation'
+                  value={ occupation || user.occupation }
                   />
-          {/*<label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
-          <select id='user-interest-select' name='interests'>
+          <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
+          <select id='user-interest-select' name='interests' value={ interests[interests.length - 1] }>
             { <option></option> }
             {
               interestOptions.map(interest => {
@@ -126,7 +164,7 @@ class ProfileInfoEditForm extends Component {
               })
             }
           </select>
-          <p>{ interests.join(', ') }</p>*/}
+          <p>{ renderInterests() }</p>
           <input type='submit' />
         </form>
         <NavLink exact to={ `/${ user.username }` } >Cancel</NavLink>
