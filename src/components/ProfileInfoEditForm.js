@@ -20,7 +20,6 @@ class ProfileInfoEditForm extends Component {
   }
 
   handleChange = evt => {
-    console.log('change');
     if (evt.target.name === 'interests') {
       const interest = evt.target.value
       this.setState(prevState => {
@@ -36,7 +35,6 @@ class ProfileInfoEditForm extends Component {
   }
 
   handleSubmit = evt => {
-    console.log('submit');
     evt.preventDefault();
     const { state: {username,
                     first_name,
@@ -52,7 +50,6 @@ class ProfileInfoEditForm extends Component {
               interests.sort().join('') === userInterests.sort().join('')
               ? null
               : interests
-    console.log(new_interests);
     const config = {
       method: 'PATCH',
       headers: {
@@ -65,12 +62,10 @@ class ProfileInfoEditForm extends Component {
 
     fetch(URL + `/users/${user.id}`, config)
     .then(res => res.json())
-    // .then(console.log)
     .then(user => setUser(user))
   }
 
   handleRemoveInterest = index => {
-    console.log('remove');
     this.setState(prevState => {
       return {
         interests: [

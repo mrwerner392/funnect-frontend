@@ -13,6 +13,7 @@ class NavBar extends Component {
 
   render() {
     const { props: {user: {username}}, handleLogout } = this
+    console.log(username);
     return (
       <div>
         <NavLink className='nav' exact to={ username ? '/posts' : '/login' } >MatChat</NavLink>

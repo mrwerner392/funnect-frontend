@@ -61,6 +61,11 @@ class FormContainer extends Component {
   }
 
   handleCreateUserRequest = (user) => {
+    const { setUser,
+            getAvailablePosts,
+            getTopics,
+            getNeighborhoods } = this.props
+            
     const config = {
       method: 'POST',
       headers: {
@@ -81,7 +86,9 @@ class FormContainer extends Component {
         localStorage.token = responseData.token
         localStorage.id = responseData.user.id
         setUser(responseData.user)
-
+        getAvailablePosts()
+        getTopics()
+        getNeighborhoods()
       }
     })
   }

@@ -42,6 +42,27 @@ class AccountForm extends Component {
     this.props.handleCreateUserRequest({ username, password, first_name, age, gender, bio, college, occupation, interests })
   }
 
+  handleRemoveInterest = index => {
+    this.setState(prevState => {
+      return {
+        interests: [
+          ...prevState.interests.slice(0, index),
+          ...prevState.interests.slice(index + 1)
+        ]
+      }
+    })
+  }
+
+  renderInterests = () => {
+    const { state: {interests}, handleRemoveInterest } = this
+    return interests.map((interest, index) => (
+      <li key={ interest }>
+        { interest }
+        <button type='button' onClick={ () => handleRemoveInterest(index) }>x</button>
+      </li>
+    ))
+  }
+
   renderCreateProfileFormInputs = () => {
     const { state: {first_name,
                     age,
@@ -50,7 +71,8 @@ class AccountForm extends Component {
                     college,
                     occupation,
                     interests},
-            props: {interestOptions} } = this
+            props: {interestOptions},
+            renderInterests } = this
 
     return (
       <Fragment>
@@ -93,7 +115,7 @@ class AccountForm extends Component {
             })
           }
         </select>
-        <p>{ interests.join(', ') }</p>
+        <p>{ renderInterests() }</p>
       </Fragment>
     )
 
