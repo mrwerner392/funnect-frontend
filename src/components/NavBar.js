@@ -4,17 +4,20 @@ import { NavLink } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
 import { clearAvailablePosts } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
+import { clearCreatedPosts } from '../actions/myCreatedPostsActions'
 
 class NavBar extends Component {
 
   handleLogout = () => {
     const { clearUser,
             clearAvailablePosts,
-            clearPostsInterestedIn } = this.props
+            clearPostsInterestedIn,
+            clearCreatedPosts } = this.props
     localStorage.clear();
     clearUser();
     clearAvailablePosts();
     clearPostsInterestedIn();
+    clearCreatedPosts();
   }
 
   render() {
@@ -50,6 +53,7 @@ const mapDispatchToProps = dispatch => {
     clearUser: () => dispatch(clearUser()),
     clearAvailablePosts: () => dispatch(clearAvailablePosts()),
     clearPostsInterestedIn: () => dispatch(clearPostsInterestedIn()),
+    clearCreatedPosts: () => dispatch(clearCreatedPosts())
   }
 }
 
