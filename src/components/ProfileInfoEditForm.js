@@ -57,6 +57,7 @@ class ProfileInfoEditForm extends Component {
 
     fetch(URL + `/users/${user.id}`, config)
     .then(res => res.json())
+    // .then(console.log)
     .then(user => setUser(user))
   }
 
@@ -82,10 +83,24 @@ class ProfileInfoEditForm extends Component {
   }
 
   componentDidMount() {
-    const { user } = this.props
-    const interests = user.interests.map(interest => interest.name)
+    const { username,
+            first_name,
+            age,
+            gender,
+            bio,
+            college,
+            occupation,
+            interests } = this.props.user
+    const interestNames = interests.map(interest => interest.name)
     this.setState({
-      interests
+      username,
+      first_name,
+      age,
+      gender,
+      bio,
+      college,
+      occupation,
+      interests: interestNames
     })
   }
 
