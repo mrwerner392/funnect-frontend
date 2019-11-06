@@ -14,6 +14,10 @@ const addEvent = event => {
   }
 }
 
+export const clearEventsHosting = () => dispatch => {
+  dispatch({ type: 'CLEAR_EVENTS_HOSTING' })
+}
+
 export const addEventHostingMessage = (message, eventId) => dispatch => {
   dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message, eventId })
 }
