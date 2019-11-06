@@ -10,6 +10,7 @@ import { getEventsHosting } from '../actions/eventsImHostingActions'
 import { getEventsAttending } from '../actions/eventsImAttendingActions'
 import { getTopics } from '../actions/topicsActions';
 import { getNeighborhoods } from '../actions/neighborhoodsActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 const URL = 'http://localhost:3000'
 
@@ -28,6 +29,7 @@ class FormContainer extends Component {
             getEventsAttending,
             getTopics,
             getNeighborhoods,
+            setContentType,
             history } = this.props
 
     const config = {
@@ -57,6 +59,7 @@ class FormContainer extends Component {
         getEventsAttending()
         getTopics()
         getNeighborhoods()
+        setContentType('posts')
         history.push('/posts')
       }
     })
@@ -92,6 +95,7 @@ class FormContainer extends Component {
         getAvailablePosts()
         getTopics()
         getNeighborhoods()
+        setContentType('posts')
         history.push('/posts')
       }
     })
@@ -124,7 +128,8 @@ const mapDispatchToProps = {
   getEventsHosting,
   getEventsAttending,
   getTopics,
-  getNeighborhoods
+  getNeighborhoods,
+  setContentType
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(FormContainer))

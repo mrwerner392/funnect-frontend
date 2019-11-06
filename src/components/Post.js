@@ -10,14 +10,12 @@ class Post extends Component {
 
   handleInterestedClick = post => {
     const { user, addPostInterestedIn, removeAvailablePost } = this.props
-    console.log(post.id, user.id);
     addPostInterestedIn(post.id, user.id)
     removeAvailablePost(post.id)
   }
 
   handleNotInterestedClick = post => {
     const { user, addAvailablePost, removePostInterestedIn } = this.props
-    console.log(post.id, user.id);
     addAvailablePost(post, user.id)
     removePostInterestedIn(post.id, user.id)
   }
@@ -50,7 +48,6 @@ class Post extends Component {
 
   render() {
     const { props: {post, user}, renderUserInterests, renderPostFooter } = this
-    console.log(post.user);
     return (
       <div className='post'>
         <p>{ post.topic.name }</p>

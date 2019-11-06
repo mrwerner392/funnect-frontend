@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions'
+import { setContentType } from '../actions/contentTypeActions'
 
 class FilterBar extends Component {
 
+  handleUserFilterClick = contentType => {
+    const { user, history, setContentType } = this.props
+    setContentType(contentType)
+    contentType === 'user-posts'
+      ? history.push(`${user.username}/posts`)
+      : history.push(`${user.username}/events`)
+  }
+
   renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
-    const { username } = this.props.user
+    const { props: {user: {username}}, handleUserFilterClick } = this
     return (
       <div>
-        <NavLink exact to={ `/${ username }/posts` } className='user-navlink'>Posts</NavLink>
-        <NavLink exact to={ `/${ username }/events` } className='user-navlink'>Events</NavLink>
+        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts</button>
+        <button onClick={ () => handleUserFilterClick('user-events') }>Events</button>
+        // <NavLink exact to={ `/${ username }/posts` } className='user-navlink'>Posts</NavLink>
+        // <NavLink exact to={ `/${ username }/events` } className='user-navlink'>Events</NavLink>
       </div>
     )
   }
@@ -113,6 +124,7 @@ class FilterBar extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.user,
     topics: state.topics,
     neighborhoods: state.neighborhoods
   }
@@ -120,7 +132,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   setAvailablePostsTopicFilter,
-  setAvailablePostsNeighborhoodFilter
+  setAvailablePostsNeighborhoodFilter,
+  setContentType
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterBar)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FilterBar))

@@ -27,7 +27,7 @@ const reducer = combineReducers({
   eventsAttending: eventsImAttendingReducer,
   topics: topicsReducer,
   neighborhoods: neighborhoodsReducer,
-  interests: interestsReducer
+  interests: interestsReducer,
   contentType: contentTypeReducer
 })
 
