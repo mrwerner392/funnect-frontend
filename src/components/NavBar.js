@@ -7,6 +7,7 @@ import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
 import { clearCreatedPosts } from '../actions/myCreatedPostsActions'
 import { clearEventsHosting } from '../actions/eventsImHostingActions'
 import { clearEventsAttending } from '../actions/eventsImAttendingActions'
+import { clearTopics } from '../actions/topicsActions'
 
 class NavBar extends Component {
 
@@ -16,7 +17,9 @@ class NavBar extends Component {
             clearPostsInterestedIn,
             clearCreatedPosts,
             clearEventsHosting,
-            clearEventsAttending } = this.props
+            clearEventsAttending,
+            clearTopics } = this.props
+
     localStorage.clear();
     clearUser();
     clearAvailablePosts();
@@ -24,6 +27,7 @@ class NavBar extends Component {
     clearCreatedPosts();
     clearEventsHosting();
     clearEventsAttending();
+    clearTopics();
   }
 
   render() {
@@ -61,7 +65,8 @@ const mapDispatchToProps = dispatch => {
     clearPostsInterestedIn: () => dispatch(clearPostsInterestedIn()),
     clearCreatedPosts: () => dispatch(clearCreatedPosts()),
     clearEventsHosting: () => dispatch(clearEventsHosting()),
-    clearEventsAttending: () => dispatch(clearEventsAttending())
+    clearEventsAttending: () => dispatch(clearEventsAttending()),
+    clearTopics: () => dispatch(clearTopics())
   }
 }
 
