@@ -4,6 +4,14 @@ export default (state = {}, action) => {
       return {
         ...action.event
       }
+    case 'ADD_CURRENT_EVENT_MESSAGE':
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          action.message
+        ]
+      }
     default:
       return state
   }

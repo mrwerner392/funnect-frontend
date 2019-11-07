@@ -19,6 +19,7 @@ export const clearEventsHosting = () => dispatch => {
 }
 
 export const addEventHostingMessage = (message, eventId) => dispatch => {
+  console.log('action');
   dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message, eventId })
 }
 

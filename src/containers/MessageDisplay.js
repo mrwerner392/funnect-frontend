@@ -4,6 +4,7 @@ import { ActionCableConsumer } from 'react-actioncable-provider';
 import Message from '../components/Message';
 import { addEventHostingMessage } from '../actions/eventsImHostingActions'
 import { addEventAttendingMessage } from '../actions/eventsImAttendingActions'
+import { addCurrentEventMessage } from '../actions/currentEventActions'
 
 class MessageDisplay extends Component {
 
@@ -12,13 +13,16 @@ class MessageDisplay extends Component {
     const { user,
             currentEvent,
             addEventHostingMessage,
-            addEventAttendingMessage } = this.props
+            addEventAttendingMessage,
+            addCurrentEventMessage } = this.props
 
     if (currentEvent.user.id === user.id) {
       addEventHostingMessage(message, currentEvent.id)
     } else {
       addEventAttendingMessage(message, currentEvent.id)
     }
+
+    addCurrentEventMessage(message)
   }
 
   renderMessages = () => {
@@ -42,6 +46,7 @@ class MessageDisplay extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.currentEvent);
   return {
     user: state.user,
     currentEvent: state.currentEvent
@@ -50,7 +55,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   addEventHostingMessage,
-  addEventAttendingMessage
+  addEventAttendingMessage,
+  addCurrentEventMessage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageDisplay)
