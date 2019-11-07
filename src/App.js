@@ -21,10 +21,10 @@ import './App.css';
 
 class App extends Component {
 
-  renderContent = (renderProps, contentType) => {
+  renderContent = renderProps => {
     const slug = renderProps.match.params.slug
     if (slug === this.props.user.username) {
-      return <ContentContainer contentType={ contentType }/>
+      return <ContentContainer />
     } else {
       return <NotFound />
     }
@@ -57,6 +57,7 @@ class App extends Component {
   }
 
   render() {
+    const { renderContent } = this
     return (
       <div className='App'>
         <NavBar />
@@ -71,7 +72,7 @@ class App extends Component {
                   />
           <Route exact
                   path='/posts'
-                  render={ () => <ContentContainer contentType='posts' /> }
+                  render={ () => <ContentContainer /> }
                   />
           <Route exact
                   path='/create-post'
@@ -79,19 +80,19 @@ class App extends Component {
                   />
           <Route exact
                   path='/:slug'
-                  render={ renderProps => this.renderContent(renderProps, 'user') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/edit'
-                  render={ renderProps => this.renderContent(renderProps, 'user-edit') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/posts'
-                  render={ renderProps => this.renderContent(renderProps, 'user-posts') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/events'
-                  render={ renderProps => this.renderContent(renderProps, 'user-events') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/posts/:postSlug'

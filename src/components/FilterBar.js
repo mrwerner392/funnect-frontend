@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions'
@@ -21,8 +21,6 @@ class FilterBar extends Component {
       <div>
         <button onClick={ () => handleUserFilterClick('user-posts') }>Posts</button>
         <button onClick={ () => handleUserFilterClick('user-events') }>Events</button>
-        // <NavLink exact to={ `/${ username }/posts` } className='user-navlink'>Posts</NavLink>
-        // <NavLink exact to={ `/${ username }/events` } className='user-navlink'>Events</NavLink>
       </div>
     )
   }
@@ -32,12 +30,12 @@ class FilterBar extends Component {
             renderAvailablePostsNeighborhoodFilter } = this
     return (
       <div>
-        <div>
+        <Fragment>
           Topic Filter: { renderAvailablePostsTopicFilter() }
-        </div>
-        <div>
+        </Fragment>
+        <Fragment>
           Topic Filter: { renderAvailablePostsNeighborhoodFilter() }
-        </div>
+        </Fragment>
       </div>
     )
   }
@@ -126,7 +124,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     topics: state.topics,
-    neighborhoods: state.neighborhoods
+    neighborhoods: state.neighborhoods,
+    contentType: state.contentType
   }
 }
 

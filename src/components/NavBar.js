@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
 import { clearAvailablePosts } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
@@ -9,8 +9,41 @@ import { clearEventsHosting } from '../actions/eventsImHostingActions'
 import { clearEventsAttending } from '../actions/eventsImAttendingActions'
 import { clearTopics } from '../actions/topicsActions'
 import { clearNeighborhoods } from '../actions/neighborhoodsActions'
+import { setContentType } from '../actions/contentTypeActions'
 
 class NavBar extends Component {
+
+  handleMatChatClick = () => {
+    const { user: {username}, setContentType, history } = this.props
+    if (username) {
+      setContentType('posts')
+      history.push('/posts')
+    } else {
+      history.push('/login')
+    }
+  }
+
+  handleNavBarButtonClick = type => {
+    const { user: {username}, setContentType, history } = this.props
+    if (type !== 'create') {
+      setContentType(type)
+    }
+    switch (type) {
+      case 'user':
+        console.log('here', username);
+        history.push(`/${username}`)
+        break
+      case 'posts':
+        history.push('/posts')
+        break
+      case 'create':
+        history.push('/create-post')
+        break
+      default:
+        break
+    }
+
+  }
 
   handleLogout = () => {
     const { clearUser,
@@ -20,7 +53,8 @@ class NavBar extends Component {
             clearEventsHosting,
             clearEventsAttending,
             clearTopics,
-            clearNeighborhoods } = this.props
+            clearNeighborhoods,
+            history } = this.props
 
     localStorage.clear();
     clearUser();
@@ -31,20 +65,25 @@ class NavBar extends Component {
     clearEventsAttending();
     clearTopics();
     clearNeighborhoods();
+    history.push('/login');
   }
 
   render() {
-    const { props: {user: {username}}, handleLogout } = this
+    const { props: {user: {username}},
+              handleLogout,
+              handleMatChatClick,
+              handleNavBarButtonClick } = this
+
     return (
       <div>
-        <NavLink className='nav' exact to={ username ? '/posts' : '/login' } >MatChat</NavLink>
+        <button onClick={ handleMatChatClick } >MatChat</button>
         { username
           ?
           <Fragment>
-            <NavLink className='nav' exact to={ `/${username}` } >{ username }</NavLink>
-            <NavLink className='nav' exact to='/posts' >Home</NavLink>
-            <NavLink className='nav' exact to='/create-post' >New Post</NavLink>
-            <NavLink className='nav' exact to='/login' onClick={ handleLogout } >Log Out</NavLink>
+            <button onClick={ () => handleNavBarButtonClick('user') } >{ username }</button>
+            <button onClick={ () => handleNavBarButtonClick('posts') } >Home</button>
+            <button onClick={ () => handleNavBarButtonClick('create') } >New Post</button>
+            <button to='/login' onClick={ handleLogout } >Log Out</button>
           </Fragment>
           :
           null
@@ -70,8 +109,9 @@ const mapDispatchToProps = dispatch => {
     clearEventsHosting: () => dispatch(clearEventsHosting()),
     clearEventsAttending: () => dispatch(clearEventsAttending()),
     clearTopics: () => dispatch(clearTopics()),
-    clearNeighborhoods: () => dispatch(clearNeighborhoods())
+    clearNeighborhoods: () => dispatch(clearNeighborhoods()),
+    setContentType: type => dispatch(setContentType(type))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar))
