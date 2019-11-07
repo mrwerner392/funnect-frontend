@@ -6,9 +6,9 @@ import { setContentType } from '../actions/contentTypeActions';
 class ProfileInfo extends Component {
 
   handleEditProfileClick = () => {
-    const { setContentType, history } = this.props
+    const { user: {username}, setContentType, history } = this.props
     setContentType('user-edit')
-    history.push('/')
+    history.push(`/${username}/edit`)
   }
 
   renderInterests = () => {
