@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { addAvailablePost } from '../actions/availablePostsActions';
 import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
 import { removeAvailablePost } from '../actions/availablePostsActions';
@@ -20,6 +20,11 @@ class Post extends Component {
     removePostInterestedIn(post.id, user.id)
   }
 
+  handleManagePostClick = () => {
+    const { post, user: {username}, history } = this.props
+    history.push(`/${username}/posts/${post.id}`)
+  }
+
   renderUserInterests = interests => {
     const interestNames = interests.map(interest => interest.name)
     return interestNames.join(', ')
@@ -28,12 +33,13 @@ class Post extends Component {
   renderPostFooter = () => {
     const { props: {post, user},
             handleInterestedClick,
-            handleNotInterestedClick } = this
+            handleNotInterestedClick,
+            handleManagePostClick } = this
     const interestedIds = post.interested_users.map(user => user.id)
 
     if (post.user.id === user.id) {
       return (
-        <p>{ interestedIds.length } users are interested <span><NavLink exact to={ `/${user.username}/posts/${post.id}` }>Manage Post</NavLink></span></p>
+        <p>{ interestedIds.length } users are interested <span><button onClick={ handleManagePostClick }>Manage Post</button></span></p>
       )
     } else if (interestedIds.includes(user.id)) {
       return (
@@ -83,4 +89,4 @@ const mapDispatchToProps = {
   removePostInterestedIn
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post))

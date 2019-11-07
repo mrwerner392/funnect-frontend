@@ -56,7 +56,7 @@ class PostCard extends Component {
           <p>{ post.user.username }</p>
           <p>{ post.status }</p>
           { renderInterestedUsers(post) }
-          <button disabled={ attendees.length ? null : 'true' } onClick={ () => handleCreateEvent(post.id) }>Create Event</button>
+          <button disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(post.id) }>Create Event</button>
         </Fragment>
     )
   }
