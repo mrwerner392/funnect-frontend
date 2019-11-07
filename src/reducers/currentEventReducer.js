@@ -5,6 +5,6 @@ export default (state = {}, action) => {
         ...action.event
       }
     default:
-      state
+      return state
   }
 }
