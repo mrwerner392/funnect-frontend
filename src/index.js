@@ -15,7 +15,8 @@ import topicsReducer from './reducers/topicsReducer';
 import neighborhoodsReducer from './reducers/neighborhoodsReducer';
 import interestsReducer from './reducers/interestsReducer';
 import contentTypeReducer from './reducers/contentTypeReducer';
-import currentEventReducer from './reducers/currentEventReducer'
+import currentEventReducer from './reducers/currentEventReducer';
+import currentPostReducer from './reducers/currentPostReducer';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -30,7 +31,8 @@ const reducer = combineReducers({
   neighborhoods: neighborhoodsReducer,
   interests: interestsReducer,
   contentType: contentTypeReducer,
-  currentEvent: currentEventReducer
+  currentEvent: currentEventReducer,
+  currentPost: currentPostReducer,
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

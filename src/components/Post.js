@@ -5,6 +5,7 @@ import { addAvailablePost } from '../actions/availablePostsActions';
 import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
 import { removeAvailablePost } from '../actions/availablePostsActions';
 import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
+import { setCurrentPost } from '../actions/currentPostActions'
 
 class Post extends Component {
 
@@ -21,7 +22,8 @@ class Post extends Component {
   }
 
   handleManagePostClick = () => {
-    const { post, user: {username}, history } = this.props
+    const { post, user: {username}, setCurrentPost, history } = this.props
+    setCurrentPost(post)
     history.push(`/${username}/posts/${post.id}`)
   }
 
@@ -86,7 +88,8 @@ const mapDispatchToProps = {
   addAvailablePost,
   addPostInterestedIn,
   removeAvailablePost,
-  removePostInterestedIn
+  removePostInterestedIn,
+  setCurrentPost
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post))
