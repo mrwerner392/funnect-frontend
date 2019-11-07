@@ -9,7 +9,6 @@ import { addCurrentEventMessage } from '../actions/currentEventActions'
 class MessageDisplay extends Component {
 
   handleNewMessage = ({ message }) => {
-    console.log('received');
     const { user,
             currentEvent,
             addEventHostingMessage,
@@ -46,7 +45,6 @@ class MessageDisplay extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.currentEvent);
   return {
     user: state.user,
     currentEvent: state.currentEvent

@@ -19,7 +19,6 @@ export default (state = {events: [], filter: 'active'}, action) => {
         filter: 'active'
       }
     case 'ADD_EVENT_HOSTING_MESSAGE':
-    console.log('reducer');
       return {
         ...state,
         events: state.events.map(event => {
