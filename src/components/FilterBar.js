@@ -66,7 +66,7 @@ class FilterBar extends Component {
       : setAvailablePostsNeighborhoodFilter(value)
   }
 
-  renderMyPostsFilterBar = () => {
+  renderMyPostsOrEventsFilterBar = () => {
     const { handleFilter } = this.props
     return (
       <div>
@@ -76,21 +76,21 @@ class FilterBar extends Component {
     )
   }
 
-  renderMyEventsFilterBar = () => {
-    const { handleFilter } = this.props
-    return (
-      <div>
-        <button className='filter-button' value='active' onClick={ handleFilter }>Active</button>
-        <button className='filter-button' value='past' onClick={ handleFilter }>Past</button>
-      </div>
-    )
-  }
+  // renderMyEventsFilterBar = () => {
+  //   const { handleFilter } = this.props
+  //   return (
+  //     <div>
+  //       <button className='filter-button' value='active' onClick={ handleFilter }>Active</button>
+  //       <button className='filter-button' value='past' onClick={ handleFilter }>Past</button>
+  //     </div>
+  //   )
+  // }
 
   renderFilterBar = () => {
     const { props: {contentType},
             renderUserFilterBar,
             renderAvailablePostsFilterBar,
-            renderMyPostsFilterBar,
+            renderMyPostsOrEventsFilterBar,
             renderMyEventsFilterBar } = this
 
     switch (contentType) {
@@ -99,9 +99,9 @@ class FilterBar extends Component {
       case 'posts':
         return renderAvailablePostsFilterBar()
       case 'user-posts':
-        return renderMyPostsFilterBar()
       case 'user-events':
-        return renderMyEventsFilterBar()
+        return renderMyPostsOrEventsFilterBar()
+        // return renderMyEventsFilterBar()
       default:
         return null
     }
