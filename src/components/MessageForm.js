@@ -8,7 +8,8 @@ const URL = 'http://localhost:3000'
 class MessageForm extends Component {
 
   state = {
-    content: ''
+    content: '',
+    errors: null
   }
 
   handleChange = evt => {
@@ -18,8 +19,9 @@ class MessageForm extends Component {
   }
 
   handleSubmit = evt => {
-    evt.preventDefault()
-    const { state: {content}, props: {eventId} } = this
+    evt.preventDefault();
+    const { state: {content}, props: {currentEvent} } = this
+    console.log(content, currentEvent);
     const config = {
       method: 'POST',
       headers: {
@@ -27,12 +29,18 @@ class MessageForm extends Component {
         'Accept': 'application/json',
         'Authorization': localStorage.token
       },
-      body: JSON.stringify({user_id: localStorage.id, event_id: eventId, content})
+      body: JSON.stringify({user_id: localStorage.id, event_id: currentEvent.id, content})
     }
 
     fetch(URL + '/messages', config)
-    // .then(res => res.json())
-    // .then(console.log)
+    .then(res => res.json())
+    .then(response => {
+      if (response.errors) {
+        this.setState({
+          errors: response.errors
+        })
+      }
+    })
   }
 
   render() {
@@ -48,4 +56,10 @@ class MessageForm extends Component {
 
 }
 
-export default MessageForm
+const mapStateToProps = state => {
+  return {
+    currentEvent: state.currentEvent
+  }
+}
+
+export default connect(mapStateToProps)(MessageForm)
