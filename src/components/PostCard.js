@@ -44,29 +44,29 @@ class PostCard extends Component {
 
   renderPost = () => {
     const { state: {attendees},
-            props: {renderProps, createdPosts},
+            props: {renderProps, currentPost},
             handleCreateEvent, renderInterestedUsers } = this
-    const postId = renderProps.match.params.postSlug
-    const post = createdPosts.find(post => post.id === parseInt(postId, 10))
+    // const postId = renderProps.match.params.postSlug
+    // const post = createdPosts.find(post => post.id === parseInt(postId, 10))
 
     return (
         <Fragment>
-          <p>{ post.topic.name }</p>
-          <p>{ post.neighborhood.name }</p>
-          <p>{ post.user.username }</p>
-          <p>{ post.status }</p>
-          { renderInterestedUsers(post) }
-          <button disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(post.id) }>Create Event</button>
+          <p>{ currentPost.topic.name }</p>
+          <p>{ currentPost.neighborhood.name }</p>
+          <p>{ currentPost.user.username }</p>
+          <p>{ currentPost.status }</p>
+          { renderInterestedUsers(currentPost) }
+          <button disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
         </Fragment>
     )
   }
 
   render() {
-    const { props: {createdPosts}, renderPost } = this
+    const { renderPost } = this
 
     return (
       <div>
-        { createdPosts.length ? renderPost() : null }
+        { renderPost() }
       </div>
     )
   }
@@ -75,7 +75,7 @@ class PostCard extends Component {
 
 const mapStateToProps = state => {
   return {
-    createdPosts: state.createdPosts.posts
+    currentPost: state.currentPost
   }
 }
 
