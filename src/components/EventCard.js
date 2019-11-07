@@ -5,34 +5,36 @@ import ChatContainer from '../containers/ChatContainer'
 class EventCard extends Component {
 
   renderEvent = () => {
-    const { renderProps, eventsHosting, eventsAttending } = this.props
-    const myEvents = [...eventsHosting, ...eventsAttending]
-    const eventId = renderProps.match.params.eventSlug
-    const event = myEvents.find(event => event.id === parseInt(eventId, 10))
-    if (event) {
+    const { renderProps, /*eventsHosting, eventsAttending,*/ currentEvent } = this.props
+    // const myEvents = [...eventsHosting, ...eventsAttending]
+    // const eventId = renderProps.match.params.eventSlug
+    // const event = myEvents.find(event => event.id === parseInt(eventId, 10))
+    // console.log(event.id, currentEvent.id);
+    // console.log(event.id === currentEvent.id);
+    // if (event) {
       return (
         <Fragment>
           <p>Description</p>
-          <p>{ event.description }</p>
+          <p>{ currentEvent.description }</p>
           <p>Meet at</p>
-          <p>{ event.location }</p>
+          <p>{ currentEvent.location }</p>
           <p>Time</p>
-          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <ChatContainer eventId={ event.id }/>
+          <p>{ `${currentEvent.time_hour}:${currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+          <ChatContainer />
         </Fragment>
       )
-    }
+    // }
   }
 
   render() {
-    const { props: {eventsHosting, eventsAttending}, renderEvent } = this
+    const { props: {eventsHosting, eventsAttending, currentEvent}, renderEvent } = this
 
     return (
       <div>
         {
-          eventsHosting.length || eventsAttending.length
-          ? renderEvent()
-          : null
+          /*eventsHosting.length || eventsAttending.length
+          ? */renderEvent()
+          /*: null*/
         }
       </div>
     )
@@ -43,7 +45,8 @@ class EventCard extends Component {
 const mapStateToProps = state => {
   return {
     eventsHosting: state.eventsHosting.events,
-    eventsAttending: state.eventsAttending.events
+    eventsAttending: state.eventsAttending.events,
+    currentEvent: state.currentEvent
   }
 }
 
