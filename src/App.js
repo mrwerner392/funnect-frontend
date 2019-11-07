@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import AccountFormContainer from './containers/AccountFormContainer';
 import PostFormContainer from './containers/PostFormContainer';
@@ -17,6 +17,8 @@ import { getEventsAttending } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
+import { getCurrentEvent} from './actions/currentEventActions';
+// import { getCurrentPost} from './actions/currentPostActions';
 import './App.css';
 
 class App extends Component {
@@ -39,12 +41,13 @@ class App extends Component {
       getEventsAttending,
       getTopics,
       getNeighborhoods,
-      getInterests } = this.props
+      getInterests,
+      getCurrentEvent,
+      history } = this.props
 
     getInterests()
 
     if (localStorage.token) {
-
       getUser()
       getAvailablePosts()
       getCreatedPosts()
@@ -53,6 +56,15 @@ class App extends Component {
       getEventsAttending()
       getTopics()
       getNeighborhoods()
+
+      const urlPaths = history.location.pathname.split('/')
+      console.log(urlPaths);
+      if (urlPaths.length === 4 && urlPaths[2] === 'posts') {
+        // getCurrentPost(urlPaths[3])
+      } else if (urlPaths.length === 4 && urlPaths[2] === 'events') {
+        console.log('here');
+        getCurrentEvent(urlPaths[3])
+      }
     }
   }
 
@@ -132,7 +144,8 @@ const mapDispatchToProps = {
   getEventsAttending,
   getTopics,
   getNeighborhoods,
-  getInterests
+  getInterests,
+  getCurrentEvent
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
