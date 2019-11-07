@@ -35,7 +35,7 @@ class ContentContainer extends Component {
     const { props: {contentType, user}, handleFilter } = this
     return (
       <div id='content-container'>
-        <FilterBar user={ user } handleFilter={ handleFilter }/>
+        <FilterBar handleFilter={ handleFilter }/>
         <ContentDisplay />
       </div>
     )

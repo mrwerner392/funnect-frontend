@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions'
-import { setContentType } from '../actions/contentTypeActions'
+import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 class FilterBar extends Component {
 
@@ -61,7 +61,6 @@ class FilterBar extends Component {
   handleAvailablePostsFilterChange = evt => {
     const { name, value } = evt.target
     const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
-    console.log(name, value);
     name === 'topics'
       ? setAvailablePostsTopicFilter(value)
       : setAvailablePostsNeighborhoodFilter(value)

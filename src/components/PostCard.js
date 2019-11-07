@@ -46,8 +46,6 @@ class PostCard extends Component {
     const { state: {attendees},
             props: {renderProps, currentPost},
             handleCreateEvent, renderInterestedUsers } = this
-    // const postId = renderProps.match.params.postSlug
-    // const post = createdPosts.find(post => post.id === parseInt(postId, 10))
 
     return (
         <Fragment>
