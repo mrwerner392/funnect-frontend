@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class Event extends Component {
 
+  handleViewEventClick = () => {
+    const { event: {id}, user: {username}, history } = this.props
+
+    history.push(`/${username}/events/${id}`)
+  }
+
   render() {
-    const { event, user } = this.props
+    const { props: {event}, handleViewEventClick } = this
     return (
       <div className='event'>
         <p>{ event.description }</p>
         <p>{ event.location }</p>
         <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-        <NavLink exact to={ `/${user.username}/events/${event.id}` } >View Event</NavLink>
+        <button onClick={ handleViewEventClick } >View Event</button>
       </div>
     )
   }
@@ -24,4 +30,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Event)
+export default withRouter(connect(mapStateToProps)(Event))

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -14,7 +15,7 @@ import topicsReducer from './reducers/topicsReducer';
 import neighborhoodsReducer from './reducers/neighborhoodsReducer';
 import interestsReducer from './reducers/interestsReducer';
 import contentTypeReducer from './reducers/contentTypeReducer';
-import { BrowserRouter as Router } from 'react-router-dom';
+import currentEventReducer from './reducers/currentEventReducer'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -28,7 +29,8 @@ const reducer = combineReducers({
   topics: topicsReducer,
   neighborhoods: neighborhoodsReducer,
   interests: interestsReducer,
-  contentType: contentTypeReducer
+  contentType: contentTypeReducer,
+  currentEvent: currentEventReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))
