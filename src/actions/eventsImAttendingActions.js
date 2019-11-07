@@ -7,6 +7,10 @@ const setEvents = events => {
   }
 }
 
+export const clearEventsAttending = () => dispatch => {
+  dispatch({ type: 'CLEAR_EVENTS_ATTENDING' })
+}
+
 export const addEventAttendingMessage = (message, eventId) => dispatch => {
   dispatch({ type: 'ADD_EVENT_ATTENDING_MESSAGE', message, eventId })
 }

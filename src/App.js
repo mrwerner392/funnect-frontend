@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import AccountFormContainer from './containers/AccountFormContainer';
 import PostFormContainer from './containers/PostFormContainer';
@@ -17,14 +17,16 @@ import { getEventsAttending } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
+import { getCurrentEvent} from './actions/currentEventActions';
+import { getCurrentPost} from './actions/currentPostActions';
 import './App.css';
 
 class App extends Component {
 
-  renderContent = (renderProps, contentType) => {
+  renderContent = renderProps => {
     const slug = renderProps.match.params.slug
     if (slug === this.props.user.username) {
-      return <ContentContainer contentType={ contentType }/>
+      return <ContentContainer />
     } else {
       return <NotFound />
     }
@@ -39,12 +41,14 @@ class App extends Component {
       getEventsAttending,
       getTopics,
       getNeighborhoods,
-      getInterests } = this.props
+      getInterests,
+      getCurrentEvent,
+      getCurrentPost,
+      history } = this.props
 
     getInterests()
 
     if (localStorage.token) {
-
       getUser()
       getAvailablePosts()
       getCreatedPosts()
@@ -53,10 +57,18 @@ class App extends Component {
       getEventsAttending()
       getTopics()
       getNeighborhoods()
+
+      const urlPaths = history.location.pathname.split('/')
+      if (urlPaths.length === 4 && urlPaths[2] === 'posts') {
+        getCurrentPost(urlPaths[3])
+      } else if (urlPaths.length === 4 && urlPaths[2] === 'events') {
+        getCurrentEvent(urlPaths[3])
+      }
     }
   }
 
   render() {
+    const { renderContent } = this
     return (
       <div className='App'>
         <NavBar />
@@ -71,7 +83,7 @@ class App extends Component {
                   />
           <Route exact
                   path='/posts'
-                  render={ () => <ContentContainer contentType='posts' /> }
+                  render={ () => <ContentContainer /> }
                   />
           <Route exact
                   path='/create-post'
@@ -79,19 +91,19 @@ class App extends Component {
                   />
           <Route exact
                   path='/:slug'
-                  render={ renderProps => this.renderContent(renderProps, 'user') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/edit'
-                  render={ renderProps => this.renderContent(renderProps, 'user-edit') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/posts'
-                  render={ renderProps => this.renderContent(renderProps, 'user-posts') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/events'
-                  render={ renderProps => this.renderContent(renderProps, 'user-events') }
+                  render={ renderContent }
                   />
           <Route exact
                   path='/:slug/posts/:postSlug'
@@ -117,7 +129,8 @@ const mapStateToProps = state => {
     postsInterestedIn: state.postsInterestedIn,
     eventsHosting: state.eventsHosting,
     eventsAttending: state.eventsAttending,
-    topics: state.topics
+    topics: state.topics,
+    neighborhoods: state.neighborhoods
   }
 }
 
@@ -130,7 +143,9 @@ const mapDispatchToProps = {
   getEventsAttending,
   getTopics,
   getNeighborhoods,
-  getInterests
+  getInterests,
+  getCurrentEvent,
+  getCurrentPost
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

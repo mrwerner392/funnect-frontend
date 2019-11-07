@@ -1,10 +1,9 @@
 export default (state = [], action) => {
   switch (action.type) {
     case 'SET_TOPICS':
-      return [
-        ...state,
-        ...action.topics
-      ]
+      return action.topics
+    case 'CLEAR_TOPICS':
+      return []
     default:
       return state
   }

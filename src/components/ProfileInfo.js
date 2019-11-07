@@ -1,7 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setContentType } from '../actions/contentTypeActions';
 
 class ProfileInfo extends Component {
+
+  handleEditProfileClick = () => {
+    const { user: {username}, setContentType, history } = this.props
+    setContentType('user-edit')
+    history.push(`/${username}/edit`)
+  }
 
   renderInterests = () => {
     const { interests } = this.props.user
@@ -21,7 +29,8 @@ class ProfileInfo extends Component {
                 occupation
               }
             },
-            renderInterests } = this
+            renderInterests,
+            handleEditProfileClick } = this
 
     return (
       <Fragment>
@@ -33,11 +42,21 @@ class ProfileInfo extends Component {
         <li id='profile-college'>{ college }</li>
         <li id='profile-occupation'>{ occupation }</li>
         <li id='profile-interests'>{ renderInterests() }</li>
-        <NavLink exact to={ `/${username}/edit` } >Edit Profile</NavLink>
+        <button onClick={ handleEditProfileClick } >Edit Profile</button>
       </Fragment>
     )
   }
 
 }
 
-export default ProfileInfo
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = {
+  setContentType
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfileInfo))

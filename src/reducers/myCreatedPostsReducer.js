@@ -13,6 +13,12 @@ export default (state = {posts: [], filter: 'active'}, action) => {
           action.post
         ]
       }
+    case 'CLEAR_CREATED_POSTS':
+      return {
+        ...state,
+        posts: [],
+        filter: 'active'
+      }
     case 'SET_CREATED_POSTS_FILTER':
       return {
         ...state,

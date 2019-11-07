@@ -129,7 +129,8 @@ const mapStateToProps = state => {
     eventsHosting: state.eventsHosting.events,
     eventsHostingFilter: state.eventsHosting.filter,
     eventsAttending: state.eventsAttending.events,
-    eventsAttendingFilter: state.eventsAttending.filter
+    eventsAttendingFilter: state.eventsAttending.filter,
+    contentType: state.contentType
   }
 }
 

@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import Message from '../components/Message';
 import { addEventHostingMessage } from '../actions/eventsImHostingActions'
 import { addEventAttendingMessage } from '../actions/eventsImAttendingActions'
+import { addCurrentEventMessage } from '../actions/currentEventActions'
 
 class MessageDisplay extends Component {
 
   handleNewMessage = ({ message }) => {
-    const { eventId,
-            eventsHosting,
-            eventsAttending,
+    const { user,
+            currentEvent,
             addEventHostingMessage,
-            addEventAttendingMessage } = this.props
+            addEventAttendingMessage,
+            addCurrentEventMessage } = this.props
 
-    if (eventsHosting.find(event => event.user.id === parseInt(localStorage.id))) {
-      addEventHostingMessage(message, eventId)
+    if (currentEvent.user.id === user.id) {
+      addEventHostingMessage(message, currentEvent.id)
     } else {
-      addEventAttendingMessage(message, eventId)
+      addEventAttendingMessage(message, currentEvent.id)
     }
+
+    addCurrentEventMessage(message)
   }
 
   renderMessages = () => {
-    const { eventId, eventsHosting, eventsAttending } = this.props
-    const myEvents = [...eventsHosting, ...eventsAttending]
-    const event = myEvents.find(event => event.id === parseInt(eventId, 10))
-    return event.messages.map(message => <p>{ message.content }</p>)
+    const { currentEvent } = this.props
+    return currentEvent.messages.map(message => <p>{ message.content }</p>)
   }
 
   render() {
-    const { props: {eventId}, handleNewMessage, renderMessages } = this
+    const { props: {currentEvent}, handleNewMessage, renderMessages } = this
     return (
       <div>
-        MessageDisplay
-        <ActionCable
-              channel={ {channel: 'EventChatsChannel', event_id: eventId} }
+        <ActionCableConsumer
+              channel={ {channel: 'EventChatsChannel', event_id: currentEvent.id} }
               onReceived={ handleNewMessage } />
         { renderMessages() }
       </div>
@@ -46,14 +46,15 @@ class MessageDisplay extends Component {
 
 const mapStateToProps = state => {
   return {
-    eventsHosting: state.eventsHosting.events,
-    eventsAttending: state.eventsAttending.events
+    user: state.user,
+    currentEvent: state.currentEvent
   }
 }
 
 const mapDispatchToProps = {
   addEventHostingMessage,
-  addEventAttendingMessage
+  addEventAttendingMessage,
+  addCurrentEventMessage
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageDisplay)

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -13,7 +14,9 @@ import eventsImAttendingReducer from './reducers/eventsImAttendingReducer';
 import topicsReducer from './reducers/topicsReducer';
 import neighborhoodsReducer from './reducers/neighborhoodsReducer';
 import interestsReducer from './reducers/interestsReducer';
-import { BrowserRouter as Router } from 'react-router-dom';
+import contentTypeReducer from './reducers/contentTypeReducer';
+import currentEventReducer from './reducers/currentEventReducer';
+import currentPostReducer from './reducers/currentPostReducer';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -26,7 +29,10 @@ const reducer = combineReducers({
   eventsAttending: eventsImAttendingReducer,
   topics: topicsReducer,
   neighborhoods: neighborhoodsReducer,
-  interests: interestsReducer
+  interests: interestsReducer,
+  contentType: contentTypeReducer,
+  currentEvent: currentEventReducer,
+  currentPost: currentPostReducer,
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

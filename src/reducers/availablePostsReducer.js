@@ -6,7 +6,6 @@ export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, ac
         posts: action.posts
       }
     case 'ADD_AVAILABLE_POST':
-      console.log(state, action);
       return {
         ...state,
         posts: [
@@ -17,19 +16,23 @@ export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, ac
         ]
       }
     case 'REMOVE_AVAILABLE_POST':
-      console.log('reducer');
       return {
         ...state,
         posts: state.posts.filter(post => post.id !== action.id)
       }
+    case 'CLEAR_AVAILABLE_POSTS':
+      return {
+        ...state,
+        posts: [],
+        topicFilter: '',
+        neighborhoodFilter: ''
+      }
     case 'SET_AVAILABLE_POSTS_TOPIC_FILTER':
-      console.log('topic');
       return {
         ...state,
         topicFilter: action.filter
       }
     case 'SET_AVAILABLE_POSTS_NEIGHBORHOOD_FILTER':
-      console.log('neighborhood');
       return {
         ...state,
         neighborhoodFilter: action.filter

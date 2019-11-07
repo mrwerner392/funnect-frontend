@@ -5,35 +5,26 @@ import ChatContainer from '../containers/ChatContainer'
 class EventCard extends Component {
 
   renderEvent = () => {
-    const { renderProps, eventsHosting, eventsAttending } = this.props
-    const myEvents = [...eventsHosting, ...eventsAttending]
-    const eventId = renderProps.match.params.eventSlug
-    const event = myEvents.find(event => event.id === parseInt(eventId, 10))
-    if (event) {
-      return (
-        <Fragment>
-          <p>Description</p>
-          <p>{ event.description }</p>
-          <p>Meet at</p>
-          <p>{ event.location }</p>
-          <p>Time</p>
-          <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
-          <ChatContainer eventId={ event.id }/>
-        </Fragment>
-      )
-    }
+    const { renderProps, currentEvent } = this.props
+
+    return (
+      <Fragment>
+        <p>Description</p>
+        <p>{ currentEvent.description }</p>
+        <p>Meet at</p>
+        <p>{ currentEvent.location }</p>
+        <p>Time</p>
+        <p>{ `${currentEvent.time_hour}:${currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+        <ChatContainer />
+      </Fragment>
+    )
   }
 
   render() {
-    const { props: {eventsHosting, eventsAttending}, renderEvent } = this
-
+    const { props: {currentEvent}, renderEvent } = this
     return (
       <div>
-        {
-          eventsHosting.length || eventsAttending.length
-          ? renderEvent()
-          : null
-        }
+        { Object.keys(currentEvent).length ? renderEvent() : null }
       </div>
     )
   }
@@ -42,8 +33,7 @@ class EventCard extends Component {
 
 const mapStateToProps = state => {
   return {
-    eventsHosting: state.eventsHosting.events,
-    eventsAttending: state.eventsAttending.events
+    currentEvent: state.currentEvent
   }
 }
 

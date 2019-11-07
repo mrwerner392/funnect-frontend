@@ -35,8 +35,8 @@ class ContentContainer extends Component {
     const { props: {contentType, user}, handleFilter } = this
     return (
       <div id='content-container'>
-        <FilterBar contentType={ contentType } user={ user } handleFilter={ handleFilter }/>
-        <ContentDisplay contentType={ contentType } />
+        <FilterBar user={ user } handleFilter={ handleFilter }/>
+        <ContentDisplay />
       </div>
     )
   }
@@ -45,7 +45,8 @@ class ContentContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    contentType: state.contentType
   }
 }
 

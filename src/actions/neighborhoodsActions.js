@@ -7,6 +7,10 @@ const setNeighborhoods = neighborhoods => {
   }
 }
 
+export const clearNeighborhoods = () => dispatch => {
+  dispatch({ type: 'CLEAR_NEIGHBORHOODS' })
+}
+
 export const getNeighborhoods = () => dispatch => {
   const config = {
     headers: {

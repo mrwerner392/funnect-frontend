@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AccountForm from '../components/AccountForm';
 import { setUser } from '../actions/userActions';
@@ -10,6 +10,7 @@ import { getEventsHosting } from '../actions/eventsImHostingActions'
 import { getEventsAttending } from '../actions/eventsImAttendingActions'
 import { getTopics } from '../actions/topicsActions';
 import { getNeighborhoods } from '../actions/neighborhoodsActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 const URL = 'http://localhost:3000'
 
@@ -27,7 +28,9 @@ class FormContainer extends Component {
             getEventsHosting,
             getEventsAttending,
             getTopics,
-            getNeighborhoods } = this.props
+            getNeighborhoods,
+            setContentType,
+            history } = this.props
 
     const config = {
       method: 'POST',
@@ -56,11 +59,19 @@ class FormContainer extends Component {
         getEventsAttending()
         getTopics()
         getNeighborhoods()
+        setContentType('posts')
+        history.push('/posts')
       }
     })
   }
 
   handleCreateUserRequest = (user) => {
+    const { setUser,
+            getAvailablePosts,
+            getTopics,
+            getNeighborhoods,
+            history } = this.props
+
     const config = {
       method: 'POST',
       headers: {
@@ -81,7 +92,11 @@ class FormContainer extends Component {
         localStorage.token = responseData.token
         localStorage.id = responseData.user.id
         setUser(responseData.user)
-
+        getAvailablePosts()
+        getTopics()
+        getNeighborhoods()
+        setContentType('posts')
+        history.push('/posts')
       }
     })
   }
@@ -113,7 +128,8 @@ const mapDispatchToProps = {
   getEventsHosting,
   getEventsAttending,
   getTopics,
-  getNeighborhoods
+  getNeighborhoods,
+  setContentType
 }
 
-export default connect(null, mapDispatchToProps)(FormContainer)
+export default withRouter(connect(null, mapDispatchToProps)(FormContainer))

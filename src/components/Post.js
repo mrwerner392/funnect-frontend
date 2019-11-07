@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { addAvailablePost } from '../actions/availablePostsActions';
 import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
 import { removeAvailablePost } from '../actions/availablePostsActions';
 import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
+import { setCurrentPost } from '../actions/currentPostActions'
 
 class Post extends Component {
 
   handleInterestedClick = post => {
     const { user, addPostInterestedIn, removeAvailablePost } = this.props
-    console.log(post.id, user.id);
     addPostInterestedIn(post.id, user.id)
     removeAvailablePost(post.id)
   }
 
   handleNotInterestedClick = post => {
     const { user, addAvailablePost, removePostInterestedIn } = this.props
-    console.log(post.id, user.id);
     addAvailablePost(post, user.id)
     removePostInterestedIn(post.id, user.id)
+  }
+
+  handleManagePostClick = () => {
+    const { post, user: {username}, setCurrentPost, history } = this.props
+    setCurrentPost(post)
+    history.push(`/${username}/posts/${post.id}`)
   }
 
   renderUserInterests = interests => {
@@ -30,12 +35,13 @@ class Post extends Component {
   renderPostFooter = () => {
     const { props: {post, user},
             handleInterestedClick,
-            handleNotInterestedClick } = this
+            handleNotInterestedClick,
+            handleManagePostClick } = this
     const interestedIds = post.interested_users.map(user => user.id)
 
     if (post.user.id === user.id) {
       return (
-        <p>{ interestedIds.length } users are interested <span><NavLink exact to={ `/${user.username}/posts/${post.id}` }>Manage Post</NavLink></span></p>
+        <p>{ interestedIds.length } users are interested <span><button onClick={ handleManagePostClick }>Manage Post</button></span></p>
       )
     } else if (interestedIds.includes(user.id)) {
       return (
@@ -50,7 +56,6 @@ class Post extends Component {
 
   render() {
     const { props: {post, user}, renderUserInterests, renderPostFooter } = this
-    console.log(post.user);
     return (
       <div className='post'>
         <p>{ post.topic.name }</p>
@@ -83,7 +88,8 @@ const mapDispatchToProps = {
   addAvailablePost,
   addPostInterestedIn,
   removeAvailablePost,
-  removePostInterestedIn
+  removePostInterestedIn,
+  setCurrentPost
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post))

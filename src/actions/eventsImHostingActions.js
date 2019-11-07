@@ -14,6 +14,10 @@ const addEvent = event => {
   }
 }
 
+export const clearEventsHosting = () => dispatch => {
+  dispatch({ type: 'CLEAR_EVENTS_HOSTING' })
+}
+
 export const addEventHostingMessage = (message, eventId) => dispatch => {
   dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message, eventId })
 }
@@ -45,22 +49,6 @@ export const newEventHosting = eventInfo => dispatch => {
   .then(res => res.json())
   .then(event => dispatch(addEvent(event)))
 }
-
-// export const newMessageOnEventImHosting = message => dispatch => {
-//   const config = {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Accept': 'application/json',
-//       'Authorization': localStorage.id
-//     },
-//     body: JSON.stringify(message)
-//   }
-//
-//   fetch(URL + '/messages', config)
-//   .then(res =>res.json())
-//   .then(console.log)
-// }
 
 export const setEventsHostingFilter = filter => dispatch => {
   dispatch({ type: 'SET_EVENTS_HOSTING_FILTER', filter })
