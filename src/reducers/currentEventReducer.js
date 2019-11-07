@@ -5,7 +5,6 @@ export default (state = {}, action) => {
         ...action.event
       }
     case 'ADD_CURRENT_EVENT_MESSAGE':
-      console.log('reducing', action);
       return {
         ...state,
         messages: [

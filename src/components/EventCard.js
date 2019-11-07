@@ -22,8 +22,6 @@ class EventCard extends Component {
 
   render() {
     const { props: {currentEvent}, renderEvent } = this
-    console.log(Object.keys(currentEvent).length);
-    console.log(currentEvent);
     return (
       <div>
         { Object.keys(currentEvent).length ? renderEvent() : null }

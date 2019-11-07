@@ -14,7 +14,6 @@ export const getCurrentEvent = id => dispatch => {
       'Authorization': localStorage.token
     }
   }
-  console.log('fetching');
   fetch(URL + `/events/${id}`, config)
   .then(res => res.json())
   .then(event => dispatch(setCurrentEvent(event)))

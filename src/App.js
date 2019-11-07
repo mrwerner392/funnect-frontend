@@ -18,7 +18,7 @@ import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
 import { getCurrentEvent} from './actions/currentEventActions';
-// import { getCurrentPost} from './actions/currentPostActions';
+import { getCurrentPost} from './actions/currentPostActions';
 import './App.css';
 
 class App extends Component {
@@ -43,6 +43,7 @@ class App extends Component {
       getNeighborhoods,
       getInterests,
       getCurrentEvent,
+      getCurrentPost,
       history } = this.props
 
     getInterests()
@@ -58,11 +59,9 @@ class App extends Component {
       getNeighborhoods()
 
       const urlPaths = history.location.pathname.split('/')
-      console.log(urlPaths);
       if (urlPaths.length === 4 && urlPaths[2] === 'posts') {
-        // getCurrentPost(urlPaths[3])
+        getCurrentPost(urlPaths[3])
       } else if (urlPaths.length === 4 && urlPaths[2] === 'events') {
-        console.log('here');
         getCurrentEvent(urlPaths[3])
       }
     }
@@ -122,7 +121,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('app', state);
+  // console.log('app', state);
   return {
     user: state.user,
     availablePosts: state.availablePosts,
@@ -145,7 +144,8 @@ const mapDispatchToProps = {
   getTopics,
   getNeighborhoods,
   getInterests,
-  getCurrentEvent
+  getCurrentEvent,
+  getCurrentPost
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

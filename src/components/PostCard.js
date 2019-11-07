@@ -62,11 +62,11 @@ class PostCard extends Component {
   }
 
   render() {
-    const { renderPost } = this
+    const { props: {currentPost}, renderPost } = this
 
     return (
       <div>
-        { renderPost() }
+        { Object.keys(currentPost).length ? renderPost() : null }
       </div>
     )
   }
