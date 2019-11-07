@@ -75,6 +75,8 @@ class App extends Component {
         getCurrentEvent(urlPaths[3])
       }
 
+    } else {
+      history.push('/login')
     }
 
   }
