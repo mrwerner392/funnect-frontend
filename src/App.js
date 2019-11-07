@@ -17,8 +17,9 @@ import { getEventsAttending } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
-import { getCurrentEvent} from './actions/currentEventActions';
-import { getCurrentPost} from './actions/currentPostActions';
+import { getCurrentEvent } from './actions/currentEventActions';
+import { getCurrentPost } from './actions/currentPostActions';
+import { setContentType } from './actions/contentTypeActions';
 import './App.css';
 
 class App extends Component {
@@ -44,6 +45,7 @@ class App extends Component {
       getInterests,
       getCurrentEvent,
       getCurrentPost,
+      setContentType,
       history } = this.props
 
     getInterests()
@@ -59,12 +61,22 @@ class App extends Component {
       getNeighborhoods()
 
       const urlPaths = history.location.pathname.split('/')
-      if (urlPaths.length === 4 && urlPaths[2] === 'posts') {
+      if (urlPaths[1] === 'posts') {
+        setContentType('posts')
+      } else if (urlPaths[2] === 'posts' && urlPaths.length === 3) {
+        setContentType('user-posts')
+      } else if (urlPaths[2] === 'events' && urlPaths.length === 3) {
+        setContentType('user-events')
+      } else if (urlPaths[1] === 'user' && urlPaths.length === 2) {
+        setContentType('user')
+      } else if (urlPaths[2] === 'posts' && urlPaths.length === 4) {
         getCurrentPost(urlPaths[3])
-      } else if (urlPaths.length === 4 && urlPaths[2] === 'events') {
+      } else if (urlPaths[2] === 'events' && urlPaths.length === 4) {
         getCurrentEvent(urlPaths[3])
       }
+
     }
+
   }
 
   render() {
@@ -145,7 +157,8 @@ const mapDispatchToProps = {
   getNeighborhoods,
   getInterests,
   getCurrentEvent,
-  getCurrentPost
+  getCurrentPost,
+  setContentType
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
