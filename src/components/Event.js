@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { setCurrentEvent } from '../actions/currentEventActions';
 
 class Event extends Component {
 
   handleViewEventClick = () => {
-    const { event: {id}, user: {username}, history } = this.props
-
-    history.push(`/${username}/events/${id}`)
+    const { event, user: {username}, setCurrentEvent, history } = this.props
+    setCurrentEvent(event)
+    history.push(`/${username}/events/${event.id}`)
   }
 
   render() {
@@ -30,4 +31,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Event))
+const mapDispatchToProps = {
+  setCurrentEvent
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Event))
