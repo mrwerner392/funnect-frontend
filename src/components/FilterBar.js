@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
+import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
+import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
+import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
+import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
 import { setContentType } from '../actions/contentTypeActions';
 
 class FilterBar extends Component {
@@ -12,6 +16,29 @@ class FilterBar extends Component {
     contentType === 'user-posts'
       ? history.push(`${user.username}/posts`)
       : history.push(`${user.username}/events`)
+  }
+
+  handleMyPostsOrEventsFilterClick = evt => {
+    const { props: {contentType,
+                    setCreatedPostsFilter,
+                    setPostsInterestedInFilter,
+                    setEventsHostingFilter,
+                    setEventsAttendingFilter} } = this
+
+    const filter = evt.target.value
+
+    switch (contentType) {
+      case 'user-posts':
+        setCreatedPostsFilter(filter)
+        setPostsInterestedInFilter(filter)
+        break
+      case 'user-events':
+        setEventsHostingFilter(filter)
+        setEventsAttendingFilter(filter)
+        break
+      default:
+        break
+    }
   }
 
   renderUserFilterBar = () => {
@@ -67,24 +94,14 @@ class FilterBar extends Component {
   }
 
   renderMyPostsOrEventsFilterBar = () => {
-    const { handleFilter } = this.props
+    const { handleMyPostsOrEventsFilterClick } = this
     return (
       <div>
-        <button className='filter-button' value='active' onClick={ handleFilter }>Active</button>
-        <button className='filter-button' value='past' onClick={ handleFilter }>Past</button>
+        <button className='filter-button' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
+        <button className='filter-button' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
       </div>
     )
   }
-
-  // renderMyEventsFilterBar = () => {
-  //   const { handleFilter } = this.props
-  //   return (
-  //     <div>
-  //       <button className='filter-button' value='active' onClick={ handleFilter }>Active</button>
-  //       <button className='filter-button' value='past' onClick={ handleFilter }>Past</button>
-  //     </div>
-  //   )
-  // }
 
   renderFilterBar = () => {
     const { props: {contentType},
@@ -101,7 +118,6 @@ class FilterBar extends Component {
       case 'user-posts':
       case 'user-events':
         return renderMyPostsOrEventsFilterBar()
-        // return renderMyEventsFilterBar()
       default:
         return null
     }
@@ -124,14 +140,18 @@ const mapStateToProps = state => {
     user: state.user,
     topics: state.topics,
     neighborhoods: state.neighborhoods,
-    contentType: state.contentType
+    contentType: state.contentType,
   }
 }
 
 const mapDispatchToProps = {
   setAvailablePostsTopicFilter,
   setAvailablePostsNeighborhoodFilter,
-  setContentType
+  setContentType,
+  setCreatedPostsFilter,
+  setPostsInterestedInFilter,
+  setEventsHostingFilter,
+  setEventsAttendingFilter
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FilterBar))
