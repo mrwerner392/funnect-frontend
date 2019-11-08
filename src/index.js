@@ -32,7 +32,7 @@ const reducer = combineReducers({
   interests: interestsReducer,
   contentType: contentTypeReducer,
   currentEvent: currentEventReducer,
-  currentPost: currentPostReducer,
+  currentPost: currentPostReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk))

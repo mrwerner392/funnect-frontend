@@ -43,9 +43,7 @@ class ContentDisplay extends Component {
 
     return posts.map(post => {
       return (
-        <Fragment>
-          <Post key={ post.id } post={ post } />
-        </Fragment>
+        <Post key={ post.id } post={ post } />
       )
     })
   }
@@ -91,7 +89,7 @@ class ContentDisplay extends Component {
 
     switch (contentType) {
       case 'user':
-        return <ProfileInfo user={ user } />
+        return <ProfileInfo />
       case 'user-edit':
         return <ProfileInfoEditForm />
       case 'user-posts':

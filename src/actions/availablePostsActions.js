@@ -27,8 +27,16 @@ export const addAvailablePost = (post, userId) => dispatch => {
   dispatch({ type: 'ADD_AVAILABLE_POST', post, userId })
 }
 
+export const addNewAvailablePostFromWebSocket = post => dispatch => {
+  dispatch({ type: 'ADD_NEW_AVAILABLE_POST_FROM_WS', post })
+}
+
 export const removeAvailablePost = id => dispatch => {
   dispatch({ type: 'REMOVE_AVAILABLE_POST', id })
+}
+
+export const addPostWaiting = () => dispatch => {
+  dispatch({ type: 'ADD_POST_WAITING' })
 }
 
 export const setAvailablePostsTopicFilter = filter => dispatch => {
