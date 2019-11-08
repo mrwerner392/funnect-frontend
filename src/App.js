@@ -9,7 +9,7 @@ import PostCard from './components/PostCard';
 import EventCard from './components/EventCard';
 import NotFound from './components/NotFound';
 import { getUser } from './actions/userActions';
-import { getAvailablePosts } from './actions/availablePostsActions';
+import { getAvailablePosts, addNewAvailablePostFromWebSocket, addPostWaiting } from './actions/availablePostsActions';
 import { getCreatedPosts } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting } from './actions/eventsImHostingActions';
@@ -35,10 +35,10 @@ class App extends Component {
   }
 
   handleNewPost = post => {
-    const { props: {user}, addAvailablePost, addPostWaiting } = this
+    const { user, addNewAvailablePostFromWebSocket, addPostWaiting } = this.props
     if (post.user.id !== user.id) {
-      addAvailablePost(post)
-      addPostWaiting()
+      addNewAvailablePostFromWebSocket(post)
+      // addPostWaiting()
     }
   }
 
@@ -146,7 +146,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('app', state);
+  console.log('app', state);
   return {
     user: state.user,
     availablePosts: state.availablePosts,
@@ -171,7 +171,9 @@ const mapDispatchToProps = {
   getInterests,
   getCurrentEvent,
   getCurrentPost,
-  setContentType
+  setContentType,
+  addNewAvailablePostFromWebSocket,
+  addPostWaiting
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
