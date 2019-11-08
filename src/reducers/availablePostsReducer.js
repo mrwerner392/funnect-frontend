@@ -16,7 +16,6 @@ export default (state = {posts: [], postsWaiting: 0, topicFilter: '', neighborho
         ]
       }
     case 'ADD_NEW_AVAILABLE_POST_FROM_WS':
-    console.log('reducing post', state, action);
       return {
         ...state,
         posts: [
@@ -38,10 +37,14 @@ export default (state = {posts: [], postsWaiting: 0, topicFilter: '', neighborho
         neighborhoodFilter: ''
       }
     case 'ADD_POST_WAITING':
-    console.log('reducing post waiting');
       return {
         ...state,
         postsWaiting: state.postsWaiting + 1
+      }
+    case 'CLEAR_POSTS_WAITING':
+      return {
+        ...state,
+        postsWaiting: 0
       }
     case 'SET_AVAILABLE_POSTS_TOPIC_FILTER':
       return {

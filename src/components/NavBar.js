@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
-import { clearAvailablePosts } from '../actions/availablePostsActions'
+import { clearAvailablePosts, clearPostsWaiting } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
 import { clearCreatedPosts } from '../actions/myCreatedPostsActions'
 import { clearEventsHosting } from '../actions/eventsImHostingActions'
@@ -69,8 +69,14 @@ class NavBar extends Component {
   }
 
   renderPostsWaitingCount = () => {
-    const { postsWaiting } = this.props
-    return postsWaiting ? `(${postsWaiting})` : null
+    const { postsWaiting, clearPostsWaiting, history } = this.props
+    console.log(history);
+    if (history.location.pathname.split('/')[1] != 'posts' && postsWaiting) {
+      return `(${postsWaiting})`
+    } else {
+      clearPostsWaiting()
+      return null
+    }
   }
 
   render() {
@@ -117,7 +123,8 @@ const mapDispatchToProps = dispatch => {
     clearEventsAttending: () => dispatch(clearEventsAttending()),
     clearTopics: () => dispatch(clearTopics()),
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
-    setContentType: type => dispatch(setContentType(type))
+    setContentType: type => dispatch(setContentType(type)),
+    clearPostsWaiting
   }
 }
 
