@@ -38,7 +38,7 @@ class App extends Component {
     const { user, addNewAvailablePostFromWebSocket, addPostWaiting } = this.props
     if (post.user.id !== user.id) {
       addNewAvailablePostFromWebSocket(post)
-      // addPostWaiting()
+      addPostWaiting()
     }
   }
 
