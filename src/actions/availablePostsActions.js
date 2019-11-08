@@ -39,6 +39,10 @@ export const addPostWaiting = () => dispatch => {
   dispatch({ type: 'ADD_POST_WAITING' })
 }
 
+export const clearPostWaiting = () => dispatch => {
+  dispatch({ type: 'CLEAR_POSTS_WAITING' })
+}
+
 export const setAvailablePostsTopicFilter = filter => dispatch => {
   dispatch({ type: 'SET_AVAILABLE_POSTS_TOPIC_FILTER', filter })
 }
