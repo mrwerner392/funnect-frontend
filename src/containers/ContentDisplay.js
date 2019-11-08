@@ -117,10 +117,13 @@ class ContentDisplay extends Component {
 
 
   render() {
-    const { renderNewPostsNotification, renderContent } = this
+    const { props: {contentType},
+            renderNewPostsNotification,
+            renderContent } = this
+
     return (
       <div id='content-display'>
-        { renderNewPostsNotification() }
+        { contentType === 'posts' ? renderNewPostsNotification() : null }
         { renderContent() }
       </div>
     )

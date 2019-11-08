@@ -94,7 +94,6 @@ class App extends Component {
 
   render() {
     const { renderContent, handleNewPost } = this
-    console.log('rendering');
     return (
       <div className='App'>
         <ActionCableConsumer channel={ {channel: 'PostsChannel'} }

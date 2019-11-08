@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { createNewPost } from '../actions/myCreatedPostsActions'
+import { withRouter } from 'react-router-dom';
+import { createNewPost } from '../actions/myCreatedPostsActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 class PostForm extends Component {
 
@@ -40,8 +42,10 @@ class PostForm extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    const { createNewPost } = this.props
+    const { user, createNewPost, setContentType, history } = this.props
     createNewPost({ ...this.state, id: localStorage.id })
+    setContentType('posts')
+    history.push(`/${user.username}/posts`)
   }
 
   render() {
@@ -83,13 +87,15 @@ class PostForm extends Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.user,
     neighborhoods: state.neighborhoods,
     topics: state.topics
   }
 }
 
 const mapDispatchToProps = {
-  createNewPost
+  createNewPost,
+  setContentType
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostForm));
