@@ -44,18 +44,18 @@ class App extends Component {
 
   componentDidMount() {
     const { getUser,
-      getAvailablePosts,
-      getCreatedPosts,
-      getPostsInterestedIn,
-      getEventsHosting,
-      getEventsAttending,
-      getTopics,
-      getNeighborhoods,
-      getInterests,
-      getCurrentEvent,
-      getCurrentPost,
-      setContentType,
-      history } = this.props
+            getAvailablePosts,
+            getCreatedPosts,
+            getPostsInterestedIn,
+            getEventsHosting,
+            getEventsAttending,
+            getTopics,
+            getNeighborhoods,
+            getInterests,
+            getCurrentEvent,
+            getCurrentPost,
+            setContentType,
+            history } = this.props
 
     getInterests()
 
@@ -76,12 +76,12 @@ class App extends Component {
         setContentType('user-posts')
       } else if (urlPaths[2] === 'events' && urlPaths.length === 3) {
         setContentType('user-events')
-      } else if (urlPaths[1] === 'user' && urlPaths.length === 2) {
-        setContentType('user')
       } else if (urlPaths[2] === 'posts' && urlPaths.length === 4) {
         getCurrentPost(urlPaths[3])
       } else if (urlPaths[2] === 'events' && urlPaths.length === 4) {
         getCurrentEvent(urlPaths[3])
+      } else if (urlPaths.length === 2) {
+        setContentType('user')
       }
 
     } else {

@@ -74,7 +74,7 @@ class NavBar extends Component {
     if (history.location.pathname.split('/')[1] != 'posts' && postsWaiting) {
       return `(${postsWaiting})`
     } else {
-      clearPostsWaiting()
+      // clearPostsWaiting()
       return null
     }
   }

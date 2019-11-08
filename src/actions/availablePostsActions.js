@@ -39,7 +39,7 @@ export const addPostWaiting = () => dispatch => {
   dispatch({ type: 'ADD_POST_WAITING' })
 }
 
-export const clearPostWaiting = () => dispatch => {
+export const clearPostsWaiting = () => dispatch => {
   dispatch({ type: 'CLEAR_POSTS_WAITING' })
 }
 
