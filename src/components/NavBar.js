@@ -74,7 +74,7 @@ class NavBar extends Component {
     if (history.location.pathname.split('/')[1] != 'posts' && postsWaiting) {
       return `(${postsWaiting})`
     } else {
-      // clearPostsWaiting()
+      clearPostsWaiting()
       return null
     }
   }
@@ -124,7 +124,7 @@ const mapDispatchToProps = dispatch => {
     clearTopics: () => dispatch(clearTopics()),
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
     setContentType: type => dispatch(setContentType(type)),
-    clearPostsWaiting
+    clearPostsWaiting: () => dispatch(clearPostsWaiting())
   }
 }
 
