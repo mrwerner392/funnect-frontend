@@ -14,7 +14,7 @@ class EventCard extends Component {
         <p>Meet at</p>
         <p>{ currentEvent.location }</p>
         <p>Time</p>
-        <p>{ `${currentEvent.time_hour}:${currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+        <p>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
         <ChatContainer />
       </Fragment>
     )

@@ -17,7 +17,7 @@ class Event extends Component {
       <div className='event'>
         <p>{ event.description }</p>
         <p>{ event.location }</p>
-        <p>{ `${event.time_hour}:${event.time_minute} ${event.time_am_pm}` }</p>
+        <p>{ `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}` }</p>
         <button onClick={ handleViewEventClick } >View Event</button>
       </div>
     )
