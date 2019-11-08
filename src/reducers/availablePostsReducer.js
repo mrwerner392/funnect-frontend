@@ -1,4 +1,4 @@
-export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, action) => {
+export default (state = {posts: [], postsWaiting: 0, topicFilter: '', neighborhoodFilter: ''}, action) => {
   switch (action.type) {
     case 'SET_AVAILABLE_POSTS':
       return {
@@ -24,8 +24,14 @@ export default (state = {posts: [], topicFilter: '', neighborhoodFilter: ''}, ac
       return {
         ...state,
         posts: [],
+        postsWaiting: 0,
         topicFilter: '',
         neighborhoodFilter: ''
+      }
+    case 'ADD_POST_WAITING':
+      return {
+        ...state,
+        postsWaiting: state.postsWaiting + 1
       }
     case 'SET_AVAILABLE_POSTS_TOPIC_FILTER':
       return {

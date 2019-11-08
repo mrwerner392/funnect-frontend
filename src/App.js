@@ -35,7 +35,11 @@ class App extends Component {
   }
 
   handleNewPost = post => {
-    alert('new post');
+    const { props: {user}, addAvailablePost, addPostWaiting } = this
+    if (post.user.id !== user.id) {
+      addAvailablePost(post)
+      addPostWaiting()
+    }
   }
 
   componentDidMount() {
