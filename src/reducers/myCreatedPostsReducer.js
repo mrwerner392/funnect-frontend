@@ -5,7 +5,8 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         ...state,
         posts: action.posts
       }
-    case 'ADD_CREATED_POSTS':
+    case 'ADD_CREATED_POST':
+      console.log('here');
       return {
         ...state,
         posts: [

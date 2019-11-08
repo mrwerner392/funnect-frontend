@@ -5,6 +5,7 @@ import ProfileInfo from '../components/ProfileInfo';
 import ProfileInfoEditForm from '../components/ProfileInfoEditForm';
 import Post from '../components/Post';
 import Event from '../components/Event';
+import { showPostsWaiting } from '../actions/availablePostsActions'
 
 class ContentDisplay extends Component {
 
@@ -80,10 +81,15 @@ class ContentDisplay extends Component {
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
+  handleNewPostsNotificationClick = () => {
+    const { showPostsWaiting } = this.props
+    showPostsWaiting()
+  }
+
   renderNewPostsNotification = () => {
-    const { postsWaiting } = this.props
-    return postsWaiting
-            ? <button onClick={ null }>{ `${postsWaiting} new posts`}</button>
+    const { props: {postsWaiting}, handleNewPostsNotificationClick } = this
+    return postsWaiting.length
+            ? <button onClick={ handleNewPostsNotificationClick }>{ `${postsWaiting.length} new posts`}</button>
             : null
   }
 
@@ -141,4 +147,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(ContentDisplay)
+const mapDispatchToProps = {
+  showPostsWaiting
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentDisplay)

@@ -31,6 +31,10 @@ export const getCreatedPosts = () => dispatch => {
 
 }
 
+export const addCreatedPost = post => dispatch => {
+  dispatch(addPost(post))
+}
+
 export const createNewPost = postInfo => dispatch => {
   const config = {
     method: 'POST',
@@ -41,10 +45,10 @@ export const createNewPost = postInfo => dispatch => {
     },
     body: JSON.stringify(postInfo)
   }
-
+  console.log('create');
   fetch(URL + '/posts', config)
-  .then(res => res.json())
-  .then(post => dispatch(addPost(post)))
+  // .then(res => res.json())
+  // .then(post => dispatch(addPost(post)))
 }
 
 export const setCreatedPostsFilter = filter => dispatch => {

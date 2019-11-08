@@ -9,8 +9,8 @@ import PostCard from './components/PostCard';
 import EventCard from './components/EventCard';
 import NotFound from './components/NotFound';
 import { getUser } from './actions/userActions';
-import { getAvailablePosts, addNewAvailablePostFromWebSocket, addPostWaiting } from './actions/availablePostsActions';
-import { getCreatedPosts } from './actions/myCreatedPostsActions';
+import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
+import { getCreatedPosts, addCreatedPost } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting } from './actions/eventsImHostingActions';
 import { getEventsAttending } from './actions/eventsImAttendingActions';
@@ -35,10 +35,12 @@ class App extends Component {
   }
 
   handleNewPost = post => {
-    const { user, addNewAvailablePostFromWebSocket, addPostWaiting } = this.props
-    if (post.user.id !== user.id) {
-      addNewAvailablePostFromWebSocket(post)
-      addPostWaiting()
+    const { user, addPostWaiting, addCreatedPost } = this.props
+    console.log(post.user.id, user.id);
+    if (user.id && post.user.id !== user.id) {
+      addPostWaiting(post)
+    } else if (user.id && post.user.id === user.id) {
+      addCreatedPost(post)
     }
   }
 
@@ -92,10 +94,11 @@ class App extends Component {
 
   render() {
     const { renderContent, handleNewPost } = this
+    console.log('rendering');
     return (
       <div className='App'>
         <ActionCableConsumer channel={ {channel: 'PostsChannel'} }
-                              onReceived={ handleNewPost } />
+          onReceived={ handleNewPost } />
         <NavBar />
         <Switch>
           <Route exact
@@ -146,7 +149,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('app', state);
+  // console.log('app', state);
   return {
     user: state.user,
     availablePosts: state.availablePosts,
@@ -172,8 +175,8 @@ const mapDispatchToProps = {
   getCurrentEvent,
   getCurrentPost,
   setContentType,
-  addNewAvailablePostFromWebSocket,
-  addPostWaiting
+  addPostWaiting,
+  addCreatedPost
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
