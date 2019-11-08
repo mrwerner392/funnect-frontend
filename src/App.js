@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   handleNewPost = post => {
-    console.log(post);
+    alert('new post');
   }
 
   componentDidMount() {
@@ -91,7 +91,7 @@ class App extends Component {
     return (
       <div className='App'>
         <ActionCableConsumer channel={ {channel: 'PostsChannel'} }
-                              onReceive={ () => console.log('here') } />
+                              onReceived={ handleNewPost } />
         <NavBar />
         <Switch>
           <Route exact

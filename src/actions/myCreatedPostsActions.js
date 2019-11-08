@@ -32,7 +32,6 @@ export const getCreatedPosts = () => dispatch => {
 }
 
 export const createNewPost = postInfo => dispatch => {
-  console.log(postInfo);
   const config = {
     method: 'POST',
     headers: {
