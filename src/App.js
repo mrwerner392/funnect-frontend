@@ -20,6 +20,7 @@ import { getInterests } from './actions/interestsActions';
 import { getCurrentEvent } from './actions/currentEventActions';
 import { getCurrentPost } from './actions/currentPostActions';
 import { setContentType } from './actions/contentTypeActions';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import './App.css';
 
 class App extends Component {
@@ -31,6 +32,10 @@ class App extends Component {
     } else {
       return <NotFound />
     }
+  }
+
+  handleNewPost = post => {
+    console.log(post);
   }
 
   componentDidMount() {
@@ -82,9 +87,11 @@ class App extends Component {
   }
 
   render() {
-    const { renderContent } = this
+    const { renderContent, handleNewPost } = this
     return (
       <div className='App'>
+        <ActionCableConsumer channel={ {channel: 'PostsChannel'} }
+                              onReceive={ () => console.log('here') } />
         <NavBar />
         <Switch>
           <Route exact

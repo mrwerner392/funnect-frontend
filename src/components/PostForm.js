@@ -14,16 +14,22 @@ class PostForm extends Component {
 
   renderNeighborhoodOptions = () => {
     const { neighborhoods } = this.props
-    return neighborhoods.map(neighborhood => (
-      <option key={ neighborhood.id } value={ neighborhood.id }>{ neighborhood.name }</option>
-    ))
+    return (
+      <Fragment>
+        <option></option>
+        { neighborhoods.map(neighborhood => <option key={ neighborhood.id } value={ neighborhood.id }>{ neighborhood.name }</option>) }
+      </Fragment>
+    )
   }
 
   renderTopicOptions = () => {
     const { topics } = this.props
-    return topics.map(topic => (
-      <option key={ topic.id } value={ topic.id }>{ topic.name }</option>
-    ))
+    return (
+      <Fragment>
+        <option></option>
+        { topics.map(topic => <option key={ topic.id } value={ topic.id }>{ topic.name }</option>) }
+      </Fragment>
+    )
   }
 
   handleChange = evt => {
