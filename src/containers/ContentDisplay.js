@@ -80,6 +80,12 @@ class ContentDisplay extends Component {
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
+  renderNewPostsNotification = () => {
+    const { postsWaiting } = this.props
+    return postsWaiting
+            ? <button onClick={ null }>{ `${postsWaiting} new posts`}</button>
+            : null
+  }
 
   renderContent = () => {
     const { props: {user, contentType},
@@ -105,9 +111,11 @@ class ContentDisplay extends Component {
 
 
   render() {
+    const { renderNewPostsNotification, renderContent } = this
     return (
       <div id='content-display'>
-        { this.renderContent() }
+        { renderNewPostsNotification() }
+        { renderContent() }
       </div>
     )
   }
@@ -118,6 +126,7 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     availablePosts: state.availablePosts.posts,
+    postsWaiting: state.availablePosts.postsWaiting,
     topicFilter: state.availablePosts.topicFilter,
     neighborhoodFilter: state.availablePosts.neighborhoodFilter,
     createdPosts: state.createdPosts.posts,
