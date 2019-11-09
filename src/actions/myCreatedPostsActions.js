@@ -59,6 +59,10 @@ export const clearNewInterestedUsers = postId => dispatch => {
   dispatch({ type: 'CLEAR_NEW_INTERESTED_USERS', postId })
 }
 
+export const clearNewInterestedUsersExist = () => dispatch => {
+  dispatch({ type: 'CLEAR_NEW_INTERESTED_USERS_EXIST' })
+}
+
 export const setCreatedPostsFilter = filter => dispatch => {
   dispatch({ type: 'SET_CREATED_POSTS_FILTER', filter })
 }

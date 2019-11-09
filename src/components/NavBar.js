@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
 import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
-import { clearCreatedPosts } from '../actions/myCreatedPostsActions'
+import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions'
 import { clearEventsHosting } from '../actions/eventsImHostingActions'
 import { clearEventsAttending } from '../actions/eventsImAttendingActions'
 import { clearTopics } from '../actions/topicsActions'
@@ -68,7 +68,10 @@ class NavBar extends Component {
   }
 
   handleNewInfo = () => {
-    console.log('handles');
+    const { newInterestedUsersExist, clearNewInterestedUsersExist } = this.props
+    if (newInterestedUsersExist) {
+      clearNewInterestedUsersExist()
+    }
   }
 
   handleLogout = () => {
@@ -151,7 +154,8 @@ const mapDispatchToProps = dispatch => {
     clearTopics: () => dispatch(clearTopics()),
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
     setContentType: type => dispatch(setContentType(type)),
-    showPostsWaiting: () => dispatch(showPostsWaiting())
+    showPostsWaiting: () => dispatch(showPostsWaiting()),
+    clearNewInterestedUsersExist: () => dispatch(clearNewInterestedUsersExist())
   }
 }
 
