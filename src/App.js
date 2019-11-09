@@ -40,19 +40,20 @@ class App extends Component {
   }
 
   renderActionCables = () => {
-    const { props: {createdPosts}, handleNewPostInterest } = this
-
+    const { props: {createdPosts}, handleNewPost, handleNewPostInterest } = this
     return (
       <Fragment>
         <ActionCableConsumer
               channel={ {channel: 'PostsChannel'} }
               onReceived={ handleNewPost } />
-        createdPosts.posts.map(post => (
-          <ActionCableConsumer
+        {
+          createdPosts.posts.map(post => (
+            <ActionCableConsumer
                 channel={ {channel: 'PostInterestsChannel', post_id: post.id} }
                 onReceived={ handleNewPostInterest } />
+            )
           )
-        )
+        }
       </Fragment>
     )
   }
