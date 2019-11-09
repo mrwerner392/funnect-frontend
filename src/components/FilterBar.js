@@ -41,12 +41,19 @@ class FilterBar extends Component {
     }
   }
 
+  renderNewInterestedUsersNotification = () => {
+    const { newInterestedUsersExist } = this.props
+    return newInterestedUsersExist ? '(New Interested Users)' : null
+  }
+
   renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
-    const { props: {user: {username}}, handleUserFilterClick } = this
+    const { props: {user: {username}},
+            handleUserFilterClick,
+            renderNewInterestedUsersNotification } = this
     return (
       <div>
-        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts</button>
+        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
         <button onClick={ () => handleUserFilterClick('user-events') }>Events</button>
       </div>
     )
@@ -141,6 +148,7 @@ const mapStateToProps = state => {
     topics: state.topics,
     neighborhoods: state.neighborhoods,
     contentType: state.contentType,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist
   }
 }
 
