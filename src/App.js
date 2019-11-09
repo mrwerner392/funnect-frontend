@@ -39,9 +39,18 @@ class App extends Component {
             currentPost,
             toggleHasNewInfo,
             addNewInterestedUser,
-            addNewInterestedUserCurrentPost } = this.props
+            addNewInterestedUserCurrentPost,
+            history } = this.props
 
-    if (!user.hasNewInfo) {
+    const checkLocation = (
+      !(history.location.pathname === `/${user.username}`)
+      && !(history.location.pathname === `/${user.username}/posts`)
+      && !(history.location.pathname === `/${user.username}/posts/${post.id}`)
+    )
+
+    console.log(history.location.pathname, user.username, checkLocation);
+
+    if (checkLocation && !user.hasNewInfo) {
       toggleHasNewInfo()
     }
 
