@@ -15,3 +15,7 @@ export const getCurrentPost = id => dispatch => {
   .then(res => res.json())
   .then(post => dispatch(setCurrentPost(post)))
 }
+
+export const addNewInterestedUserCurrentPost = post => dispatch => {
+  dispatch({ type: 'ADD_NEW_INTERESTED_USER_CURRENT_POST' })
+}

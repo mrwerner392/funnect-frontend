@@ -18,7 +18,7 @@ import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
 import { getCurrentEvent, addCurrentEventMessage } from './actions/currentEventActions';
-import { getCurrentPost } from './actions/currentPostActions';
+import { getCurrentPost, addNewInterestedUserCurrentPost } from './actions/currentPostActions';
 import { setContentType } from './actions/contentTypeActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import './App.css';
@@ -35,11 +35,21 @@ class App extends Component {
   }
 
   handleNewPostInterest = post => {
-    const { user, toggleHasNewInfo, addNewInterestedUser } = this.props
+    const { user,
+            currentPost,
+            toggleHasNewInfo,
+            addNewInterestedUser } = this.props
+
     if (!user.hasNewInfo) {
       toggleHasNewInfo()
     }
+
     addNewInterestedUser(post)
+
+    if (post.id === currentPost.id) {
+      addNewInterestedUserCurrentPost(post)
+    }
+
   }
 
   handleNewMessage = (message, event) => {
@@ -222,7 +232,8 @@ const mapStateToProps = state => {
     eventsAttending: state.eventsAttending,
     // topics: state.topics,
     // neighborhoods: state.neighborhoods
-    currentEvent: state.currentEvent
+    currentEvent: state.currentEvent,
+    currentPost: state.currentPost
   }
 }
 
