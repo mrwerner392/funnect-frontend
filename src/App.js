@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar'
@@ -25,15 +25,6 @@ import './App.css';
 
 class App extends Component {
 
-  renderContent = renderProps => {
-    const slug = renderProps.match.params.slug
-    if (slug === this.props.user.username) {
-      return <ContentContainer />
-    } else {
-      return <NotFound />
-    }
-  }
-
   handleNewPost = post => {
     const { user, addPostWaiting, addCreatedPost } = this.props
     console.log(post.user.id, user.id);
@@ -41,6 +32,37 @@ class App extends Component {
       addPostWaiting(post)
     } else if (user.id && post.user.id === user.id) {
       addCreatedPost(post)
+    }
+  }
+
+  handleNewPostInterest = post => {
+    console.log(post);
+  }
+
+  renderActionCables = () => {
+    const { props: {createdPosts}, handleNewPostInterest } = this
+
+    return (
+      <Fragment>
+        <ActionCableConsumer
+              channel={ {channel: 'PostsChannel'} }
+              onReceived={ handleNewPost } />
+        createdPosts.posts.map(post => (
+          <ActionCableConsumer
+                channel={ {channel: 'PostInterestsChannel', post_id: post.id} }
+                onReceived={ handleNewPostInterest } />
+          )
+        )
+      </Fragment>
+    )
+  }
+
+  renderContent = renderProps => {
+    const slug = renderProps.match.params.slug
+    if (slug === this.props.user.username) {
+      return <ContentContainer />
+    } else {
+      return <NotFound />
     }
   }
 
@@ -93,11 +115,12 @@ class App extends Component {
   }
 
   render() {
-    const { renderContent, handleNewPost } = this
+    const { renderActionCables, renderContent, handleNewPost } = this
     return (
       <div className='App'>
         <ActionCableConsumer channel={ {channel: 'PostsChannel'} }
           onReceived={ handleNewPost } />
+        { renderActionCables() }
         <NavBar />
         <Switch>
           <Route exact
@@ -151,13 +174,13 @@ const mapStateToProps = state => {
   // console.log('app', state);
   return {
     user: state.user,
-    availablePosts: state.availablePosts,
+    // availablePosts: state.availablePosts,
     createdPosts: state.createdPosts,
-    postsInterestedIn: state.postsInterestedIn,
-    eventsHosting: state.eventsHosting,
-    eventsAttending: state.eventsAttending,
-    topics: state.topics,
-    neighborhoods: state.neighborhoods
+    // postsInterestedIn: state.postsInterestedIn,
+    // eventsHosting: state.eventsHosting,
+    // eventsAttending: state.eventsAttending,
+    // topics: state.topics,
+    // neighborhoods: state.neighborhoods
   }
 }
 
