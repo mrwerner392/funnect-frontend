@@ -15,6 +15,11 @@ export default (state = {}, action) => {
                     {
                       ...action.post
                     }
+    case 'ADD_NEW_INTERESTED_USER_CURRENT_POST':
+      return {
+        ...state,
+        interested_users: action.post.interested_users
+      }
     default:
       return state
   }
