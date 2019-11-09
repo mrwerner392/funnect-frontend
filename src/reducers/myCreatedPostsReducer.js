@@ -20,12 +20,13 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
         filter: 'active'
       }
     case 'ADD_NEW_INTERESTED_USER':
+      console.log(action.post.interested_users);
       return {
         ...state,
         posts: state.posts.map(post => {
                  if (post.id === action.post.id) {
                    const newInterestedUsers = post.newInterestedUsers ? [...post.newInterestedUsers] : []
-                   const newUser = action.post.interested_users[action.post.interested_users.length - 1]
+                   const newUser = action.post.interested_users[0]
                    console.log(newInterestedUsers, newUser);
                    return {
                      ...post,
@@ -43,18 +44,20 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
     case 'CLEAR_NEW_INTERESTED_USERS':
       return {
         ...state,
-        posts: [
-          state.posts.map(post => {
-            if (post.id === action.postId) {
-              return {
-                ...post,
-                NewInterestedUsers: 0
-              }
-            } else {
-              return post
-            }
-          })
-        ]
+        posts: state.posts.map(post => {
+                 if (post.id === action.postId) {
+                   return {
+                     ...post,
+                     interested_users: [
+                       ...post.interested_users,
+                       ...post.newInterestedUsers
+                     ],
+                     newInterestedUsers: []
+                   }
+                 } else {
+                   return post
+                 }
+               })
       }
     case 'CLEAR_NEW_INTERESTED_USERS_EXIST':
       return {
