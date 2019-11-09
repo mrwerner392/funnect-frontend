@@ -12,12 +12,12 @@ import { getUser, toggleHasNewInfo } from './actions/userActions';
 import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
 import { getCreatedPosts, addCreatedPost, addNewInterestedUser } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
-import { getEventsHosting } from './actions/eventsImHostingActions';
-import { getEventsAttending } from './actions/eventsImAttendingActions';
+import { getEventsHosting, addEventHostingMessage } from './actions/eventsImHostingActions';
+import { getEventsAttending, addEventAttendingMessage } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
-import { getCurrentEvent } from './actions/currentEventActions';
+import { getCurrentEvent, addCurrentEventMessage } from './actions/currentEventActions';
 import { getCurrentPost } from './actions/currentPostActions';
 import { setContentType } from './actions/contentTypeActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
@@ -42,8 +42,30 @@ class App extends Component {
     addNewInterestedUser(post)
   }
 
+  handleNewMessage = (message, event) => {
+    const { user,
+            currentEvent,
+            addEventHostingMessage,
+            addEventAttendingMessage,
+            addCurrentEventMessage } = this.props
+
+    if (event.user.id === user.id) {
+      addEventHostingMessage(message, event.id)
+    } else {
+      addEventAttendingMessage(message, event.id)
+    }
+
+    addCurrentEventMessage(message)
+
+  }
+
   renderActionCables = () => {
-    const { props: {createdPosts}, handleNewPost, handleNewPostInterest } = this
+    const { props: {createdPosts, eventsHosting, eventsAttending},
+            handleNewPost,
+            handleNewPostInterest,
+            handleNewMessage } = this
+    const allEvents = [...eventsHosting.events, ...eventsAttending.events]
+
     return (
       <Fragment>
         <ActionCableConsumer
@@ -55,8 +77,15 @@ class App extends Component {
                 key={ post.id }
                 channel={ {channel: 'PostInterestsChannel', post_id: post.id} }
                 onReceived={ handleNewPostInterest } />
-            )
-          )
+          ))
+        }
+        {
+          allEvents.map(event => (
+            <ActionCableConsumer
+                key={ event.id }
+                channel={ {channel: 'EventChatsChannel', event_id: event.id} }
+                onReceived={ message => handleNewMessage(message, event) } />
+          ))
         }
       </Fragment>
     )
@@ -180,10 +209,11 @@ const mapStateToProps = state => {
     // availablePosts: state.availablePosts,
     createdPosts: state.createdPosts,
     // postsInterestedIn: state.postsInterestedIn,
-    // eventsHosting: state.eventsHosting,
-    // eventsAttending: state.eventsAttending,
+    eventsHosting: state.eventsHosting,
+    eventsAttending: state.eventsAttending,
     // topics: state.topics,
     // neighborhoods: state.neighborhoods
+    currentEvent: state.currentEvent
   }
 }
 
@@ -203,7 +233,10 @@ const mapDispatchToProps = {
   addPostWaiting,
   addCreatedPost,
   addNewInterestedUser,
-  toggleHasNewInfo
+  toggleHasNewInfo,
+  addEventHostingMessage,
+  addEventAttendingMessage,
+  addCurrentEventMessage
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
