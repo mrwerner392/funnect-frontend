@@ -27,8 +27,8 @@ export const getEventsAttending = () => dispatch => {
   .then(events => dispatch(setEvents(events)))
 }
 
-export const toggleEventAttendingHasNewMessages = () => dispatch => {
-  dispatch({ type: 'TOGGLE_EVENT_ATTENDING_HAS_NEW_MESSAGE' })
+export const toggleEventsAttendingNewMessagesExist = () => dispatch => {
+  dispatch({ type: 'TOGGLE_EVENTS_ATTENDING_NEW_MESSAGES_EXIST' })
 }
 
 export const setEventsAttendingFilter = filter => dispatch => {

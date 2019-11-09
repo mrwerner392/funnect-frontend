@@ -50,8 +50,8 @@ export const addEventHostingMessage = (message, eventId) => dispatch => {
   dispatch({ type: 'ADD_EVENT_HOSTING_MESSAGE', message, eventId })
 }
 
-export const toggleEventHostingHasNewMessages = () => dispatch => {
-  dispatch({ type: 'TOGGLE_EVENT_HOSTING_HAS_NEW_MESSAGE' })
+export const toggleEventsHostingNewMessagesExist = () => dispatch => {
+  dispatch({ type: 'TOGGLE_EVENTS_HOSTING_NEW_MESSAGES_EXIST' })
 }
 
 export const setEventsHostingFilter = filter => dispatch => {
