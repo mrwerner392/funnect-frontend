@@ -8,7 +8,7 @@ import ContentContainer from './containers/ContentContainer';
 import PostCard from './components/PostCard';
 import EventCard from './components/EventCard';
 import NotFound from './components/NotFound';
-import { getUser } from './actions/userActions';
+import { getUser, toggleHasNewInfo } from './actions/userActions';
 import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
 import { getCreatedPosts, addCreatedPost, addNewInterestedUser } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
@@ -35,7 +35,10 @@ class App extends Component {
   }
 
   handleNewPostInterest = post => {
-    const { addNewInterestedUser } = this.props
+    const { user, toggleHasNewInfo, addNewInterestedUser } = this.props
+    if (!user.hasNewInfo) {
+      toggleHasNewInfo()
+    }
     addNewInterestedUser(post)
   }
 
@@ -171,7 +174,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.createdPosts.posts);
+  console.log(state);
   return {
     user: state.user,
     // availablePosts: state.availablePosts,
@@ -199,7 +202,8 @@ const mapDispatchToProps = {
   setContentType,
   addPostWaiting,
   addCreatedPost,
-  addNewInterestedUser
+  addNewInterestedUser,
+  toggleHasNewInfo
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
