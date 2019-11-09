@@ -3,10 +3,16 @@ export default (state = {}, action) => {
     case 'SET_USER':
       return {
         ...state,
-        ...action.user
+        ...action.user,
+        hasNewInfo: false
       }
     case 'CLEAR_USER':
       return {}
+    case 'TOGGLE_HAS_NEW_INFO':
+      return {
+        ...state,
+        hasNewInfo: !state.hasNewInfo
+      }
     default:
       return state
   }

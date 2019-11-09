@@ -8,9 +8,7 @@ export const setUser = user => dispatch => {
 }
 
 export const clearUser = () => dispatch => {
-  dispatch({
-    type: 'CLEAR_USER',
-  })
+  dispatch({ type: 'CLEAR_USER' })
 }
 
 export const getUser = () => dispatch => {
@@ -24,4 +22,8 @@ export const getUser = () => dispatch => {
   .then(res => res.json())
   .then(user => dispatch(setUser(user)))
 
+}
+
+export const toggleHasNewInfo = () => dispatch => {
+  dispatch({ type: 'TOGGLE_HAS_NEW_INFO' })
 }
