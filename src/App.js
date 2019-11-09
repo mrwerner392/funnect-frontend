@@ -47,7 +47,8 @@ class App extends Component {
             currentEvent,
             addEventHostingMessage,
             addEventAttendingMessage,
-            addCurrentEventMessage } = this.props
+            addCurrentEventMessage,
+            toggleHasNewInfo } = this.props
 
     if (event.user.id === user.id) {
       addEventHostingMessage(message, event.id)
@@ -55,7 +56,15 @@ class App extends Component {
       addEventAttendingMessage(message, event.id)
     }
 
-    addCurrentEventMessage(message)
+    if (currentEvent.messages) {
+      addCurrentEventMessage(message)
+    }
+
+    console.log(user.hasNewInfo);
+
+    if (message.user.id !== user.id && !user.hasNewInfo) {
+      toggleHasNewInfo()
+    }
 
   }
 
