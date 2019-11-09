@@ -70,7 +70,8 @@ class App extends Component {
             addEventHostingMessage,
             addEventAttendingMessage,
             addCurrentEventMessage,
-            toggleHasNewInfo } = this.props
+            toggleHasNewInfo,
+            history } = this.props
 
     if (event.user.id === user.id) {
       addEventHostingMessage(message, event.id)
@@ -82,8 +83,21 @@ class App extends Component {
       addCurrentEventMessage(message)
     }
 
-    if (message.user.id !== user.id && !user.hasNewInfo) {
-      toggleHasNewInfo()
+    // if (message.user.id !== user.id && !user.hasNewInfo) {
+    //   toggleHasNewInfo()
+    // }
+
+    if (!user.hasNewInfo) {
+      const location = history.location.pathname
+      switch (location) {
+        case `/${user.username}`:
+        case `/${user.username}/events`:
+        case `/${user.username}/events/${event.id}`:
+          break
+        default:
+          toggleHasNewInfo()
+          break
+      }
     }
 
   }
