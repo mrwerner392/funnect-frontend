@@ -27,7 +27,7 @@ class PostCard extends Component {
       <Fragment>
         {
           post.interested_users.map(user => (
-            <div>
+            <div key={ user.id }>
               <p>{ user.username }</p>
               <p>{ user.age }</p>
               <p>{ user.gender }</p>

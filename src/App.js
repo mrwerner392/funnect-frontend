@@ -56,7 +56,7 @@ class App extends Component {
       addEventAttendingMessage(message, event.id)
     }
 
-    if (currentEvent.messages) {
+    if (event.id === currentEvent.id) {
       addCurrentEventMessage(message)
     }
 
