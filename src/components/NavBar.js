@@ -36,13 +36,15 @@ class NavBar extends Component {
               setContentType,
               history
             },
-            handlePostsWaiting } = this
+            handlePostsWaiting,
+            handleNewInfo } = this
 
     if (type !== 'create') {
       setContentType(type)
     }
     switch (type) {
       case 'user':
+        handleNewInfo()
         history.push(`/${username}`)
         break
       case 'posts':
@@ -63,6 +65,10 @@ class NavBar extends Component {
     if (postsWaiting.length) {
       showPostsWaiting()
     }
+  }
+
+  handleNewInfo = () => {
+    console.log('handles');
   }
 
   handleLogout = () => {
