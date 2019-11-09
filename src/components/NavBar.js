@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { clearUser } from '../actions/userActions'
+import { clearUser, toggleHasNewInfo } from '../actions/userActions'
 import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
 import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions'
@@ -68,9 +68,9 @@ class NavBar extends Component {
   }
 
   handleNewInfo = () => {
-    const { newInterestedUsersExist, clearNewInterestedUsersExist } = this.props
-    if (newInterestedUsersExist) {
-      clearNewInterestedUsersExist()
+    const { user: {hasNewInfo}, toggleHasNewInfo } = this.props
+    if (hasNewInfo) {
+      toggleHasNewInfo()
     }
   }
 
@@ -103,8 +103,8 @@ class NavBar extends Component {
   }
 
   renderNewInfoMessage = () => {
-    const { newInterestedUsersExist } = this.props
-    return newInterestedUsersExist ? '(New Info)' : null
+    const { hasNewInfo } = this.props.user
+    return hasNewInfo ? '(New Info)' : null
   }
 
   render() {
@@ -155,7 +155,7 @@ const mapDispatchToProps = dispatch => {
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
     setContentType: type => dispatch(setContentType(type)),
     showPostsWaiting: () => dispatch(showPostsWaiting()),
-    clearNewInterestedUsersExist: () => dispatch(clearNewInterestedUsersExist())
+    toggleHasNewInfo: () => dispatch(toggleHasNewInfo())
   }
 }
 
