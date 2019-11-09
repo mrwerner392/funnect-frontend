@@ -24,10 +24,12 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         ...state,
         posts: [
           state.posts.map(post => {
-            if (post.id === action.postId) {
+            if (post.id === action.post.id) {
+              const newInterestedUsers = [...post.newInterestedUsers] || []
               return {
                 ...post,
-                newInterestedUsers: post.newInterestedUsers ? 1 : post.NewInterestedUsers + 1
+                newInterestedUsers:
+                    newInterestedUsers.push(action.post.interested_users.last)
               }
             } else {
               return post

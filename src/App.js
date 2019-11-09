@@ -10,7 +10,7 @@ import EventCard from './components/EventCard';
 import NotFound from './components/NotFound';
 import { getUser } from './actions/userActions';
 import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
-import { getCreatedPosts, addCreatedPost } from './actions/myCreatedPostsActions';
+import { getCreatedPosts, addCreatedPost, addNewInterestedUser } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting } from './actions/eventsImHostingActions';
 import { getEventsAttending } from './actions/eventsImAttendingActions';
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   handleNewPostInterest = post => {
-    console.log(post);
+    addNewInterestedUser()
   }
 
   renderActionCables = () => {
@@ -199,7 +199,8 @@ const mapDispatchToProps = {
   getCurrentPost,
   setContentType,
   addPostWaiting,
-  addCreatedPost
+  addCreatedPost,
+  addNewInterestedUser
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
