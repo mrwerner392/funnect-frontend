@@ -83,10 +83,6 @@ class App extends Component {
       addCurrentEventMessage(message)
     }
 
-    // if (message.user.id !== user.id && !user.hasNewInfo) {
-    //   toggleHasNewInfo()
-    // }
-
     if (!user.hasNewInfo) {
       const location = history.location.pathname
       switch (location) {
