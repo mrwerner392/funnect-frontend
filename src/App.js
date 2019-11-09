@@ -34,7 +34,7 @@ class App extends Component {
     }
   }
 
-  handleNewPostInterest = post => {
+  handleNewPostInterest = ({ post, interested_user }) => {
     const { user,
             currentPost,
             toggleHasNewInfo,
@@ -56,7 +56,7 @@ class App extends Component {
       }
     }
 
-    addNewInterestedUser(post)
+    addNewInterestedUser(post, interested_user)
 
     if (post.id === currentPost.id) {
       addNewInterestedUserCurrentPost(post)

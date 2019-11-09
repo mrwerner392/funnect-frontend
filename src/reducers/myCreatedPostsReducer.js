@@ -26,13 +26,12 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
         posts: state.posts.map(post => {
                  if (post.id === action.post.id) {
                    const newInterestedUsers = post.newInterestedUsers ? [...post.newInterestedUsers] : []
-                   const newUser = action.post.interested_users[0]
-                   console.log(newInterestedUsers, newUser);
+                   // const newUser = action.post.interested_users[0]
                    return {
                      ...post,
                      newInterestedUsers: [
                        ...newInterestedUsers,
-                       newUser
+                       action.user
                      ]
                    }
                  } else {

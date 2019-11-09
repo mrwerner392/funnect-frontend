@@ -51,8 +51,8 @@ export const createNewPost = postInfo => dispatch => {
   // .then(post => dispatch(addPost(post)))
 }
 
-export const addNewInterestedUser = post => dispatch => {
-  dispatch({ type: 'ADD_NEW_INTERESTED_USER', post })
+export const addNewInterestedUser = (post, user) => dispatch => {
+  dispatch({ type: 'ADD_NEW_INTERESTED_USER', post, user })
 }
 
 export const clearNewInterestedUsers = postId => dispatch => {
