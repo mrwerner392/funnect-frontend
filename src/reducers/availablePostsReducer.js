@@ -1,4 +1,4 @@
-export default (state = {posts: [], postsWaiting: 0, topicFilter: '', neighborhoodFilter: ''}, action) => {
+export default (state = {posts: [], postsWaiting: [], topicFilter: '', neighborhoodFilter: ''}, action) => {
   switch (action.type) {
     case 'SET_AVAILABLE_POSTS':
       return {
@@ -15,15 +15,14 @@ export default (state = {posts: [], postsWaiting: 0, topicFilter: '', neighborho
           }
         ]
       }
-    case 'ADD_NEW_AVAILABLE_POST_FROM_WS':
-    console.log('reducing post', state, action);
-      return {
-        ...state,
-        posts: [
-          ...state.posts,
-          action.post
-        ]
-      }
+    // case 'ADD_NEW_AVAILABLE_POST_FROM_WS':
+    //   return {
+    //     ...state,
+    //     posts: [
+    //       ...state.posts,
+    //       action.post
+    //     ]
+    //   }
     case 'REMOVE_AVAILABLE_POST':
       return {
         ...state,
@@ -33,15 +32,26 @@ export default (state = {posts: [], postsWaiting: 0, topicFilter: '', neighborho
       return {
         ...state,
         posts: [],
-        postsWaiting: 0,
+        postsWaiting: [],
         topicFilter: '',
         neighborhoodFilter: ''
       }
     case 'ADD_POST_WAITING':
-    console.log('reducing post waiting');
       return {
         ...state,
-        postsWaiting: state.postsWaiting + 1
+        postsWaiting: [
+          ...state.postsWaiting,
+          action.post
+        ]
+      }
+    case 'SHOW_POSTS_WAITING':
+      return {
+        ...state,
+        posts: [
+          ...state.postsWaiting,
+          ...state.posts
+        ],
+        postsWaiting: []
       }
     case 'SET_AVAILABLE_POSTS_TOPIC_FILTER':
       return {

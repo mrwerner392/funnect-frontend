@@ -9,8 +9,8 @@ import PostCard from './components/PostCard';
 import EventCard from './components/EventCard';
 import NotFound from './components/NotFound';
 import { getUser } from './actions/userActions';
-import { getAvailablePosts, addNewAvailablePostFromWebSocket, addPostWaiting } from './actions/availablePostsActions';
-import { getCreatedPosts } from './actions/myCreatedPostsActions';
+import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
+import { getCreatedPosts, addCreatedPost } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting } from './actions/eventsImHostingActions';
 import { getEventsAttending } from './actions/eventsImAttendingActions';
@@ -35,27 +35,29 @@ class App extends Component {
   }
 
   handleNewPost = post => {
-    const { user, addNewAvailablePostFromWebSocket, addPostWaiting } = this.props
-    if (post.user.id !== user.id) {
-      addNewAvailablePostFromWebSocket(post)
-      // addPostWaiting()
+    const { user, addPostWaiting, addCreatedPost } = this.props
+    console.log(post.user.id, user.id);
+    if (user.id && post.user.id !== user.id) {
+      addPostWaiting(post)
+    } else if (user.id && post.user.id === user.id) {
+      addCreatedPost(post)
     }
   }
 
   componentDidMount() {
     const { getUser,
-      getAvailablePosts,
-      getCreatedPosts,
-      getPostsInterestedIn,
-      getEventsHosting,
-      getEventsAttending,
-      getTopics,
-      getNeighborhoods,
-      getInterests,
-      getCurrentEvent,
-      getCurrentPost,
-      setContentType,
-      history } = this.props
+            getAvailablePosts,
+            getCreatedPosts,
+            getPostsInterestedIn,
+            getEventsHosting,
+            getEventsAttending,
+            getTopics,
+            getNeighborhoods,
+            getInterests,
+            getCurrentEvent,
+            getCurrentPost,
+            setContentType,
+            history } = this.props
 
     getInterests()
 
@@ -76,12 +78,12 @@ class App extends Component {
         setContentType('user-posts')
       } else if (urlPaths[2] === 'events' && urlPaths.length === 3) {
         setContentType('user-events')
-      } else if (urlPaths[1] === 'user' && urlPaths.length === 2) {
-        setContentType('user')
       } else if (urlPaths[2] === 'posts' && urlPaths.length === 4) {
         getCurrentPost(urlPaths[3])
       } else if (urlPaths[2] === 'events' && urlPaths.length === 4) {
         getCurrentEvent(urlPaths[3])
+      } else if (urlPaths.length === 2) {
+        setContentType('user')
       }
 
     } else {
@@ -95,7 +97,7 @@ class App extends Component {
     return (
       <div className='App'>
         <ActionCableConsumer channel={ {channel: 'PostsChannel'} }
-                              onReceived={ handleNewPost } />
+          onReceived={ handleNewPost } />
         <NavBar />
         <Switch>
           <Route exact
@@ -146,7 +148,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('app', state);
+  // console.log('app', state);
   return {
     user: state.user,
     availablePosts: state.availablePosts,
@@ -172,8 +174,8 @@ const mapDispatchToProps = {
   getCurrentEvent,
   getCurrentPost,
   setContentType,
-  addNewAvailablePostFromWebSocket,
-  addPostWaiting
+  addPostWaiting,
+  addCreatedPost
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

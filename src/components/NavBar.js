@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { clearUser } from '../actions/userActions'
-import { clearAvailablePosts } from '../actions/availablePostsActions'
+import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
 import { clearCreatedPosts } from '../actions/myCreatedPostsActions'
 import { clearEventsHosting } from '../actions/eventsImHostingActions'
@@ -14,8 +14,15 @@ import { setContentType } from '../actions/contentTypeActions'
 class NavBar extends Component {
 
   handleMatChatClick = () => {
-    const { user: {username}, setContentType, history } = this.props
+    const { props: {
+              user: {username},
+              setContentType,
+              history
+            },
+            handlePostsWaiting } = this
+
     if (username) {
+      handlePostsWaiting()
       setContentType('posts')
       history.push('/posts')
     } else {
@@ -24,16 +31,22 @@ class NavBar extends Component {
   }
 
   handleNavBarButtonClick = type => {
-    const { user: {username}, setContentType, history } = this.props
+    const { props: {
+              user: {username},
+              setContentType,
+              history
+            },
+            handlePostsWaiting } = this
+
     if (type !== 'create') {
       setContentType(type)
     }
     switch (type) {
       case 'user':
-        console.log('here', username);
         history.push(`/${username}`)
         break
       case 'posts':
+        handlePostsWaiting()
         history.push('/posts')
         break
       case 'create':
@@ -43,6 +56,13 @@ class NavBar extends Component {
         break
     }
 
+  }
+
+  handlePostsWaiting = () => {
+    const { postsWaiting, showPostsWaiting } = this.props
+    if (postsWaiting.length) {
+      showPostsWaiting()
+    }
   }
 
   handleLogout = () => {
@@ -68,11 +88,23 @@ class NavBar extends Component {
     history.push('/login');
   }
 
+  renderPostsWaitingCount = () => {
+    const { postsWaiting, clearPostsWaiting, history } = this.props
+    return postsWaiting.length ? `(${postsWaiting.length})` : null
+    // if (history.location.pathname.split('/')[1] != 'posts' && postsWaiting.length) {
+    //   return `(${postsWaiting})`
+    // } else {
+    //   clearPostsWaiting()
+    //   return null
+    // }
+  }
+
   render() {
     const { props: {user: {username}},
               handleLogout,
               handleMatChatClick,
-              handleNavBarButtonClick } = this
+              handleNavBarButtonClick,
+              renderPostsWaitingCount } = this
 
     return (
       <div>
@@ -81,7 +113,7 @@ class NavBar extends Component {
           ?
           <Fragment>
             <button onClick={ () => handleNavBarButtonClick('user') } >{ username }</button>
-            <button onClick={ () => handleNavBarButtonClick('posts') } >Home</button>
+            <button onClick={ () => handleNavBarButtonClick('posts') } >Home { renderPostsWaitingCount() }</button>
             <button onClick={ () => handleNavBarButtonClick('create') } >New Post</button>
             <button to='/login' onClick={ handleLogout } >Log Out</button>
           </Fragment>
@@ -96,7 +128,8 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    postsWaiting: state.availablePosts.postsWaiting
   }
 }
 
@@ -110,7 +143,8 @@ const mapDispatchToProps = dispatch => {
     clearEventsAttending: () => dispatch(clearEventsAttending()),
     clearTopics: () => dispatch(clearTopics()),
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
-    setContentType: type => dispatch(setContentType(type))
+    setContentType: type => dispatch(setContentType(type)),
+    showPostsWaiting: () => dispatch(showPostsWaiting())
   }
 }
 

@@ -5,6 +5,7 @@ import ProfileInfo from '../components/ProfileInfo';
 import ProfileInfoEditForm from '../components/ProfileInfoEditForm';
 import Post from '../components/Post';
 import Event from '../components/Event';
+import { showPostsWaiting } from '../actions/availablePostsActions'
 
 class ContentDisplay extends Component {
 
@@ -80,6 +81,17 @@ class ContentDisplay extends Component {
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
+  handleNewPostsNotificationClick = () => {
+    const { showPostsWaiting } = this.props
+    showPostsWaiting()
+  }
+
+  renderNewPostsNotification = () => {
+    const { props: {postsWaiting}, handleNewPostsNotificationClick } = this
+    return postsWaiting.length
+            ? <button onClick={ handleNewPostsNotificationClick }>{ `${postsWaiting.length} new posts`}</button>
+            : null
+  }
 
   renderContent = () => {
     const { props: {user, contentType},
@@ -105,9 +117,14 @@ class ContentDisplay extends Component {
 
 
   render() {
+    const { props: {contentType},
+            renderNewPostsNotification,
+            renderContent } = this
+
     return (
       <div id='content-display'>
-        { this.renderContent() }
+        { contentType === 'posts' ? renderNewPostsNotification() : null }
+        { renderContent() }
       </div>
     )
   }
@@ -118,6 +135,7 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     availablePosts: state.availablePosts.posts,
+    postsWaiting: state.availablePosts.postsWaiting,
     topicFilter: state.availablePosts.topicFilter,
     neighborhoodFilter: state.availablePosts.neighborhoodFilter,
     createdPosts: state.createdPosts.posts,
@@ -132,4 +150,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(ContentDisplay)
+const mapDispatchToProps = {
+  showPostsWaiting
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentDisplay)

@@ -67,11 +67,6 @@ class Post extends Component {
         <p>{ `"${post.user.bio}"` }</p>
         <p>Likes: { renderUserInterests(post.user.interests) }</p>
         { renderPostFooter() }
-        {/*
-          post.user.id === user.id
-          ? <NavLink exact to={ `/${user.username}/posts/${post.id}` }>Manage Post</NavLink>
-          : null
-        */}
       </div>
     )
   }
