@@ -53,6 +53,9 @@ class Post extends Component {
             handleNotInterestedClick,
             handleManagePostClick } = this
     const interestedIds = post.interested_users.map(user => user.id)
+    if (post.newInterestedUsers) {
+      post.newInterestedUsers.forEach(user => interestedIds.push(user.id))
+    }
 
     if (post.user.id === user.id) {
       return (

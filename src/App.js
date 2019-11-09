@@ -82,8 +82,6 @@ class App extends Component {
       addCurrentEventMessage(message)
     }
 
-    console.log(user.hasNewInfo);
-
     if (message.user.id !== user.id && !user.hasNewInfo) {
       toggleHasNewInfo()
     }
