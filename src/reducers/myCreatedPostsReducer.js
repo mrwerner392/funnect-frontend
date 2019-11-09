@@ -19,6 +19,38 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         posts: [],
         filter: 'active'
       }
+    case 'ADD_NEW_INTERESTED_USER':
+      return {
+        ...state,
+        posts: [
+          state.posts.map(post => {
+            if (post.id === action.postId) {
+              return {
+                ...post,
+                newInterestedUsers: post.newInterestedUsers ? 1 : post.NewInterestedUsers + 1
+              }
+            } else {
+              return post
+            }
+          })
+        ]
+      }
+    case 'CLEAR_NEW_INTERESTED_USERS':
+      return {
+        ...state,
+        posts: [
+          state.posts.map(post => {
+            if (post.id === action.postId) {
+              return {
+                ...post,
+                NewInterestedUsers: 0
+              }
+            } else {
+              return post
+            }
+          })
+        ]
+      }
     case 'SET_CREATED_POSTS_FILTER':
       return {
         ...state,
