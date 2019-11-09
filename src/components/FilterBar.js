@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
-import { setCreatedPostsFilter, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { setCreatedPostsFilter, toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
 import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
 import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
 import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
@@ -11,10 +11,18 @@ import { setContentType } from '../actions/contentTypeActions';
 class FilterBar extends Component {
 
   handleUserFilterClick = contentType => {
-    const { user, history, setContentType, clearNewInterestedUsersExist } = this.props
+    const { user,
+            history,
+            setContentType,
+            newInterestedUsersExist,
+            toggleNewInterestedUsersExist } = this.props
+
     setContentType(contentType)
+
     if (contentType === 'user-posts') {
-      clearNewInterestedUsersExist()
+      if (newInterestedUsersExist) {
+        toggleNewInterestedUsersExist()
+      }
       history.push(`${user.username}/posts`)
     } else {
       history.push(`${user.username}/events`)
@@ -163,7 +171,7 @@ const mapDispatchToProps = {
   setPostsInterestedInFilter,
   setEventsHostingFilter,
   setEventsAttendingFilter,
-  clearNewInterestedUsersExist
+  toggleNewInterestedUsersExist
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FilterBar))

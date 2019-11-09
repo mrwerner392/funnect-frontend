@@ -36,8 +36,7 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
                  } else {
                    return post
                  }
-               }),
-        newInterestedUsersExist: true
+               })
       }
     case 'CLEAR_NEW_INTERESTED_USERS':
       return {
@@ -57,10 +56,10 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
                  }
                })
       }
-    case 'CLEAR_NEW_INTERESTED_USERS_EXIST':
+    case 'TOGGLE_NEW_INTERESTED_USERS_EXIST':
       return {
         ...state,
-        newInterestedUsersExist: false
+        newInterestedUsersExist: !state.newInterestedUsersExist
       }
     case 'SET_CREATED_POSTS_FILTER':
       return {

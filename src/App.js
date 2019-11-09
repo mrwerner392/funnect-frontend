@@ -10,7 +10,7 @@ import EventCard from './components/EventCard';
 import NotFound from './components/NotFound';
 import { getUser, toggleHasNewInfo } from './actions/userActions';
 import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
-import { getCreatedPosts, addCreatedPost, addNewInterestedUser } from './actions/myCreatedPostsActions';
+import { getCreatedPosts, addCreatedPost, addNewInterestedUser, clearNewInterestedUsers, toggleNewInterestedUsersExist } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting, addEventHostingMessage } from './actions/eventsImHostingActions';
 import { getEventsAttending, addEventAttendingMessage } from './actions/eventsImAttendingActions';
@@ -37,14 +37,28 @@ class App extends Component {
   handleNewPostInterest = ({ post, interested_user }) => {
     const { user,
             currentPost,
+            createdPosts,
             toggleHasNewInfo,
             addNewInterestedUser,
             addNewInterestedUserCurrentPost,
+            clearNewInterestedUsers,
+            toggleNewInterestedUsersExist,
             history } = this.props
 
+    addNewInterestedUser(post, interested_user)
+
+    const location = history.location.pathname
+    if (location === `/${user.username}/posts/${post.id}`) {
+      clearNewInterestedUsers(post.id)
+      addNewInterestedUserCurrentPost(post)
+    } else {
+      if (!(createdPosts.newInterestedUsersExist
+                      || location === `/${user.username}/posts`)) {
+        toggleNewInterestedUsersExist()
+      }
+    }
 
     if (!user.hasNewInfo) {
-      const location = history.location.pathname
       switch (location) {
         case `/${user.username}`:
         case `/${user.username}/posts`:
@@ -54,12 +68,6 @@ class App extends Component {
           toggleHasNewInfo()
           break
       }
-    }
-
-    addNewInterestedUser(post, interested_user)
-
-    if (post.id === currentPost.id) {
-      addNewInterestedUserCurrentPost(post)
     }
 
   }
@@ -274,10 +282,11 @@ const mapDispatchToProps = {
   addCreatedPost,
   addNewInterestedUser,
   addNewInterestedUserCurrentPost,
+  toggleNewInterestedUsersExist,
   toggleHasNewInfo,
   addEventHostingMessage,
   addEventAttendingMessage,
-  addCurrentEventMessage,
+  addCurrentEventMessage
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
