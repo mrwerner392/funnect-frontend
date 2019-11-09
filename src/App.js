@@ -27,7 +27,6 @@ class App extends Component {
 
   handleNewPost = post => {
     const { user, addPostWaiting, addCreatedPost } = this.props
-    console.log(post.user.id, user.id);
     if (user.id && post.user.id !== user.id) {
       addPostWaiting(post)
     } else if (user.id && post.user.id === user.id) {
@@ -36,7 +35,8 @@ class App extends Component {
   }
 
   handleNewPostInterest = post => {
-    addNewInterestedUser()
+    const { addNewInterestedUser } = this.props
+    addNewInterestedUser(post)
   }
 
   renderActionCables = () => {
@@ -49,6 +49,7 @@ class App extends Component {
         {
           createdPosts.posts.map(post => (
             <ActionCableConsumer
+                key={ post.id }
                 channel={ {channel: 'PostInterestsChannel', post_id: post.id} }
                 onReceived={ handleNewPostInterest } />
             )
@@ -119,8 +120,6 @@ class App extends Component {
     const { renderActionCables, renderContent, handleNewPost } = this
     return (
       <div className='App'>
-        <ActionCableConsumer channel={ {channel: 'PostsChannel'} }
-          onReceived={ handleNewPost } />
         { renderActionCables() }
         <NavBar />
         <Switch>
@@ -172,7 +171,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log('app', state);
+  console.log(state.createdPosts.posts);
   return {
     user: state.user,
     // availablePosts: state.availablePosts,

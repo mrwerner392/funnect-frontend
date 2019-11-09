@@ -52,6 +52,7 @@ export const createNewPost = postInfo => dispatch => {
 }
 
 export const addNewInterestedUser = post => dispatch => {
+  console.log('action');
   dispatch({ type: 'ADD_NEW_INTERESTED_USER', post })
 }
 
