@@ -27,6 +27,14 @@ class Post extends Component {
     history.push(`/${username}/posts/${post.id}`)
   }
 
+  renderNotification = () => {
+    const { post } = this.props
+    const numNew = post.newInterestedUsers ? post.newInterestedUsers.length : 0
+    return numNew
+              ? <p>{ numNew } new interested { numNew === 1 ? 'user' : 'users' }</p>
+              : null
+  }
+
   renderUserInterests = interests => {
     const interestNames = interests.map(interest => interest.name)
     return interestNames.join(', ')
@@ -55,9 +63,13 @@ class Post extends Component {
   }
 
   render() {
-    const { props: {post, user}, renderUserInterests, renderPostFooter } = this
+    const { props: {post, user},
+            renderNotification,
+            renderUserInterests,
+            renderPostFooter } = this
     return (
       <div className='post'>
+        { renderNotification() }
         <p>{ post.topic.name }</p>
         <p>{ post.neighborhood.name }</p>
         <p>{ post.time_of_day }</p>
