@@ -89,14 +89,13 @@ class NavBar extends Component {
   }
 
   renderPostsWaitingCount = () => {
-    const { postsWaiting, clearPostsWaiting, history } = this.props
+    const { postsWaiting } = this.props
     return postsWaiting.length ? `(${postsWaiting.length})` : null
-    // if (history.location.pathname.split('/')[1] != 'posts' && postsWaiting.length) {
-    //   return `(${postsWaiting})`
-    // } else {
-    //   clearPostsWaiting()
-    //   return null
-    // }
+  }
+
+  renderNewInfoMessage = () => {
+    const { newInterestedUsersExist } = this.props
+    return newInterestedUsersExist ? '(New Info)' : null
   }
 
   render() {
@@ -104,7 +103,8 @@ class NavBar extends Component {
               handleLogout,
               handleMatChatClick,
               handleNavBarButtonClick,
-              renderPostsWaitingCount } = this
+              renderPostsWaitingCount,
+              renderNewInfoMessage } = this
 
     return (
       <div>
@@ -112,7 +112,7 @@ class NavBar extends Component {
         { username
           ?
           <Fragment>
-            <button onClick={ () => handleNavBarButtonClick('user') } >{ username }</button>
+            <button onClick={ () => handleNavBarButtonClick('user') } >{ username } { renderNewInfoMessage() }</button>
             <button onClick={ () => handleNavBarButtonClick('posts') } >Home { renderPostsWaitingCount() }</button>
             <button onClick={ () => handleNavBarButtonClick('create') } >New Post</button>
             <button to='/login' onClick={ handleLogout } >Log Out</button>
@@ -129,7 +129,8 @@ class NavBar extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    postsWaiting: state.availablePosts.postsWaiting
+    postsWaiting: state.availablePosts.postsWaiting,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist
   }
 }
 

@@ -1,4 +1,4 @@
-export default (state = {posts: [], filter: 'active'}, action) => {
+export default (state = {posts: [], newInterestedUsersExist: false, filter: 'active'}, action) => {
   switch (action.type) {
     case 'SET_CREATED_POSTS':
       return {
@@ -20,7 +20,6 @@ export default (state = {posts: [], filter: 'active'}, action) => {
         filter: 'active'
       }
     case 'ADD_NEW_INTERESTED_USER':
-      console.log('reducing');
       return {
         ...state,
         posts: state.posts.map(post => {
@@ -38,7 +37,8 @@ export default (state = {posts: [], filter: 'active'}, action) => {
                  } else {
                    return post
                  }
-               })
+               }),
+        newInterestedUsersExist: true
       }
     case 'CLEAR_NEW_INTERESTED_USERS':
       return {
