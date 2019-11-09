@@ -38,7 +38,8 @@ class App extends Component {
     const { user,
             currentPost,
             toggleHasNewInfo,
-            addNewInterestedUser } = this.props
+            addNewInterestedUser,
+            addNewInterestedUserCurrentPost } = this.props
 
     if (!user.hasNewInfo) {
       toggleHasNewInfo()
@@ -253,10 +254,11 @@ const mapDispatchToProps = {
   addPostWaiting,
   addCreatedPost,
   addNewInterestedUser,
+  addNewInterestedUserCurrentPost,
   toggleHasNewInfo,
   addEventHostingMessage,
   addEventAttendingMessage,
-  addCurrentEventMessage
+  addCurrentEventMessage,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
