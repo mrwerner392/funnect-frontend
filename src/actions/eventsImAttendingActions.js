@@ -28,6 +28,7 @@ export const getEventsAttending = () => dispatch => {
 }
 
 export const newEventAttending = event => dispatch => {
+  console.log('action');
   dispatch({ type: 'NEW_EVENT_ATTENDING', event })
 }
 

@@ -12,6 +12,7 @@ export default (state = {events: [], newEventExists: false, newMessagesExist: fa
         filter: 'active'
       }
     case 'NEW_EVENT_ATTENDING':
+      console.log('reducer');
       return {
         ...state,
         events: [

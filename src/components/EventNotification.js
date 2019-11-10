@@ -6,12 +6,10 @@ class EventNotification extends Component {
 
   render() {
     return (
-      {
-
-      }
+      <div>HI</div>
     )
   }
-  
+
 }
 
 const mapStateToProps = state => {
