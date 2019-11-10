@@ -111,9 +111,6 @@ class FormContainer extends Component {
                       formType={ formType }
                       errors={ errors }
                       />
-        { formType === 'login'
-          ? <p>Or <span><NavLink exact to='/create-profile'>Create a Profile</NavLink></span></p>
-          : <p>Or <span><NavLink exact to='/login'>Log In</NavLink></span></p> }
       </div>
     )
   }
