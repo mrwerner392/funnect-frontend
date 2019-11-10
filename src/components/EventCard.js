@@ -1,8 +1,37 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import ChatContainer from '../containers/ChatContainer'
+import { withRouter } from 'react-router-dom';
+import ChatContainer from '../containers/ChatContainer';
+import { toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
+import { toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
+import { toggleHasNewInfo } from '../actions/userActions';
 
 class EventCard extends Component {
+
+  handleBackToEventsClick = () => {
+    const { user,
+            eventsHostingNewMessagesExist,
+            eventsAttendingNewMessagesExist,
+            toggleEventsHostingNewMessagesExist,
+            toggleEventsAttendingNewMessagesExist,
+            newInterestedUsersExist,
+            toggleHasNewInfo,
+            history } = this.props
+
+    if (eventsHostingNewMessagesExist) {
+      toggleEventsHostingNewMessagesExist()
+    }
+
+    if (eventsAttendingNewMessagesExist) {
+      toggleEventsAttendingNewMessagesExist()
+    }
+
+    if (user.hasNewInfo && !newInterestedUsersExist) {
+      toggleHasNewInfo()
+    }
+
+    history.push(`/${user.username}/events`)
+  }
 
   renderEvent = () => {
     const { renderProps, currentEvent } = this.props
@@ -21,9 +50,10 @@ class EventCard extends Component {
   }
 
   render() {
-    const { props: {currentEvent}, renderEvent } = this
+    const { props: {currentEvent}, renderEvent, handleBackToEventsClick } = this
     return (
       <div>
+        <button onClick={ handleBackToEventsClick }>Back to My Events</button>
         { Object.keys(currentEvent).length ? renderEvent() : null }
       </div>
     )
@@ -33,8 +63,18 @@ class EventCard extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentEvent: state.currentEvent
+    user: state.user,
+    currentEvent: state.currentEvent,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist,
+    eventsHostingNewMessagesExist: state.eventsHosting.newMessagesExist,
+    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist
   }
 }
 
-export default connect(mapStateToProps)(EventCard)
+const mapDispatchToProps = {
+  toggleEventsHostingNewMessagesExist,
+  toggleEventsAttendingNewMessagesExist,
+  toggleHasNewInfo
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EventCard))
