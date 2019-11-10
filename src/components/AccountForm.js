@@ -130,7 +130,8 @@ class AccountForm extends Component {
             renderCreateProfileFormInputs } = this
 
     return (
-      <form onChange={ handleChange }
+      <form className='account-form'
+            onChange={ handleChange }
             onSubmit={ formType === 'login' ? handleLoginSubmit : handleCreateSubmit }>
         { errors ? <p>{ errors }</p> : null}
         <input type='text'
