@@ -15,7 +15,7 @@ import { getCreatedPosts, addCreatedPost, addNewInterestedUser, clearNewInterest
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting, addEventHostingMessage, toggleEventsHostingNewMessagesExist } from './actions/eventsImHostingActions';
 import { getEventsAttending, addEventAttendingMessage,
-toggleEventsAttendingNewMessagesExist } from './actions/eventsImAttendingActions';
+toggleEventsAttendingNewMessagesExist, newEventAttending } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
@@ -147,18 +147,27 @@ class App extends Component {
 
   }
 
+  handleNewEvent = event => {
+    const { user, newEventExists } = this.props
+    const attendingIds = event.users_attending.map(user => user.id)
+    if (attendingIds.includes(user.id)) {
+      newEventAttending(event)
+    }
+  }
+
   renderActionCables = () => {
     const { props: {createdPosts, eventsHosting, eventsAttending},
             handleNewPost,
             handleNewPostInterest,
-            handleNewMessage } = this
+            handleNewMessage,
+            handleNewEvent } = this
     const allEvents = [...eventsHosting.events, ...eventsAttending.events]
 
     return (
       <Fragment>
         <ActionCableConsumer
-              channel={ {channel: 'PostsChannel'} }
-              onReceived={ handleNewPost } />
+            channel={ {channel: 'PostsChannel'} }
+            onReceived={ handleNewPost } />
         {
           createdPosts.posts.map(post => (
             <ActionCableConsumer
@@ -175,6 +184,9 @@ class App extends Component {
                 onReceived={ message => handleNewMessage(message, event) } />
           ))
         }
+        <ActionCableConsumer
+            channel={ {channel: 'EventsChannel'} }
+            onReceived={ handleNewEvent }/>
       </Fragment>
     )
   }
@@ -334,7 +346,8 @@ const mapDispatchToProps = {
   addEventAttendingMessage,
   addCurrentEventMessage,
   toggleEventsHostingNewMessagesExist,
-  toggleEventsAttendingNewMessagesExist
+  toggleEventsAttendingNewMessagesExist,
+  newEventAttending
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
