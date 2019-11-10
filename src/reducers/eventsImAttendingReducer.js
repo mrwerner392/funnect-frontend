@@ -1,4 +1,4 @@
-export default (state = {events: [], newMessagesExist: false, filter: 'active'}, action) => {
+export default (state = {events: [], newEventExists: false, newMessagesExist: false, filter: 'active'}, action) => {
   switch (action.type) {
     case 'SET_EVENTS_ATTENDING':
       return {
@@ -10,6 +10,20 @@ export default (state = {events: [], newMessagesExist: false, filter: 'active'},
         ...state,
         events: [],
         filter: 'active'
+      }
+    case 'NEW_EVENT_ATTENDING':
+      return {
+        ...state,
+        events: [
+          action.event,
+          ...state.events
+        ],
+        newEventExists: true
+      }
+    case 'NEW_EVENT_ATTENDING_SEEN':
+      return {
+        ...state,
+        newEventExists: false
       }
     case 'SET_EVENTS_ATTENDING_FILTER':
       return {
