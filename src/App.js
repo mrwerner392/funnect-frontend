@@ -150,8 +150,6 @@ class App extends Component {
   handleNewEvent = event => {
     const { user, newEventExists, newEventAttending } = this.props
     const attendingIds = event.users_attending.map(user => user.id)
-    console.log(attendingIds);
-    console.log(attendingIds.includes(user.id));
     if (attendingIds.includes(user.id)) {
       newEventAttending(event)
     }

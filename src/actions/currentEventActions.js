@@ -18,3 +18,7 @@ export const getCurrentEvent = id => dispatch => {
   .then(res => res.json())
   .then(event => dispatch(setCurrentEvent(event)))
 }
+
+export const clearCurrentEvent = () => dispatch => {
+  dispatch({ type: 'CLEAR_CURRENT_EVENT' })
+}

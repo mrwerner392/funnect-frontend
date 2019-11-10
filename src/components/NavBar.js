@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { clearUser, toggleHasNewInfo } from '../actions/userActions'
-import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions'
-import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
-import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions'
-import { clearEventsHosting } from '../actions/eventsImHostingActions'
-import { clearEventsAttending } from '../actions/eventsImAttendingActions'
-import { clearTopics } from '../actions/topicsActions'
-import { clearNeighborhoods } from '../actions/neighborhoodsActions'
-import { setContentType } from '../actions/contentTypeActions'
+import { clearUser, toggleHasNewInfo } from '../actions/userActions';
+import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions';
+import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions';
+import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { clearEventsHosting } from '../actions/eventsImHostingActions';
+import { clearEventsAttending } from '../actions/eventsImAttendingActions';
+import { clearTopics } from '../actions/topicsActions';
+import { clearNeighborhoods } from '../actions/neighborhoodsActions';
+import { clearCurrentEvent } from '../actions/currentEventActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 class NavBar extends Component {
 
@@ -83,6 +84,7 @@ class NavBar extends Component {
             clearEventsAttending,
             clearTopics,
             clearNeighborhoods,
+            clearCurrentEvent,
             history } = this.props
 
     localStorage.clear();
@@ -94,6 +96,7 @@ class NavBar extends Component {
     clearEventsAttending();
     clearTopics();
     clearNeighborhoods();
+    clearCurrentEvent();
     history.push('/login');
   }
 
@@ -155,7 +158,8 @@ const mapDispatchToProps = dispatch => {
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
     setContentType: type => dispatch(setContentType(type)),
     showPostsWaiting: () => dispatch(showPostsWaiting()),
-    toggleHasNewInfo: () => dispatch(toggleHasNewInfo())
+    toggleHasNewInfo: () => dispatch(toggleHasNewInfo()),
+    clearCurrentEvent: () => dispatch(clearCurrentEvent())
   }
 }
 
