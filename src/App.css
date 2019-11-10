@@ -3,6 +3,9 @@
   padding: 0;
   outline: 0;
   vertical-align: baseline;
+  background-color: #fdfdfd;
+  font-family: 'Sunflower', sans-serif;
+  /* overflow: hidden; */
 }
 
 .App {
@@ -10,22 +13,34 @@
 }
 
 form {
-  background-color: #fcfcfc;
-  width: 40%;
+  background-color: #f4f4f4;
+  width: 50vw;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 1%;
+  margin-bottom: 1%;
   padding-top: 1%;
   padding-bottom: 1%;
-  border-radius: 5px
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 2px gray;
+  max-height: 65vh;
+  overflow: scroll;
 }
 
 input {
-  display: block;
+  /* display: block;
   margin: 5% auto 5% auto;
-  font-size: 2em;
+  font-size: 2.5vw;
   border-radius: 5px;
-  /* border-bottom: */
-  padding: 1%;
+  padding: 1%; */
+  /* width: 35vw; */
+}
+
+input.submit {
+  margin: 5% auto 5% auto;
+  padding-left: 3%;
+  padding-right: 3%;
+  font-size: 2.5vw;
+  border-radius: 5px;
 }
 
 input.submit:hover {
@@ -36,7 +51,12 @@ button:hover {
   cursor: pointer;
 }
 
-
+#account-form-container {
+  /* text-align: center; */
+  margin-top: 10vh;
+  /* max-height: 70vh; */
+  /* overflow: scroll; */
+}
 
 .chat-container {
   margin: auto;
@@ -75,4 +95,45 @@ button:hover {
 
 .mat-chat {
   font-weight: bold;
+}
+
+.acct-form-header {
+  background-color: #f4f4f4;
+  font-size: 3vw;
+}
+
+.acct-form-footer {
+  font-size: 2vw;
+  background-color: #fdfdfd;
+}
+
+.acct-form-input {
+  display: block;
+  margin: 5% auto 5% auto;
+  font-size: 2.5vw;
+  border-radius: 5px;
+  /* border-bottom: */
+  padding: 1%;
+  width: 35vw;
+  padding-left: 2%;
+}
+
+.acct-form-input:focus {
+  box-shadow: inset 5px 0px green;
+  /* border: 0 0 5px 0 green; */
+}
+
+.acct-form-select {
+  display: block;
+  margin: 2% auto 5% auto;
+  font-size: 2.5vw;
+  border-radius: 5px;
+  /* border-bottom: */
+  width: 35vw;
+  height: 5vh;
+}
+
+.acct-form-label {
+  font-size: 2vw;
+  background-color: #f4f4f4;
 }

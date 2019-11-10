@@ -77,38 +77,44 @@ class AccountForm extends Component {
 
     return (
       <Fragment>
-        <input type='text'
+        <input className='acct-form-input'
+                type='text'
                 name='first_name'
                 value={ first_name }
                 placeholder='first name'
                 />
-        <input type='number'
+        <input className='acct-form-input'
+                type='number'
                 name='age'
                 value={ age }
                 placeholder='age'
                 />
-        <input type='text'
+        <input className='acct-form-input'
+                type='text'
                 name='gender'
                 value={ gender }
                 placeholder='gender'
                 />
-        <input type='text'
+        <input className='acct-form-input'
+                type='text'
                 name='bio'
                 value={ bio }
                 placeholder='bio'
                 />
-        <input type='text'
+        <input className='acct-form-input'
+                type='text'
                 name='college'
                 value={ college }
                 placeholder='college'
                 />
-        <input type='text'
+        <input className='acct-form-input'
+                type='text'
                 name='occupation'
                 value={ occupation }
                 placeholder='occupation'
                 />
-        <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
-        <select id='user-interest-select' name='interests'>
+        <p className='acct-form-label' >Choose up to 5 Interests</p>
+        <select className='acct-form-select' name='interests'>
           { <option></option> }
           {
             interestOptions.map(interest => {
@@ -134,42 +140,22 @@ class AccountForm extends Component {
       <form className='account-form'
             onChange={ handleChange }
             onSubmit={ formType === 'login' ? handleLoginSubmit : handleCreateSubmit }>
+        <h1 className='acct-form-header'>{ formType === 'login' ? 'Log In' : 'Create Profile' }</h1>
         { errors ? <p>{ errors }</p> : null}
-        <input type='text'
+        <input className='acct-form-input'
+                type='text'
                 name='username'
                 value={ username }
                 placeholder='username'
                 />
-        <input type='password'
+        <input className='acct-form-input'
+                type='password'
                 name='password'
                 value={ password }
                 placeholder='password'
                 />
         { formType === 'create-profile' ? renderCreateProfileFormInputs() : null }
         <input type='submit' className='submit' />
-        { formType === 'login'
-          ? <p>
-              { 'Or ' }
-                <span>
-                  <NavLink className='link'
-                            exact
-                            to='/create-profile'
-                            >
-                            Create a Profile
-                  </NavLink>
-                </span>
-            </p>
-          : <p>
-              { 'Or ' }
-                <span>
-                  <NavLink className='link'
-                            exact
-                            to='/login'
-                            >
-                    Log In
-                  </NavLink>
-                </span>
-            </p> }
       </form>
     )
   }
