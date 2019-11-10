@@ -7,6 +7,7 @@ import PostFormContainer from './containers/PostFormContainer';
 import ContentContainer from './containers/ContentContainer';
 import PostCard from './components/PostCard';
 import EventCard from './components/EventCard';
+import EventNotification from './components/EventNotification';
 import NotFound from './components/NotFound';
 import { getUser, toggleHasNewInfo } from './actions/userActions';
 import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
@@ -236,11 +237,16 @@ class App extends Component {
   }
 
   render() {
-    const { renderActionCables, renderContent, handleNewPost } = this
+    const { props: {eventsAttending: {newEventExists} },
+            renderActionCables,
+            renderContent,
+            handleNewPost } = this
+
     return (
       <div className='App'>
         { renderActionCables() }
         <NavBar />
+        { newEventExists ? <EventNotification /> : null }
         <Switch>
           <Route exact
                   path='/login'
