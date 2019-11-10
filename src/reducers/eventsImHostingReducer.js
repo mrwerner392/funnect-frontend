@@ -1,4 +1,4 @@
-export default (state = {events: [], filter: 'active'}, action) => {
+export default (state = {events: [], newMessagesExist: false, filter: 'active'}, action) => {
   switch (action.type) {
     case 'SET_EVENTS_HOSTING':
       return {
@@ -31,6 +31,11 @@ export default (state = {events: [], filter: 'active'}, action) => {
             return event
           }
         })
+      }
+    case 'TOGGLE_EVENTS_HOSTING_NEW_MESSAGES_EXIST':
+      return {
+        ...state,
+        newMessagesExist: !state.newMessagesExist
       }
     case 'SET_EVENTS_HOSTING_FILTER':
       return {

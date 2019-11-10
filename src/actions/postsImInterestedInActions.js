@@ -72,7 +72,6 @@ export const removePostInterestedIn = (post_id, user_id) => dispatch => {
 
   }
 
-  console.log(config);
   fetch(URL + '/post_interests', config)
   .then(res => res.json())
   .then(response => dispatch(removePost(post_id)))

@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { clearUser } from '../actions/userActions'
+import { clearUser, toggleHasNewInfo } from '../actions/userActions'
 import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions'
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
-import { clearCreatedPosts } from '../actions/myCreatedPostsActions'
+import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions'
 import { clearEventsHosting } from '../actions/eventsImHostingActions'
 import { clearEventsAttending } from '../actions/eventsImAttendingActions'
 import { clearTopics } from '../actions/topicsActions'
@@ -36,13 +36,15 @@ class NavBar extends Component {
               setContentType,
               history
             },
-            handlePostsWaiting } = this
+            handlePostsWaiting,
+            handleNewInfo } = this
 
     if (type !== 'create') {
       setContentType(type)
     }
     switch (type) {
       case 'user':
+        handleNewInfo()
         history.push(`/${username}`)
         break
       case 'posts':
@@ -62,6 +64,13 @@ class NavBar extends Component {
     const { postsWaiting, showPostsWaiting } = this.props
     if (postsWaiting.length) {
       showPostsWaiting()
+    }
+  }
+
+  handleNewInfo = () => {
+    const { user: {hasNewInfo}, toggleHasNewInfo } = this.props
+    if (hasNewInfo) {
+      toggleHasNewInfo()
     }
   }
 
@@ -89,14 +98,13 @@ class NavBar extends Component {
   }
 
   renderPostsWaitingCount = () => {
-    const { postsWaiting, clearPostsWaiting, history } = this.props
+    const { postsWaiting } = this.props
     return postsWaiting.length ? `(${postsWaiting.length})` : null
-    // if (history.location.pathname.split('/')[1] != 'posts' && postsWaiting.length) {
-    //   return `(${postsWaiting})`
-    // } else {
-    //   clearPostsWaiting()
-    //   return null
-    // }
+  }
+
+  renderNewInfoMessage = () => {
+    const { hasNewInfo } = this.props.user
+    return hasNewInfo ? '(New Info)' : null
   }
 
   render() {
@@ -104,7 +112,8 @@ class NavBar extends Component {
               handleLogout,
               handleMatChatClick,
               handleNavBarButtonClick,
-              renderPostsWaitingCount } = this
+              renderPostsWaitingCount,
+              renderNewInfoMessage } = this
 
     return (
       <div>
@@ -112,7 +121,7 @@ class NavBar extends Component {
         { username
           ?
           <Fragment>
-            <button onClick={ () => handleNavBarButtonClick('user') } >{ username }</button>
+            <button onClick={ () => handleNavBarButtonClick('user') } >{ username } { renderNewInfoMessage() }</button>
             <button onClick={ () => handleNavBarButtonClick('posts') } >Home { renderPostsWaitingCount() }</button>
             <button onClick={ () => handleNavBarButtonClick('create') } >New Post</button>
             <button to='/login' onClick={ handleLogout } >Log Out</button>
@@ -129,7 +138,8 @@ class NavBar extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    postsWaiting: state.availablePosts.postsWaiting
+    postsWaiting: state.availablePosts.postsWaiting,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist
   }
 }
 
@@ -144,7 +154,8 @@ const mapDispatchToProps = dispatch => {
     clearTopics: () => dispatch(clearTopics()),
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
     setContentType: type => dispatch(setContentType(type)),
-    showPostsWaiting: () => dispatch(showPostsWaiting())
+    showPostsWaiting: () => dispatch(showPostsWaiting()),
+    toggleHasNewInfo: () => dispatch(toggleHasNewInfo())
   }
 }
 

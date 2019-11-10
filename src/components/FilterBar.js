@@ -2,20 +2,40 @@ import React, { Component, Fragment } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
-import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
+import { setCreatedPostsFilter, toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
 import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
-import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
-import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
+import { setEventsHostingFilter, toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
+import { setEventsAttendingFilter, toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
 import { setContentType } from '../actions/contentTypeActions';
 
 class FilterBar extends Component {
 
   handleUserFilterClick = contentType => {
-    const { user, history, setContentType } = this.props
+    const { user,
+            history,
+            setContentType,
+            newInterestedUsersExist,
+            toggleNewInterestedUsersExist,
+            eventsHostingNewMessagesExist,
+            eventsAttendingNewMessagesExist,
+            toggleEventsHostingNewMessagesExist,
+            toggleEventsAttendingNewMessagesExist } = this.props
+
     setContentType(contentType)
-    contentType === 'user-posts'
-      ? history.push(`${user.username}/posts`)
-      : history.push(`${user.username}/events`)
+
+    if (contentType === 'user-posts') {
+      if (newInterestedUsersExist) {
+        toggleNewInterestedUsersExist()
+      }
+      history.push(`${user.username}/posts`)
+    } else {
+      if (eventsHostingNewMessagesExist) {
+        toggleEventsHostingNewMessagesExist()
+      } else if (eventsAttendingNewMessagesExist) {
+        toggleEventsAttendingNewMessagesExist()
+      }
+      history.push(`${user.username}/events`)
+    }
   }
 
   handleMyPostsOrEventsFilterClick = evt => {
@@ -41,13 +61,30 @@ class FilterBar extends Component {
     }
   }
 
+  renderNewInterestedUsersNotification = () => {
+    const { newInterestedUsersExist } = this.props
+    return newInterestedUsersExist ? '(New Interested Users)' : null
+  }
+
+  renderNewMessagesNotification = () => {
+    const { eventsHostingNewMessagesExist, eventsAttendingNewMessagesExist} = this.props
+    const showNotification = (
+      eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
+    )
+
+    return showNotification ? '(New Messages)' : null
+  }
+
   renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
-    const { props: {user: {username}}, handleUserFilterClick } = this
+    const { props: {user: {username}},
+            handleUserFilterClick,
+            renderNewInterestedUsersNotification,
+            renderNewMessagesNotification } = this
     return (
       <div>
-        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts</button>
-        <button onClick={ () => handleUserFilterClick('user-events') }>Events</button>
+        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
+        <button onClick={ () => handleUserFilterClick('user-events') }>Events { renderNewMessagesNotification() }</button>
       </div>
     )
   }
@@ -141,6 +178,9 @@ const mapStateToProps = state => {
     topics: state.topics,
     neighborhoods: state.neighborhoods,
     contentType: state.contentType,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist,
+    eventsHostingNewMessagesExist: state.eventsHosting.newMessagesExist,
+    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist
   }
 }
 
@@ -151,7 +191,10 @@ const mapDispatchToProps = {
   setCreatedPostsFilter,
   setPostsInterestedInFilter,
   setEventsHostingFilter,
-  setEventsAttendingFilter
+  setEventsAttendingFilter,
+  toggleNewInterestedUsersExist,
+  toggleEventsHostingNewMessagesExist,
+  toggleEventsAttendingNewMessagesExist
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FilterBar))

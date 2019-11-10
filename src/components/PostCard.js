@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { newEventHosting } from '../actions/eventsImHostingActions';
+import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { toggleHasNewInfo } from '../actions/userActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 class PostCard extends Component {
 
@@ -21,13 +25,39 @@ class PostCard extends Component {
     })
   }
 
+  handleBackToPostsClick = () => {
+    const { user,
+            newInterestedUsersExist,
+            toggleNewInterestedUsersExist,
+            eventsHostingNewMessagesExist,
+            eventsAttendingNewMessagesExist,
+            toggleHasNewInfo,
+            setContentType,
+            history } = this.props
+
+    if (newInterestedUsersExist) {
+      toggleNewInterestedUsersExist()
+    }
+
+    const userHasNewMessages = (
+      eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
+    )
+
+    if (user.hasNewInfo && !userHasNewMessages) {
+      toggleHasNewInfo()
+    }
+
+    setContentType('user-posts')
+    history.push(`/${user.username}/posts`)
+  }
+
   renderInterestedUsers = post => {
     const {state: {attendees}, handleAddToEventList} = this
     return(
       <Fragment>
         {
           post.interested_users.map(user => (
-            <div>
+            <div key={ user.id }>
               <p>{ user.username }</p>
               <p>{ user.age }</p>
               <p>{ user.gender }</p>
@@ -60,10 +90,11 @@ class PostCard extends Component {
   }
 
   render() {
-    const { props: {currentPost}, renderPost } = this
+    const { props: {currentPost}, renderPost, handleBackToPostsClick } = this
 
     return (
       <div>
+        <button onClick={ handleBackToPostsClick }>Back to My Posts</button>
         { Object.keys(currentPost).length ? renderPost() : null }
       </div>
     )
@@ -73,12 +104,19 @@ class PostCard extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentPost: state.currentPost
+    user: state.user,
+    currentPost: state.currentPost,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist,
+    eventsHostingNewMessagesExist: state.eventsHosting.newMessagesExist,
+    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist
   }
 }
 
 const mapDispatchToProps = {
-  newEventHosting
+  newEventHosting,
+  toggleNewInterestedUsersExist,
+  toggleHasNewInfo,
+  setContentType
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostCard)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostCard))

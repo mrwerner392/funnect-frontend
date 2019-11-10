@@ -1,4 +1,4 @@
-export default (state = {events: [], filter: 'active'}, action) => {
+export default (state = {events: [], eventWaiting: {}, newEventExists: false, newMessagesExist: false, filter: 'active'}, action) => {
   switch (action.type) {
     case 'SET_EVENTS_ATTENDING':
       return {
@@ -10,6 +10,23 @@ export default (state = {events: [], filter: 'active'}, action) => {
         ...state,
         events: [],
         filter: 'active'
+      }
+    case 'NEW_EVENT_ATTENDING':
+      console.log('reducer');
+      return {
+        ...state,
+        events: [
+          action.event,
+          ...state.events
+        ],
+        eventWaiting: action.event,
+        newEventExists: true
+      }
+    case 'NEW_EVENT_ATTENDING_SEEN':
+      return {
+        ...state,
+        eventWaiting: {},
+        newEventExists: false
       }
     case 'SET_EVENTS_ATTENDING_FILTER':
       return {
@@ -29,6 +46,11 @@ export default (state = {events: [], filter: 'active'}, action) => {
             return event
           }
         })
+      }
+    case 'TOGGLE_EVENTS_ATTENDING_NEW_MESSAGES_EXIST':
+      return {
+        ...state,
+        newMessagesExist: !state.newMessagesExist
       }
     default:
       return state

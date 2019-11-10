@@ -5,7 +5,8 @@ import { addAvailablePost } from '../actions/availablePostsActions';
 import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
 import { removeAvailablePost } from '../actions/availablePostsActions';
 import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
-import { setCurrentPost } from '../actions/currentPostActions'
+import { setCurrentPost } from '../actions/currentPostActions';
+import { clearNewInterestedUsers } from '../actions/myCreatedPostsActions';
 
 class Post extends Component {
 
@@ -22,9 +23,23 @@ class Post extends Component {
   }
 
   handleManagePostClick = () => {
-    const { post, user: {username}, setCurrentPost, history } = this.props
+    const { post, user: {username},
+            setCurrentPost,
+            clearNewInterestedUsers,
+            history } = this.props
     setCurrentPost(post)
+    if (post.newInterestedUsers) {
+      clearNewInterestedUsers(post.id)
+    }
     history.push(`/${username}/posts/${post.id}`)
+  }
+
+  renderNotification = () => {
+    const { post } = this.props
+    const numNew = post.newInterestedUsers ? post.newInterestedUsers.length : 0
+    return numNew
+              ? <p>{ numNew } new interested { numNew === 1 ? 'user' : 'users' }</p>
+              : null
   }
 
   renderUserInterests = interests => {
@@ -38,6 +53,9 @@ class Post extends Component {
             handleNotInterestedClick,
             handleManagePostClick } = this
     const interestedIds = post.interested_users.map(user => user.id)
+    if (post.newInterestedUsers) {
+      post.newInterestedUsers.forEach(user => interestedIds.push(user.id))
+    }
 
     if (post.user.id === user.id) {
       return (
@@ -55,9 +73,13 @@ class Post extends Component {
   }
 
   render() {
-    const { props: {post, user}, renderUserInterests, renderPostFooter } = this
+    const { props: {post, user},
+            renderNotification,
+            renderUserInterests,
+            renderPostFooter } = this
     return (
       <div className='post'>
+        { renderNotification() }
         <p>{ post.topic.name }</p>
         <p>{ post.neighborhood.name }</p>
         <p>{ post.time_of_day }</p>
@@ -84,7 +106,8 @@ const mapDispatchToProps = {
   addPostInterestedIn,
   removeAvailablePost,
   removePostInterestedIn,
-  setCurrentPost
+  setCurrentPost,
+  clearNewInterestedUsers
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post))

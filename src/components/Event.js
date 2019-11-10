@@ -11,10 +11,17 @@ class Event extends Component {
     history.push(`/${username}/events/${event.id}`)
   }
 
+  renderNotification = () => {
+    const { event } = this.props
+    const newMessages = !!event.hasNewMessages
+    return newMessages ? <p>New messages</p> : null
+  }
+
   render() {
-    const { props: {event}, handleViewEventClick } = this
+    const { props: {event}, handleViewEventClick, renderNotification } = this
     return (
       <div className='event'>
+        { renderNotification() }
         <p>{ event.description }</p>
         <p>{ event.location }</p>
         <p>{ `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}` }</p>
