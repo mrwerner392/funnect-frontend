@@ -124,15 +124,35 @@ class NavBar extends Component {
               renderNewInfoMessage } = this
 
     return (
-      <div>
-        <button onClick={ handleMatChatClick } >MatChat</button>
+      <div className='nav-bar'>
+        <button className='nav-button'
+                onClick={ handleMatChatClick }
+                >
+          MatChat
+        </button>
         { username
           ?
           <Fragment>
-            <button onClick={ () => handleNavBarButtonClick('user') } >{ username } { renderNewInfoMessage() }</button>
-            <button onClick={ () => handleNavBarButtonClick('posts') } >Home { renderPostsWaitingCount() }</button>
-            <button onClick={ () => handleNavBarButtonClick('create') } >New Post</button>
-            <button to='/login' onClick={ handleLogout } >Log Out</button>
+            <button className='nav-button'
+                    onClick={ () => handleNavBarButtonClick('user') }
+                    >
+              { username } { renderNewInfoMessage() }
+            </button>
+            <button className='nav-button'
+                    onClick={ () => handleNavBarButtonClick('posts') }
+                    >
+              Home { renderPostsWaitingCount() }
+            </button>
+            <button className='nav-button'
+                    onClick={ () => handleNavBarButtonClick('create') }
+                    >
+              New Post
+            </button>
+            <button className='nav-button'
+                    onClick={ handleLogout }
+                    >
+              Log Out
+            </button>
           </Fragment>
           :
           null
