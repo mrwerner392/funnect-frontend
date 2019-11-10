@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { newEventHosting } from '../actions/eventsImHostingActions';
 import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
 import { toggleHasNewInfo } from '../actions/userActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 class PostCard extends Component {
 
@@ -31,6 +32,7 @@ class PostCard extends Component {
             eventsHostingNewMessagesExist,
             eventsAttendingNewMessagesExist,
             toggleHasNewInfo,
+            setContentType,
             history } = this.props
 
     if (newInterestedUsersExist) {
@@ -45,6 +47,7 @@ class PostCard extends Component {
       toggleHasNewInfo()
     }
 
+    setContentType('user-posts')
     history.push(`/${user.username}/posts`)
   }
 
@@ -112,7 +115,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   newEventHosting,
   toggleNewInterestedUsersExist,
-  toggleHasNewInfo
+  toggleHasNewInfo,
+  setContentType
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostCard))

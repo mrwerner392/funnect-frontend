@@ -5,6 +5,7 @@ import ChatContainer from '../containers/ChatContainer';
 import { toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
 import { toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
 import { toggleHasNewInfo } from '../actions/userActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 class EventCard extends Component {
 
@@ -16,6 +17,7 @@ class EventCard extends Component {
             toggleEventsAttendingNewMessagesExist,
             newInterestedUsersExist,
             toggleHasNewInfo,
+            setContentType,
             history } = this.props
 
     if (eventsHostingNewMessagesExist) {
@@ -30,6 +32,7 @@ class EventCard extends Component {
       toggleHasNewInfo()
     }
 
+    setContentType('user-events')
     history.push(`/${user.username}/events`)
   }
 
@@ -74,7 +77,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   toggleEventsHostingNewMessagesExist,
   toggleEventsAttendingNewMessagesExist,
-  toggleHasNewInfo
+  toggleHasNewInfo,
+  setContentType
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EventCard))
