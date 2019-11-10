@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { newEventHosting } from '../actions/eventsImHostingActions';
+import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { toggleHasNewInfo } from '../actions/userActions';
 
 class PostCard extends Component {
 
@@ -19,6 +22,30 @@ class PostCard extends Component {
         attendees: [...prevState.attendees, id]
       }
     })
+  }
+
+  handleBackToPostsClick = () => {
+    const { user,
+            newInterestedUsersExist,
+            toggleNewInterestedUsersExist,
+            eventsHostingNewMessagesExist,
+            eventsAttendingNewMessagesExist,
+            toggleHasNewInfo,
+            history } = this.props
+
+    if (newInterestedUsersExist) {
+      toggleNewInterestedUsersExist()
+    }
+
+    const userHasNewMessages = (
+      eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
+    )
+
+    if (user.hasNewInfo && !userHasNewMessages) {
+      toggleHasNewInfo()
+    }
+
+    history.push(`/${user.username}/posts`)
   }
 
   renderInterestedUsers = post => {
@@ -60,10 +87,11 @@ class PostCard extends Component {
   }
 
   render() {
-    const { props: {currentPost}, renderPost } = this
+    const { props: {currentPost}, renderPost, handleBackToPostsClick } = this
 
     return (
       <div>
+        <button onClick={ handleBackToPostsClick }>Back to My Posts</button>
         { Object.keys(currentPost).length ? renderPost() : null }
       </div>
     )
@@ -73,12 +101,18 @@ class PostCard extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentPost: state.currentPost
+    user: state.user,
+    currentPost: state.currentPost,
+    newInterestedUsersExist: state.createdPosts.newInterestedUsersExist,
+    eventsHostingNewMessagesExist: state.eventsHosting.newMessagesExist,
+    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist
   }
 }
 
 const mapDispatchToProps = {
-  newEventHosting
+  newEventHosting,
+  toggleNewInterestedUsersExist,
+  toggleHasNewInfo
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostCard)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostCard))
