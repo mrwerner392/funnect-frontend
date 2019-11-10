@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  vertical-align: baseline;
+}
+
 .App {
   text-align: center;
 }
@@ -8,7 +15,8 @@ form {
   margin: auto;
   margin-top: 10%;
   padding-top: 1%;
-  padding-bottom: 1%
+  padding-bottom: 1%;
+  border-radius: 5px
 }
 
 input {
@@ -16,8 +24,19 @@ input {
   margin: 5% auto 5% auto;
   font-size: 2em;
   border-radius: 5px;
-  /* padding: 5% 0% 5% 0%; */
+  /* border-bottom: */
+  padding: 1%;
 }
+
+input.submit:hover {
+  cursor: pointer;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+
 
 .chat-container {
   margin: auto;
@@ -37,6 +56,7 @@ input {
 }
 
 .nav-bar {
+  height: 8vh;
   width: 100vw;
   background-color: #039600;
   color: white;
@@ -44,10 +64,15 @@ input {
 }
 
 .nav-button {
+  height: 8vh;
+  width: 20vw;
   background-color: #039600;
   padding: 1%;
   border: none;
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 3vw;
   color: white;
+}
+
+.mat-chat {
+  font-weight: bold;
 }

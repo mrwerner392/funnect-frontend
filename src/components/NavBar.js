@@ -125,7 +125,7 @@ class NavBar extends Component {
 
     return (
       <div className='nav-bar'>
-        <button className='nav-button'
+        <button className='nav-button mat-chat'
                 onClick={ handleMatChatClick }
                 >
           MatChat
