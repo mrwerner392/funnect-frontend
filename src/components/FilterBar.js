@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
 import { setCreatedPostsFilter, toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
 import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
-import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
-import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
+import { setEventsHostingFilter, toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
+import { setEventsAttendingFilter, toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
 import { setContentType } from '../actions/contentTypeActions';
 
 class FilterBar extends Component {
@@ -15,7 +15,11 @@ class FilterBar extends Component {
             history,
             setContentType,
             newInterestedUsersExist,
-            toggleNewInterestedUsersExist } = this.props
+            toggleNewInterestedUsersExist,
+            eventsHostingNewMessagesExist,
+            eventsAttendingNewMessagesExist,
+            toggleEventsHostingNewMessagesExist,
+            toggleEventsAttendingNewMessagesExist } = this.props
 
     setContentType(contentType)
 
@@ -25,6 +29,11 @@ class FilterBar extends Component {
       }
       history.push(`${user.username}/posts`)
     } else {
+      if (eventsHostingNewMessagesExist) {
+        toggleEventsHostingNewMessagesExist()
+      } else if (eventsAttendingNewMessagesExist) {
+        toggleEventsAttendingNewMessagesExist()
+      }
       history.push(`${user.username}/events`)
     }
   }
@@ -183,7 +192,9 @@ const mapDispatchToProps = {
   setPostsInterestedInFilter,
   setEventsHostingFilter,
   setEventsAttendingFilter,
-  toggleNewInterestedUsersExist
+  toggleNewInterestedUsersExist,
+  toggleEventsHostingNewMessagesExist,
+  toggleEventsAttendingNewMessagesExist
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FilterBar))
