@@ -137,3 +137,16 @@ button:hover {
   font-size: 2vw;
   background-color: #f4f4f4;
 }
+
+.acct-form-interest {
+  font-size: 2vw;
+  background-color: #f4f4f4;
+}
+
+.interest-delete {
+  font-size: 1.5vw;
+  border-radius: 10px;
+  width: 2vw;
+  height: 2vw;
+  padding-bottom: 2%;
+}

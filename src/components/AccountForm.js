@@ -57,10 +57,10 @@ class AccountForm extends Component {
   renderInterests = () => {
     const { state: {interests}, handleRemoveInterest } = this
     return interests.map((interest, index) => (
-      <li key={ interest }>
-        { interest }
-        <button type='button' onClick={ () => handleRemoveInterest(index) }>x</button>
-      </li>
+      <p className='acct-form-interest' key={ interest }>
+        { `${interest}   ` }
+        <span><button className='interest-delete' type='button' onClick={ () => handleRemoveInterest(index) }>x</button></span>
+      </p>
     ))
   }
 
