@@ -10,6 +10,7 @@ import { clearEventsAttending } from '../actions/eventsImAttendingActions';
 import { clearTopics } from '../actions/topicsActions';
 import { clearNeighborhoods } from '../actions/neighborhoodsActions';
 import { clearCurrentEvent } from '../actions/currentEventActions';
+import { clearCurrentPost } from '../actions/currentPostActions'
 import { setContentType } from '../actions/contentTypeActions';
 
 class NavBar extends Component {
@@ -85,6 +86,7 @@ class NavBar extends Component {
             clearTopics,
             clearNeighborhoods,
             clearCurrentEvent,
+            clearCurrentPost,
             history } = this.props
 
     localStorage.clear();
@@ -97,6 +99,7 @@ class NavBar extends Component {
     clearTopics();
     clearNeighborhoods();
     clearCurrentEvent();
+    clearCurrentPost();
     history.push('/login');
   }
 
@@ -159,7 +162,8 @@ const mapDispatchToProps = dispatch => {
     setContentType: type => dispatch(setContentType(type)),
     showPostsWaiting: () => dispatch(showPostsWaiting()),
     toggleHasNewInfo: () => dispatch(toggleHasNewInfo()),
-    clearCurrentEvent: () => dispatch(clearCurrentEvent())
+    clearCurrentEvent: () => dispatch(clearCurrentEvent()),
+    clearCurrentPost: () => dispatch(clearCurrentPost())
   }
 }
 
