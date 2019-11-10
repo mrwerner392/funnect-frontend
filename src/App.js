@@ -12,8 +12,9 @@ import { getUser, toggleHasNewInfo } from './actions/userActions';
 import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
 import { getCreatedPosts, addCreatedPost, addNewInterestedUser, clearNewInterestedUsers, toggleNewInterestedUsersExist } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
-import { getEventsHosting, addEventHostingMessage } from './actions/eventsImHostingActions';
-import { getEventsAttending, addEventAttendingMessage } from './actions/eventsImAttendingActions';
+import { getEventsHosting, addEventHostingMessage, toggleEventsHostingNewMessagesExist } from './actions/eventsImHostingActions';
+import { getEventsAttending, addEventAttendingMessage,
+toggleEventsAttendingNewMessagesExist } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
@@ -25,6 +26,7 @@ import './App.css';
 
 class App extends Component {
 
+  // action cable response handler -- new posts
   handleNewPost = post => {
     const { user, addPostWaiting, addCreatedPost } = this.props
     if (user.id && post.user.id !== user.id) {
@@ -34,6 +36,7 @@ class App extends Component {
     }
   }
 
+  // action cable response handler -- new user interested in my post
   handleNewPostInterest = ({ post, interested_user }) => {
     const { user,
             currentPost,
@@ -47,13 +50,19 @@ class App extends Component {
 
     addNewInterestedUser(post, interested_user)
 
+    // logic for if and when to show notifications
+
     const location = history.location.pathname
     if (location === `/${user.username}/posts/${post.id}`) {
+      // if user is viewing the post that has new interest, add it there
+        // post being viewed held separately in state
       clearNewInterestedUsers(post.id)
       addNewInterestedUserCurrentPost(post)
     } else {
       if (!(createdPosts.newInterestedUsersExist
                       || location === `/${user.username}/posts`)) {
+        // toggle to true -- will result in 'new interested users' notification
+        // in user filter bar
         toggleNewInterestedUsersExist()
       }
     }
@@ -65,6 +74,8 @@ class App extends Component {
         case `/${user.username}/posts/${post.id}`:
           break
         default:
+          // toggle user has new info to true if false -- will result in
+          // 'new info' notification in nav bar
           toggleHasNewInfo()
           break
       }
@@ -72,12 +83,17 @@ class App extends Component {
 
   }
 
+  // action cable response handler -- new message in one of my events
   handleNewMessage = (message, event) => {
     const { user,
             currentEvent,
+            eventsHosting,
+            eventsAttending,
             addEventHostingMessage,
             addEventAttendingMessage,
             addCurrentEventMessage,
+            toggleEventsHostingNewMessagesExist,
+            toggleEventsAttendingNewMessagesExist,
             toggleHasNewInfo,
             history } = this.props
 
@@ -87,8 +103,30 @@ class App extends Component {
       addEventAttendingMessage(message, event.id)
     }
 
-    if (event.id === currentEvent.id) {
+
+    // logic for if and when to show notifications
+
+    const location = history.location.pathname
+    if (location === `/${user.username}/events/${event.id}`) {
+      // if user is viewing the event that has new message, add message there
+        // current message being viewed held separately in state
       addCurrentEventMessage(message)
+    } else {
+
+      // if not already viewing the event, determine if we need to show
+      // a new messages notification or if one already exists
+      if (location !== `/${user.username}/events`) {
+        const newMessagesAlreadyExist = (
+          eventsHosting.newMessagesExist || eventsAttending.newMessagesExist
+        )
+
+        if (!newMessagesAlreadyExist) {
+          event.user.id === user.id
+                ? toggleEventsHostingNewMessagesExist()
+                : toggleEventsAttendingNewMessagesExist()
+        }
+
+      }
     }
 
     if (!user.hasNewInfo) {
@@ -99,6 +137,8 @@ class App extends Component {
         case `/${user.username}/events/${event.id}`:
           break
         default:
+          // toggle user has new info to true if false -- will result in
+          // 'new info' notification in nav bar
           toggleHasNewInfo()
           break
       }
@@ -286,7 +326,9 @@ const mapDispatchToProps = {
   toggleHasNewInfo,
   addEventHostingMessage,
   addEventAttendingMessage,
-  addCurrentEventMessage
+  addCurrentEventMessage,
+  toggleEventsHostingNewMessagesExist,
+  toggleEventsAttendingNewMessagesExist
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
