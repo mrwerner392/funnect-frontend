@@ -33,17 +33,25 @@ class ProfileInfo extends Component {
             handleEditProfileClick } = this
 
     return (
-      <Fragment>
-        <li id='profile-username'>{ username }</li>
-        <li id='profile-first-name'>{ first_name }</li>
-        <li id='profile-age'>{ age }</li>
-        <li id='profile-gender'>{ gender }</li>
-        <li id='profile-bio'>{ bio }</li>
-        <li id='profile-college'>{ college }</li>
-        <li id='profile-occupation'>{ occupation }</li>
-        <li id='profile-interests'>{ renderInterests() }</li>
-        <button onClick={ handleEditProfileClick } >Edit Profile</button>
-      </Fragment>
+      <div id='profile-info-display'>
+        <button className='edit-profile-button' onClick={ handleEditProfileClick } >Edit Profile</button>
+        <h4 className='profile-info-label'>Username</h4>
+        <p className='profile-info-item' id='profile-username'>{ username }</p>
+        <h4 className='profile-info-label'>First Name</h4>
+        <p className='profile-info-item' id='profile-first-name'>{ first_name }</p>
+        <h4 className='profile-info-label'>Age</h4>
+        <p className='profile-info-item' id='profile-age'>{ age }</p>
+        <h4 className='profile-info-label'>Gender</h4>
+        <p className='profile-info-item' id='profile-gender'>{ gender }</p>
+        <h4 className='profile-info-label'>Bio</h4>
+        <p className='profile-info-item' id='profile-bio'>{ bio }</p>
+        <h4 className='profile-info-label'>College</h4>
+        <p className='profile-info-item' id='profile-college'>{ college }</p>
+        <h4 className='profile-info-label'>Occupation</h4>
+        <p className='profile-info-item' id='profile-occupation'>{ occupation }</p>
+        <h4 className='profile-info-label'>Interests</h4>
+        <p className='profile-info-item' id='profile-interests'>{ renderInterests() }</p>
+      </div>
     )
   }
 

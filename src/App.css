@@ -415,7 +415,7 @@ button:hover {
 .event-attendee {
   display: inline;
   padding-top: 2.5%;
-  min-width: 150px;
+  min-width: 160px;
   margin-left: 1vw;
   margin-right: 1vw;
   background-color: white;
@@ -437,4 +437,32 @@ button:hover {
   font-size: 1.6vw;
   color: white;
   background-color: #039600;
+}
+
+#profile-info-display {
+  background-color: white;
+  width: 60vw;
+}
+
+.profile-info-label {
+  font-size: 1.7em;
+  padding-top: 3%;
+  padding-bottom: 2%;
+  background-color: white;
+}
+
+.profile-info-item {
+  font-size: 1.3em;
+  padding-bottom: 2%;
+  background-color: white;
+}
+
+.edit-profile-button {
+  margin: 5% auto 2% auto;
+  padding-left: 3%;
+  padding-right: 3%;
+  font-size: 2.5vw;
+  border-radius: 5px;
+  background-color: #039600;
+  color: white;
 }
