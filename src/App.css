@@ -210,7 +210,7 @@ button:hover {
   margin-top: 5%;
   border-style: solid;
   display: grid;
-  grid-template-rows: 20% 20% 40% 20%;
+  grid-template-rows: 20% 20% 45% 15%;
   grid-template-areas:
     'post-header'
     'post-description'
@@ -237,9 +237,25 @@ button:hover {
 }
 
 #post-user {
+  padding-top: 1%;
   grid-area: post-user;
 }
 
 #post-footer {
   grid-area: post-footer;
+  display: flex;
+}
+
+#my-post-footer-text {
+  width: 1vw;
+  flex-grow: 2;
+  text-align: center;
+  font-size: 1.8vw;
+}
+
+#my-post-footer-button {
+  width: 1vw;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.8vw;
 }

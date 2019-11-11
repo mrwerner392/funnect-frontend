@@ -59,15 +59,22 @@ class Post extends Component {
 
     if (post.user.id === user.id) {
       return (
-        <p>{ interestedIds.length } users are interested <span><button onClick={ handleManagePostClick }>Manage Post</button></span></p>
+        <Fragment>
+          <p id='my-post-footer-text'>{ interestedIds.length } users are interested</p>
+          <button id='my-post-footer-button' onClick={ handleManagePostClick }>Manage Post</button>
+        </Fragment>
       )
     } else if (interestedIds.includes(user.id)) {
       return (
-        <p>You and { interestedIds.length - 1 } others are interested<span><button onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button></span></p>
+        <Fragment>
+          <p>You and { interestedIds.length - 1 } others are interested<span><button onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button></span></p>
+        </Fragment>
       )
     } else {
       return (
-        <p>{ interestedIds.length } users are interested <span><button onClick={ () => handleInterestedClick(post) }>{ "I'm Interested" }</button></span></p>
+        <Fragment>
+          <p>{ interestedIds.length } users are interested <span><button onClick={ () => handleInterestedClick(post) }>{ "I'm Interested" }</button></span></p>
+        </Fragment>
       )
     }
   }
@@ -88,7 +95,7 @@ class Post extends Component {
           </div>
           <p id='post-description'>{ post.description }</p>
           <div id='post-user'>
-            <h4>Poster:</h4>
+            <h4>ABOUT THE POSTER</h4>
             <p>{ `${post.user.username}, ${post.user.age}, ${post.user.occupation}` }</p>
             <p>{ `"${post.user.bio}"` }</p>
             <p>Likes: { renderUserInterests(post.user.interests) }</p>
