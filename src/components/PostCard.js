@@ -51,22 +51,28 @@ class PostCard extends Component {
     history.push(`/${user.username}/posts`)
   }
 
+  renderUserInterests = interests => {
+    const interestNames = interests.map(interest => interest.name)
+    return interestNames.join(', ')
+  }
+
   renderInterestedUsers = () => {
     const { state: {attendees},
             props: {currentPost},
+            renderUserInterests,
             handleAddToEventList } = this
+
     return(
       <Fragment>
         {
           currentPost.interested_users.map(user => (
-            <div className='interested-user' key={ user.id }>
-              <p>{ user.username }</p>
-              <p>{ user.age }</p>
-              <p>{ user.gender }</p>
-              <p>{ user.bio }</p>
-              <p>{ user.college }</p>
-              <p>{ user.occupation }</p>
-              <button onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
+            <div className='post-card-interested-user' key={ user.id }>
+              <p className='post-card-user-item'>{ `${user.username}  |  ${user.age}  |  ${user.occupation}` }</p>
+              <p className='post-card-user-item'>{ `"${user.bio}"` }</p>
+              <p className='post-card-user-item'>
+                Likes: { renderUserInterests(user.interests) }
+              </p>
+              <button className='add-to-event-list' onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
             </div>
           ))
         }
@@ -89,6 +95,7 @@ class PostCard extends Component {
           <div id='post-card-description'>
             { currentPost.description }
           </div>
+          <h1 id='post-card-interested-label'>Interested Users</h1>
           <div id='post-card-users'>
             { renderInterestedUsers() }
           </div>

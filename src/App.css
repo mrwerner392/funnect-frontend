@@ -486,10 +486,11 @@ button:hover {
   border-radius: 5px;
   box-shadow: 0px 0px 5px 2px gray;
   display: grid;
-  grid-template-rows: 10% 10% 70% 10%;
+  grid-template-rows: 10% 10% 5% 65% 10%;
   grid-template-areas:
     'post-card-header'
     'post-card-description'
+    'post-card-interested-label'
     'post-card-users'
     'post-card-footer';
   background-color: white;
@@ -527,9 +528,40 @@ button:hover {
   border-bottom: 1px solid;
 }
 
+#post-card-interested-label {
+  grid-area: post-card-interested-label;
+  background-color: white;
+  font-size: 2vw;
+}
+
 #post-card-users {
   background-color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   overflow: scroll;
+}
+
+.post-card-interested-user {
+  background-color: white;
+  margin-top: 3%;
+  width: 32vw;
+}
+
+.post-card-user-item {
+  background-color: white;
+  font-size: 1.5vw;
+  padding: 0.5%;
+}
+
+.add-to-event-list {
+  text-align: center;
+  font-size: 1.3vw;
+  color: white;
+  background-color: #039600;
+  padding: 2%;
+  border-radius: 5px;
 }
 
 #post-card-footer {
