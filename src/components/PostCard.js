@@ -51,13 +51,15 @@ class PostCard extends Component {
     history.push(`/${user.username}/posts`)
   }
 
-  renderInterestedUsers = post => {
-    const {state: {attendees}, handleAddToEventList} = this
+  renderInterestedUsers = () => {
+    const { state: {attendees},
+            props: {currentPost},
+            handleAddToEventList } = this
     return(
       <Fragment>
         {
-          post.interested_users.map(user => (
-            <div key={ user.id }>
+          currentPost.interested_users.map(user => (
+            <div className='interested-user' key={ user.id }>
               <p>{ user.username }</p>
               <p>{ user.age }</p>
               <p>{ user.gender }</p>
@@ -88,7 +90,7 @@ class PostCard extends Component {
             { currentPost.description }
           </div>
           <div id='post-card-users'>
-            { renderInterestedUsers(currentPost) }
+            { renderInterestedUsers() }
           </div>
           <div id='post-card-footer'>
             <button id='create-event-button' disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
