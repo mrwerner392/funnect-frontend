@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addAvailablePost } from '../actions/availablePostsActions';
@@ -78,18 +78,26 @@ class Post extends Component {
             renderUserInterests,
             renderPostFooter } = this
     return (
-      <div className='post'>
+      <Fragment>
         { renderNotification() }
-        <p>{ post.topic.name }</p>
-        <p>{ post.neighborhood.name }</p>
-        <p>{ post.time_of_day }</p>
-        <p>{ post.description }</p>
-        <h4>Poster:</h4>
-        <p>{ `${post.user.username}, ${post.user.age}, ${post.user.occupation}` }</p>
-        <p>{ `"${post.user.bio}"` }</p>
-        <p>Likes: { renderUserInterests(post.user.interests) }</p>
-        { renderPostFooter() }
-      </div>
+        <div id='post'>
+          <div id='post-header'>
+            <p className='post-header-item'>{ post.topic.name }</p>
+            <p className='post-header-item'>{ post.neighborhood.name }</p>
+            <p className='post-header-item'>{ post.time_of_day }</p>
+          </div>
+          <p id='post-description'>{ post.description }</p>
+          <div id='post-user'>
+            <h4>Poster:</h4>
+            <p>{ `${post.user.username}, ${post.user.age}, ${post.user.occupation}` }</p>
+            <p>{ `"${post.user.bio}"` }</p>
+            <p>Likes: { renderUserInterests(post.user.interests) }</p>
+          </div>
+          <div id='post-footer'>
+            { renderPostFooter() }
+          </div>
+        </div>
+      </Fragment>
     )
   }
 
