@@ -477,7 +477,7 @@ button:hover {
   color: white;
 }
 
-.post-card {
+#post-card {
   width: 66vw;
   height: 70vh;
   margin: 1% auto 5% auto;
@@ -485,13 +485,71 @@ button:hover {
   /* border-width: 2px; */
   border-radius: 5px;
   box-shadow: 0px 0px 5px 2px gray;
-  border-radius: 5px;
   display: grid;
-  grid-template-rows: 15% 15% 55% 15%;
+  grid-template-rows: 10% 10% 70% 10%;
   grid-template-areas:
     'post-card-header'
     'post-card-description'
     'post-card-users'
     'post-card-footer';
   background-color: white;
+}
+
+#post-card-header {
+  grid-area: post-card-header;
+  display: flex;
+  border-radius: 100px;
+}
+
+.post-card-header-item {
+  width: 1vw;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 2vw;
+  padding-top: 1%;
+  background-color: #a7ff87;
+  /* border-radius: 100px; */
+}
+
+#post-card-topic {
+  border-radius: 5px 0 0 0;
+}
+
+#post-card-time-day {
+  border-radius: 0 5px 0 0;
+}
+
+#post-card-description {
+  grid-area: post-card-description;
+  font-size: 1.5vw;
+  padding-top: 1%;
+  background-color: #a7ff87;
+  border-bottom: 1px solid;
+}
+
+#post-card-users {
+  background-color: white;
+  overflow: scroll;
+}
+
+#post-card-footer {
+  grid-area: post-card-footer;
+  display: flex;
+}
+
+#create-event-button {
+  width: 1vw;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.6vw;
+  color: white;
+  background-color: #039600;
+}
+
+#create-event-button:disabled {
+  background-color: gray;
+}
+
+#create-event-button:disabled:hover {
+  cursor: auto;
 }

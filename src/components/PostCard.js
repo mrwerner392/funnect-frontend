@@ -78,13 +78,21 @@ class PostCard extends Component {
             handleCreateEvent, renderInterestedUsers } = this
 
     return (
-        <div className='post-card'>
-          <p>{ currentPost.topic.name }</p>
-          <p>{ currentPost.neighborhood.name }</p>
-          <p>{ currentPost.user.username }</p>
-          <p>{ currentPost.status }</p>
-          { renderInterestedUsers(currentPost) }
-          <button disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
+        <div id='post-card'>
+          <div id='post-card-header'>
+            <p className='post-card-header-item' id='post-card-topic'>{ currentPost.topic.name }</p>
+            <p className='post-card-header-item'>{ currentPost.neighborhood.name }</p>
+            <p className='post-card-header-item' id='post-card-time-day'>{ `${currentPost.today_or_tomorrow}, ${currentPost.time_of_day}` }</p>
+          </div>
+          <div id='post-card-description'>
+            { currentPost.description }
+          </div>
+          <div id='post-card-users'>
+            { renderInterestedUsers(currentPost) }
+          </div>
+          <div id='post-card-footer'>
+            <button id='create-event-button' disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
+          </div>
         </div>
     )
   }
