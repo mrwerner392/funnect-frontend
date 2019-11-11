@@ -30,7 +30,8 @@ class Event extends Component {
           </div>
           <p id='event-description'>{ event.description }</p>
           <div id='event-users'>
-            Attendees
+            <h4 id='event-attendees-label'>Attendees</h4>
+            <div id='event-attendees-list'>Attendees here</div>
           </div>
           <div id='event-footer'>
             <button id='view-event-button' onClick={ handleViewEventClick } >View Event</button>

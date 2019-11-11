@@ -383,6 +383,30 @@ button:hover {
   border-bottom: 1px solid;
 }
 
+#event-users {
+  grid-area: event-users;
+  display: flex;
+}
+
+#event-attendees-label {
+  width: 1vw;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.4vw;
+  padding-top: 4%;
+  overflow-wrap: wrap;
+  background-color: white;
+}
+
+#event-attendees-list {
+  width: 1vw;
+  flex-grow: 5;
+  text-align: center;
+  font-size: 1.3vw;
+  overflow-wrap: wrap;
+  background-color: white;
+}
+
 #event-footer {
   grid-area: event-footer;
   display: flex;
