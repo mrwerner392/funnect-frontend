@@ -78,14 +78,14 @@ class PostCard extends Component {
             handleCreateEvent, renderInterestedUsers } = this
 
     return (
-        <Fragment>
+        <div className='post-card'>
           <p>{ currentPost.topic.name }</p>
           <p>{ currentPost.neighborhood.name }</p>
           <p>{ currentPost.user.username }</p>
           <p>{ currentPost.status }</p>
           { renderInterestedUsers(currentPost) }
           <button disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
-        </Fragment>
+        </div>
     )
   }
 
@@ -93,10 +93,10 @@ class PostCard extends Component {
     const { props: {currentPost}, renderPost, handleBackToPostsClick } = this
 
     return (
-      <div>
-        <button onClick={ handleBackToPostsClick }>Back to My Posts</button>
+      <Fragment>
+        <button className='back-button' onClick={ handleBackToPostsClick }>Back to My Posts</button>
         { Object.keys(currentPost).length ? renderPost() : null }
-      </div>
+      </Fragment>
     )
   }
 
