@@ -67,13 +67,15 @@ class Post extends Component {
     } else if (interestedIds.includes(user.id)) {
       return (
         <Fragment>
-          <p>You and { interestedIds.length - 1 } others are interested<span><button onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button></span></p>
+          <p id='post-interested-footer-text'>You and { interestedIds.length - 1 } others are interested</p>
+          {/*<button id='post-interested-footer-button' onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button>*/}
         </Fragment>
       )
     } else {
       return (
         <Fragment>
-          <p>{ interestedIds.length } users are interested <span><button onClick={ () => handleInterestedClick(post) }>{ "I'm Interested" }</button></span></p>
+          <p id='available-footer-text'>{ interestedIds.length } users are interested</p>
+          <button id='available-footer-button' onClick={ () => handleInterestedClick(post) }>{ "I'm Interested" }</button>
         </Fragment>
       )
     }
@@ -95,10 +97,12 @@ class Post extends Component {
           </div>
           <p id='post-description'>{ post.description }</p>
           <div id='post-user'>
-            <h4>ABOUT THE POSTER</h4>
-            <p>{ `${post.user.username}, ${post.user.age}, ${post.user.occupation}` }</p>
-            <p>{ `"${post.user.bio}"` }</p>
-            <p>Likes: { renderUserInterests(post.user.interests) }</p>
+            <h4 id='about-the-poster'>ABOUT THE POSTER</h4>
+            <div id='post-user-info'>
+              <p>{ `${post.user.username}, ${post.user.age}, ${post.user.occupation}` }</p>
+              <p>{ `"${post.user.bio}"` }</p>
+              <p>Likes: { renderUserInterests(post.user.interests) }</p>
+            </div>
           </div>
           <div id='post-footer'>
             { renderPostFooter() }
