@@ -17,8 +17,36 @@ class Event extends Component {
     return newMessages ? <p>New messages</p> : null
   }
 
+  renderAttendees = () => {
+    const { event, user } = this.props
+
+    return (
+      <Fragment>
+        <div className='event-attendee'>
+          <p className='event-attendee-item'>{ `${event.user.first_name} (Host)` }</p>
+          <p className='event-attendee-item'>{ event.user.age }</p>
+          <p className='event-attendee-item'>{ event.user.occupation }</p>
+        </div>
+        {
+          event.users_attending.map(user => {
+            return (
+              <div className='event-attendee'>
+                <p className='event-attendee-item'>{ user.first_name }</p>
+                <p className='event-attendee-item'>{ user.age }</p>
+                <p className='event-attendee-item'>{ user.occupation }</p>
+              </div>
+            )
+          })
+        }
+      </Fragment>
+    )
+  }
+
   render() {
-    const { props: {event}, handleViewEventClick, renderNotification } = this
+    const { props: {event},
+            handleViewEventClick,
+            renderNotification,
+            renderAttendees } = this
     return (
       <Fragment>
         { renderNotification() }
@@ -31,7 +59,9 @@ class Event extends Component {
           <p id='event-description'>{ event.description }</p>
           <div id='event-users'>
             <h4 id='event-attendees-label'>Attendees</h4>
-            <div id='event-attendees-list'>Attendees here</div>
+            <div id='event-attendees-list'>
+              { renderAttendees() }
+            </div>
           </div>
           <div id='event-footer'>
             <button id='view-event-button' onClick={ handleViewEventClick } >View Event</button>

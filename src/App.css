@@ -279,6 +279,7 @@ button:hover {
   padding-top: 1.5%;
   overflow-wrap: wrap;
   background-color: white;
+  /* border-right: 1px solid; */
 }
 
 #post-user-info {
@@ -401,9 +402,26 @@ button:hover {
 #event-attendees-list {
   width: 1vw;
   flex-grow: 5;
-  text-align: center;
   font-size: 1.3vw;
-  overflow-wrap: wrap;
+  background-color: white;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: none;
+  /* text-align: center; */
+  /* justify-content: center; */
+  overflow-x: scroll;
+}
+
+.event-attendee {
+  display: inline;
+  padding-top: 2.5%;
+  min-width: 150px;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  background-color: white;
+}
+
+.event-attendee-item {
   background-color: white;
 }
 
