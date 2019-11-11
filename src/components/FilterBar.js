@@ -82,10 +82,10 @@ class FilterBar extends Component {
             renderNewInterestedUsersNotification,
             renderNewMessagesNotification } = this
     return (
-      <div>
-        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
-        <button onClick={ () => handleUserFilterClick('user-events') }>Events { renderNewMessagesNotification() }</button>
-      </div>
+      <Fragment>
+        <button className='user-filter' onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
+        <button className='user-filter' onClick={ () => handleUserFilterClick('user-events') }>Events { renderNewMessagesNotification() }</button>
+      </Fragment>
     )
   }
 
@@ -135,10 +135,10 @@ class FilterBar extends Component {
   renderMyPostsOrEventsFilterBar = () => {
     const { handleMyPostsOrEventsFilterClick } = this
     return (
-      <div>
-        <button className='filter-button' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
-        <button className='filter-button' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
-      </div>
+      <Fragment>
+        <button className='posts-events-filter' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
+        <button className='posts-events-filter' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
+      </Fragment>
     )
   }
 

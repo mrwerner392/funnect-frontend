@@ -183,3 +183,21 @@ button:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 } */
+
+.user-filter {
+  appearance: none;
+  width: 1vw;
+  flex-grow: 1;
+  border-radius: 0;
+  text-align-last: center;
+  font-size: 3vw;
+}
+
+.posts-events-filter {
+  appearance: none;
+  width: 1vw;
+  flex-grow: 1;
+  border-radius: 0;
+  text-align-last: center;
+  font-size: 3vw;
+}
