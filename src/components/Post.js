@@ -99,9 +99,9 @@ class Post extends Component {
           <div id='post-user'>
             <h4 id='about-the-poster'>ABOUT THE POSTER</h4>
             <div id='post-user-info'>
-              <p>{ `${post.user.username}, ${post.user.age}, ${post.user.occupation}` }</p>
-              <p>{ `"${post.user.bio}"` }</p>
-              <p>Likes: { renderUserInterests(post.user.interests) }</p>
+              <p className='post-user-item'>{ `${post.user.username}  |  ${post.user.age}  |  ${post.user.occupation}` }</p>
+              <p className='post-user-item'>{ `"${post.user.bio}"` }</p>
+              <p className='post-user-item'>Likes: { renderUserInterests(post.user.interests) }</p>
             </div>
           </div>
           <div id='post-footer'>
