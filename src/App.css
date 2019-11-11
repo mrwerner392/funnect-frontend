@@ -243,13 +243,16 @@ button:hover {
 #post-description {
   grid-area: post-description;
   font-size: 1.3vw;
-  padding-top: 1.5%;
+  padding-top: 1%;
+  background-color: #a7ff87;
+  border-bottom: 1px solid;
 }
 
 #post-user {
   padding-top: 1%;
   grid-area: post-user;
   display: flex;
+  border-bottom: 1px solid;
 }
 
 #about-the-poster {
@@ -296,6 +299,7 @@ button:hover {
   flex-grow: 1;
   text-align: center;
   font-size: 1.6vw;
+  padding-top: 0.5%;
 }
 
 #available-footer-text {
@@ -303,6 +307,7 @@ button:hover {
   flex-grow: 1;
   text-align: center;
   font-size: 1.6vw;
+  padding-top: 0.5%;
 }
 
 #available-footer-button {
