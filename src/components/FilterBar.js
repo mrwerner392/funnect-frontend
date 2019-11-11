@@ -93,22 +93,21 @@ class FilterBar extends Component {
     const { renderAvailablePostsTopicFilter,
             renderAvailablePostsNeighborhoodFilter } = this
     return (
-      <div>
-        <Fragment>
-          Topic Filter: { renderAvailablePostsTopicFilter() }
-        </Fragment>
-        <Fragment>
-          Topic Filter: { renderAvailablePostsNeighborhoodFilter() }
-        </Fragment>
-      </div>
+      <Fragment>
+        { renderAvailablePostsTopicFilter() }
+        { renderAvailablePostsNeighborhoodFilter() }
+      </Fragment>
     )
   }
 
   renderAvailablePostsTopicFilter = () => {
     const { props: {topics}, handleAvailablePostsFilterChange } = this
     return (
-      <select name='topics' onChange={ handleAvailablePostsFilterChange }>
-        { topics.map(topic => <option key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
+      <select className='available-filter'
+              name='topics'
+              onChange={ handleAvailablePostsFilterChange }
+              >
+        { topics.map(topic => <option className='available-filter-option' key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
       </select>
     )
   }
@@ -116,8 +115,11 @@ class FilterBar extends Component {
   renderAvailablePostsNeighborhoodFilter = () => {
     const { props: {neighborhoods}, handleAvailablePostsFilterChange } = this
     return (
-      <select name='neighborhoods' onChange={ handleAvailablePostsFilterChange }>
-        { neighborhoods.map(neighborhood => <option key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
+      <select className='available-filter'
+              name='neighborhoods'
+              onChange={ handleAvailablePostsFilterChange }
+              >
+        { neighborhoods.map(neighborhood => <option className='available-filter-option' key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
       </select>
     )
   }

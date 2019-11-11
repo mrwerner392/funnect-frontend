@@ -94,7 +94,7 @@ button:hover {
 }
 
 .mat-chat {
-  font-weight: bold;
+  font-weight: 900;
 }
 
 .acct-form-header {
@@ -150,3 +150,36 @@ button:hover {
   height: 2vw;
   padding-bottom: 2%;
 }
+
+#content-container {
+  margin: auto;
+  width: 70vw;
+  height: 92vh;
+  background-color: yellow;
+  display: grid;
+  grid-template-rows: 10% 90%;
+  grid-template-areas:
+    'filter-bar'
+    'content-display'
+}
+
+#filter-bar {
+  grid-area: filter-bar;
+  display: flex;
+  align-items: stretch;
+}
+
+.available-filter {
+  appearance: none;
+  width: 1vw;
+  flex-grow: 1;
+  border-radius: 0;
+  text-align-last: center;
+  font-size: 3vw;
+}
+
+/* .available-filter-option {
+  max-width: 30vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
