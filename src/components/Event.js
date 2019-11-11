@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCurrentEvent } from '../actions/currentEventActions';
@@ -20,13 +20,23 @@ class Event extends Component {
   render() {
     const { props: {event}, handleViewEventClick, renderNotification } = this
     return (
-      <div className='event'>
+      <Fragment>
         { renderNotification() }
-        <p>{ event.description }</p>
-        <p>{ event.location }</p>
-        <p>{ `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}` }</p>
-        <button onClick={ handleViewEventClick } >View Event</button>
-      </div>
+        <div id='event'>
+          <div id='event-header'>
+            <p className='event-header-item'>{ event.today_or_tomorrow }</p>
+            <p className='event-header-item'>{ `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}` }</p>
+            <p className='event-header-item'>{ event.location }</p>
+          </div>
+          <p id='event-description'>{ event.description }</p>
+          <div id='event-users'>
+            Attendees
+          </div>
+          <div id='event-footer'>
+            <button id='view-event-button' onClick={ handleViewEventClick } >View Event</button>
+          </div>
+        </div>
+      </Fragment>
     )
   }
 

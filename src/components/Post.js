@@ -93,7 +93,7 @@ class Post extends Component {
           <div id='post-header'>
             <p className='post-header-item'>{ post.topic.name }</p>
             <p className='post-header-item'>{ post.neighborhood.name }</p>
-            <p className='post-header-item'>{ post.time_of_day }</p>
+            <p className='post-header-item'>{ `${post.today_or_tomorrow}, ${post.time_of_day}` }</p>
           </div>
           <p id='post-description'>{ post.description }</p>
           <div id='post-user'>
