@@ -19,3 +19,7 @@ export const getCurrentPost = id => dispatch => {
 export const addNewInterestedUserCurrentPost = post => dispatch => {
   dispatch({ type: 'ADD_NEW_INTERESTED_USER_CURRENT_POST', post })
 }
+
+export const clearCurrentPost = () => dispatch => {
+  dispatch({ type: 'CLEAR_CURRENT_POST' })
+}

@@ -1,15 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { clearUser, toggleHasNewInfo } from '../actions/userActions'
-import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions'
-import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions'
-import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions'
-import { clearEventsHosting } from '../actions/eventsImHostingActions'
-import { clearEventsAttending } from '../actions/eventsImAttendingActions'
-import { clearTopics } from '../actions/topicsActions'
-import { clearNeighborhoods } from '../actions/neighborhoodsActions'
-import { setContentType } from '../actions/contentTypeActions'
+import { clearUser, toggleHasNewInfo } from '../actions/userActions';
+import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions';
+import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions';
+import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { clearEventsHosting } from '../actions/eventsImHostingActions';
+import { clearEventsAttending } from '../actions/eventsImAttendingActions';
+import { clearTopics } from '../actions/topicsActions';
+import { clearNeighborhoods } from '../actions/neighborhoodsActions';
+import { clearCurrentEvent } from '../actions/currentEventActions';
+import { clearCurrentPost } from '../actions/currentPostActions';
+import { setContentType, clearContentType } from '../actions/contentTypeActions';
 
 class NavBar extends Component {
 
@@ -83,6 +85,9 @@ class NavBar extends Component {
             clearEventsAttending,
             clearTopics,
             clearNeighborhoods,
+            clearCurrentEvent,
+            clearCurrentPost,
+            clearContentType,
             history } = this.props
 
     localStorage.clear();
@@ -94,6 +99,9 @@ class NavBar extends Component {
     clearEventsAttending();
     clearTopics();
     clearNeighborhoods();
+    clearCurrentEvent();
+    clearCurrentPost();
+    clearContentType();
     history.push('/login');
   }
 
@@ -116,15 +124,35 @@ class NavBar extends Component {
               renderNewInfoMessage } = this
 
     return (
-      <div>
-        <button onClick={ handleMatChatClick } >MatChat</button>
+      <div className='nav-bar'>
+        <button className='nav-button mat-chat'
+                onClick={ handleMatChatClick }
+                >
+          MatChat
+        </button>
         { username
           ?
           <Fragment>
-            <button onClick={ () => handleNavBarButtonClick('user') } >{ username } { renderNewInfoMessage() }</button>
-            <button onClick={ () => handleNavBarButtonClick('posts') } >Home { renderPostsWaitingCount() }</button>
-            <button onClick={ () => handleNavBarButtonClick('create') } >New Post</button>
-            <button to='/login' onClick={ handleLogout } >Log Out</button>
+            <button className='nav-button'
+                    onClick={ () => handleNavBarButtonClick('user') }
+                    >
+              { username } { renderNewInfoMessage() }
+            </button>
+            <button className='nav-button'
+                    onClick={ () => handleNavBarButtonClick('posts') }
+                    >
+              Home { renderPostsWaitingCount() }
+            </button>
+            <button className='nav-button'
+                    onClick={ () => handleNavBarButtonClick('create') }
+                    >
+              New Post
+            </button>
+            <button className='nav-button'
+                    onClick={ handleLogout }
+                    >
+              Log Out
+            </button>
           </Fragment>
           :
           null
@@ -155,7 +183,10 @@ const mapDispatchToProps = dispatch => {
     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
     setContentType: type => dispatch(setContentType(type)),
     showPostsWaiting: () => dispatch(showPostsWaiting()),
-    toggleHasNewInfo: () => dispatch(toggleHasNewInfo())
+    toggleHasNewInfo: () => dispatch(toggleHasNewInfo()),
+    clearCurrentEvent: () => dispatch(clearCurrentEvent()),
+    clearCurrentPost: () => dispatch(clearCurrentPost()),
+    clearContentType: () => dispatch(clearContentType())
   }
 }
 

@@ -12,6 +12,8 @@ export default (state = {}, action) => {
           action.message
         ]
       }
+    case 'CLEAR_CURRENT_EVENT':
+      return {}
     default:
       return state
   }

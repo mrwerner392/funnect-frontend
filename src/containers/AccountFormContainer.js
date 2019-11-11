@@ -112,8 +112,28 @@ class FormContainer extends Component {
                       errors={ errors }
                       />
         { formType === 'login'
-          ? <p>Or <span><NavLink exact to='/create-profile'>Create a Profile</NavLink></span></p>
-          : <p>Or <span><NavLink exact to='/login'>Log In</NavLink></span></p> }
+          ? <p className='acct-form-footer'>
+              { 'Or ' }
+                <span>
+                  <NavLink className='link'
+                            exact
+                            to='/create-profile'
+                            >
+                            Create a Profile
+                  </NavLink>
+                </span>
+            </p>
+          : <p className='acct-form-footer'>
+              { 'Or ' }
+                <span>
+                  <NavLink className='link'
+                            exact
+                            to='/login'
+                            >
+                    Log In
+                  </NavLink>
+                </span>
+            </p> }
       </div>
     )
   }

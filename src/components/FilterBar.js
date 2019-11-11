@@ -82,10 +82,10 @@ class FilterBar extends Component {
             renderNewInterestedUsersNotification,
             renderNewMessagesNotification } = this
     return (
-      <div>
-        <button onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
-        <button onClick={ () => handleUserFilterClick('user-events') }>Events { renderNewMessagesNotification() }</button>
-      </div>
+      <Fragment>
+        <button className='user-filter' onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
+        <button className='user-filter' onClick={ () => handleUserFilterClick('user-events') }>Events { renderNewMessagesNotification() }</button>
+      </Fragment>
     )
   }
 
@@ -93,22 +93,21 @@ class FilterBar extends Component {
     const { renderAvailablePostsTopicFilter,
             renderAvailablePostsNeighborhoodFilter } = this
     return (
-      <div>
-        <Fragment>
-          Topic Filter: { renderAvailablePostsTopicFilter() }
-        </Fragment>
-        <Fragment>
-          Topic Filter: { renderAvailablePostsNeighborhoodFilter() }
-        </Fragment>
-      </div>
+      <Fragment>
+        { renderAvailablePostsTopicFilter() }
+        { renderAvailablePostsNeighborhoodFilter() }
+      </Fragment>
     )
   }
 
   renderAvailablePostsTopicFilter = () => {
     const { props: {topics}, handleAvailablePostsFilterChange } = this
     return (
-      <select name='topics' onChange={ handleAvailablePostsFilterChange }>
-        { topics.map(topic => <option key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
+      <select className='available-filter'
+              name='topics'
+              onChange={ handleAvailablePostsFilterChange }
+              >
+        { topics.map(topic => <option className='available-filter-option' key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
       </select>
     )
   }
@@ -116,8 +115,11 @@ class FilterBar extends Component {
   renderAvailablePostsNeighborhoodFilter = () => {
     const { props: {neighborhoods}, handleAvailablePostsFilterChange } = this
     return (
-      <select name='neighborhoods' onChange={ handleAvailablePostsFilterChange }>
-        { neighborhoods.map(neighborhood => <option key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
+      <select className='available-filter'
+              name='neighborhoods'
+              onChange={ handleAvailablePostsFilterChange }
+              >
+        { neighborhoods.map(neighborhood => <option className='available-filter-option' key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
       </select>
     )
   }
@@ -133,10 +135,10 @@ class FilterBar extends Component {
   renderMyPostsOrEventsFilterBar = () => {
     const { handleMyPostsOrEventsFilterClick } = this
     return (
-      <div>
-        <button className='filter-button' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
-        <button className='filter-button' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
-      </div>
+      <Fragment>
+        <button className='posts-events-filter' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
+        <button className='posts-events-filter' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
+      </Fragment>
     )
   }
 

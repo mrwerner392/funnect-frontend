@@ -20,6 +20,8 @@ export default (state = {}, action) => {
         ...state,
         interested_users: action.post.interested_users
       }
+    case 'CLEAR_CURRENT_POST':
+      return {}
     default:
       return state
   }
