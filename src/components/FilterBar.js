@@ -83,8 +83,8 @@ class FilterBar extends Component {
             renderNewMessagesNotification } = this
     return (
       <Fragment>
-        <button className='user-filter' onClick={ () => handleUserFilterClick('user-posts') }>Posts { renderNewInterestedUsersNotification() }</button>
-        <button className='user-filter' onClick={ () => handleUserFilterClick('user-events') }>Events { renderNewMessagesNotification() }</button>
+        <button className='user-filter' onClick={ () => handleUserFilterClick('user-posts') }>My Posts { renderNewInterestedUsersNotification() }</button>
+        <button className='user-filter' onClick={ () => handleUserFilterClick('user-events') }>My Events { renderNewMessagesNotification() }</button>
       </Fragment>
     )
   }
