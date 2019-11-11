@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { setUser } from '../actions/userActions'
+import { setUser } from '../actions/userActions';
+import { setContentType } from '../actions/contentTypeActions';
 
 const URL = 'http://localhost:3000'
 
@@ -79,10 +80,10 @@ class ProfileInfoEditForm extends Component {
   renderInterests = () => {
     const { state: {interests}, handleRemoveInterest } = this
     return interests.map((interest, index) => (
-      <li key={ interest }>
+      <p className='acct-form-interest' key={ interest }>
         { interest }
-        <button type='button' onClick={ () => handleRemoveInterest(index) }>x</button>
-      </li>
+        <span className='interest-delete'><button className='interest-delete' type='button' onClick={ () => handleRemoveInterest(index) }>x</button></span>
+      </p>
     ))
   }
 
@@ -120,47 +121,57 @@ class ProfileInfoEditForm extends Component {
                     interests,
                     errors},
             props: {user,
-                    interestOptions},
+                    interestOptions,
+                    setContentType},
             handleChange,
             handleSubmit,
             renderInterests } = this
 
     return (
-      <Fragment>
-        <form onChange={ handleChange }
+      <div className='account-form-container'>
+        <form className='account-form'
+              onChange={ handleChange }
               onSubmit={ handleSubmit }
               >
+          <h1 className='acct-form-header'>Edit Profile</h1>
           { errors ? <p>{ errors }</p> : null}
-          <input type='text'
+          <input className='acct-form-input'
+                  type='text'
                   name='username'
                   value={ username || user.username }
                   />
-          <input type='text'
+          <input className='acct-form-input'
+                  type='text'
                   name='first_name'
                   value={ first_name || user.first_name}
                   />
-          <input type='number'
+          <input className='acct-form-input'
+                  type='number'
                   name='age'
                   value={ age || user.age }
                   />
-          <input type='text'
+          <input className='acct-form-input'
+                  type='text'
                   name='gender'
                   value={ gender || user.gender }
                   />
-          <input type='text'
+          <input className='acct-form-input'
+                  type='text'
                   name='bio'
                   value={ bio || user.bio }
                   />
-          <input type='text'
+          <input className='acct-form-input'
+                  type='text'
                   name='college'
                   value={ college || user.college }
                   />
-          <input type='text'
+          <input className='acct-form-input'
+                  type='text'
                   name='occupation'
                   value={ occupation || user.occupation }
                   />
-          <label htmlFor='user-interest-select'>Choose up to 5 Interests</label>
-          <select id='user-interest-select' name='interests' value={ interests[interests.length - 1] }>
+                <p className='acct-form-label'>Choose up to 5 Interests</p>
+          <select className='acct-form-select' name='interests' value={ interests[interests.length - 1] }>
             { <option></option> }
             {
               interestOptions.map(interest => {
@@ -169,10 +180,18 @@ class ProfileInfoEditForm extends Component {
             }
           </select>
           <p>{ renderInterests() }</p>
-          <input type='submit' />
+          <input type='submit' className='submit'/>
         </form>
-        <NavLink exact to={ `/${ user.username }` } >Cancel</NavLink>
-      </Fragment>
+        <p className='acct-form-footer'>
+          <NavLink className='link'
+                    exact
+                    to={ `/${ user.username }` }
+                    onClick={ () => setContentType('user') }
+                    >
+            Cancel
+          </NavLink>
+        </p>
+      </div>
     )
   }
 
@@ -187,7 +206,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    setUser: user => dispatch(setUser(user))
+    setUser: user => dispatch(setUser(user)),
+    setContentType: type => dispatch(setContentType(type))
   }
 }
 

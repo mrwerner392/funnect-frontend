@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import AccountFormContainer from './containers/AccountFormContainer';
 import PostFormContainer from './containers/PostFormContainer';
 import ContentContainer from './containers/ContentContainer';
+import ProfileInfoEditForm from './components/ProfileInfoEditForm';
 import PostCard from './components/PostCard';
 import EventCard from './components/EventCard';
 import EventNotification from './components/EventNotification';
@@ -192,9 +193,14 @@ class App extends Component {
   }
 
   renderContent = renderProps => {
+    const { user, history } = this.props
     const slug = renderProps.match.params.slug
-    if (slug === this.props.user.username) {
-      return <ContentContainer />
+    const location = history.location.pathname
+
+    if (slug === user.username) {
+      return location === `/${user.username}/edit`
+            ? <ProfileInfoEditForm />
+            : <ContentContainer />
     } else {
       return <NotFound />
     }

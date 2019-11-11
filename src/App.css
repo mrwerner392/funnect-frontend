@@ -54,7 +54,7 @@ button:hover {
   cursor: pointer;
 }
 
-#account-form-container {
+.account-form-container {
   /* text-align: center; */
   margin-top: 10vh;
   /* max-height: 70vh; */

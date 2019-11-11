@@ -105,7 +105,7 @@ class FormContainer extends Component {
     const { state: { errors }, props: { formType }, handleLoginRequest, handleCreateUserRequest } = this
 
     return (
-      <div id='account-form-container'>
+      <div className='account-form-container'>
         <AccountForm handleLoginRequest={ handleLoginRequest }
                       handleCreateUserRequest={ handleCreateUserRequest }
                       formType={ formType }

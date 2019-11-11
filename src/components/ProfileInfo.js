@@ -7,7 +7,7 @@ class ProfileInfo extends Component {
 
   handleEditProfileClick = () => {
     const { user: {username}, setContentType, history } = this.props
-    setContentType('user-edit')
+    // setContentType('user-edit')
     history.push(`/${username}/edit`)
   }
 
