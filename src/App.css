@@ -585,3 +585,67 @@ button:hover {
 #create-event-button:disabled:hover {
   cursor: auto;
 }
+
+#event-card {
+  width: 66vw;
+  height: 70vh;
+  margin: 1% auto 5% auto;
+  /* border-style: solid; */
+  /* border-width: 2px; */
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 2px gray;
+  display: grid;
+  grid-template-rows: 10% 10% 5% 35% 40%;
+  grid-template-areas:
+    'event-card-header'
+    'event-card-description'
+    'event-card-attendees-label'
+    'event-card-users'
+    'event-card-footer';
+  background-color: white;
+}
+
+#event-card-header {
+  grid-area: event-card-header;
+  display: flex;
+  border-radius: 5px 5px 0 0;
+}
+
+.event-card-header-item {
+  width: 1vw;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.5vw;
+  padding-top: 1%;
+  background-color: #a7ff87;
+}
+
+#event-card-day {
+  border-radius: 5px 0 0 0;
+}
+
+#event-card-location {
+  border-radius: 0 5px 0 0;
+}
+
+#event-card-description {
+  grid-area: event-card-description;
+  font-size: 1.5vw;
+  padding-top: 1%;
+  background-color: #a7ff87;
+  border-bottom: 1px solid;
+}
+
+#event-card-attendees-label {
+  grid-area: event-card-attendees-label;
+  background-color: white;
+  font-size: 2vw;
+}
+
+#event-card-users {
+  grid-area: event-card-users;
+}
+
+#event-card-footer {
+  grid-area: event-card-footer;
+}

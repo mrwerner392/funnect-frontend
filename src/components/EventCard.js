@@ -36,29 +36,53 @@ class EventCard extends Component {
     history.push(`/${user.username}/events`)
   }
 
+  renderTime = () => {
+    const { currentEvent } = this.props
+    return currentEvent.time_hour
+        ? <p className='event-card-header-item time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+        : <p className='event-card-header-item explanation'>Discuss a time with the other attendees. The host will set it here.</p>
+  }
+
+  renderLocation = () => {
+    const { currentEvent } = this.props
+    return currentEvent.location
+        ? <p className='event-card-header-item location' id='event-card-location'>{ currentEvent.location }</p>
+        : <p className='event-card-header-item explanation' id='event-card-location'>Discuss a location with the other attendees. The host will set it here.</p>
+  }
+
   renderEvent = () => {
-    const { renderProps, currentEvent } = this.props
+    const { props: {renderProps, currentEvent},
+            renderTime,
+            renderLocation } = this
 
     return (
-      <Fragment>
-        <p>Description</p>
-        <p>{ currentEvent.description }</p>
-        <p>Meet at</p>
-        <p>{ currentEvent.location }</p>
-        <p>Time</p>
-        <p>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-        <ChatContainer />
-      </Fragment>
+      <div id='event-card'>
+        <div id='event-card-header'>
+          <p className='event-card-header-item' id='event-card-day'>{ currentEvent.today_or_tomorrow }</p>
+          { renderTime() }
+          { renderLocation() }
+        </div>
+        <p id='event-card-description'>{ currentEvent.description }</p>
+        <div id='event-card-attendees-label'>
+          Attendees
+        </div>
+        <div id='event-card-users'>
+          Users
+        </div>
+        <div id='event-card-footer'>
+          <ChatContainer />
+        </div>
+      </div>
     )
   }
 
   render() {
     const { props: {currentEvent}, renderEvent, handleBackToEventsClick } = this
     return (
-      <div>
-        <button onClick={ handleBackToEventsClick }>Back to My Events</button>
+      <Fragment>
+        <button className='back-button' onClick={ handleBackToEventsClick }>Back to My Events</button>
         { Object.keys(currentEvent).length ? renderEvent() : null }
-      </div>
+      </Fragment>
     )
   }
 
