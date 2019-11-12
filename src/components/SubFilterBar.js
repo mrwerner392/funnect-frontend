@@ -4,11 +4,29 @@ import { withRouter } from 'react-router-dom';
 
 class SubFilterBar extends Component {
 
+  handleEditProfileClick = () => {
+    const { user: {username}, history } = this.props
+    history.push(`/${username}/edit`)
+  }
+
   renderUserSubFilterBar = () => {
+    const { handleEditProfileClick } = this
     return (
-      {/*<Fragment>
-        <button className='user-sub-filter-button'>Edit Profile</button>
-      </Fragment>*/}
+      <button id='user-sub-filter' onClick={ handleEditProfileClick }>Edit Profile</button>
+    )
+  }
+
+  renderAvailablePostsSubFilterBar = () => {
+    return <button className='clear-filter-button'>Clear Filters</button>
+  }
+
+  renderMyPostsOrEventsSubFilterBar = () => {
+    const { contentType } = this.props
+    return (
+      <Fragment>
+        <button className='active-button'>Active { contentType === 'user-posts' ? 'Posts' : 'Events' }</button>
+        <button className='past-button'>Old { contentType === 'user-posts' ? 'Posts' : 'Events' }</button>
+      </Fragment>
     )
   }
 
@@ -50,4 +68,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect()(SubFilterBar))
+export default withRouter(connect(mapStateToProps)(SubFilterBar))

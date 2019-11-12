@@ -5,12 +5,6 @@ import { setContentType } from '../actions/contentTypeActions';
 
 class ProfileInfo extends Component {
 
-  handleEditProfileClick = () => {
-    const { user: {username}, setContentType, history } = this.props
-    // setContentType('user-edit')
-    history.push(`/${username}/edit`)
-  }
-
   renderInterests = () => {
     const { interests } = this.props.user
     const interestNames = interests.map(interest => interest.name)
@@ -34,7 +28,6 @@ class ProfileInfo extends Component {
 
     return (
       <div id='profile-info-display'>
-        <button className='edit-profile-button' onClick={ handleEditProfileClick } >Edit Profile</button>
         <h4 className='profile-info-label'>Username</h4>
         <p className='profile-info-item' id='profile-username'>{ username }</p>
         <h4 className='profile-info-label'>First Name</h4>
@@ -50,7 +43,7 @@ class ProfileInfo extends Component {
         <h4 className='profile-info-label'>Occupation</h4>
         <p className='profile-info-item' id='profile-occupation'>{ occupation }</p>
         <h4 className='profile-info-label'>Interests</h4>
-        <p className='profile-info-item' id='profile-interests'>{ renderInterests() }</p>
+        <p className='profile-info-item profile-info-bottom' id='profile-interests'>{ renderInterests() }</p>
       </div>
     )
   }

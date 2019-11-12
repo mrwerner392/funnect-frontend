@@ -152,7 +152,7 @@ button:hover {
   margin: auto;
   width: 70vw;
   height: 92vh;
-  background-color: yellow;
+  box-shadow: inset 10px 0px 10px -10px, inset -10px 0px 10px -10px;
   /* display: flex;
   flex-direction: column; */
   display: grid;
@@ -207,7 +207,24 @@ button:hover {
 
 #sub-filter-bar {
   grid-area: sub-filter-bar;
-  background-color: white;
+  display: flex;
+}
+
+#user-sub-filter {
+  width: 1vw;
+  flex-grow: 1;
+  font-size: 150%;
+  background-color: #ffdeb8;
+}
+
+.clear-filter-button {
+  flex-grow: 1;
+  font-size: 150%;
+  background-color: #ffdeb8;
+}
+
+.clear-filter-button:hover {
+  cursor: pointer;
 }
 
 #content-display {
@@ -220,6 +237,7 @@ button:hover {
   /* background-color: #fffed6; */
   background-color: white;
   overflow: scroll;
+  box-shadow: inset 10px 0px 10px -10px, inset -10px 0px 10px -10px;
 }
 
 #post {
@@ -455,7 +473,11 @@ button:hover {
   background-color: white;
 }
 
-.edit-profile-button {
+.profile-info-bottom {
+  margin-bottom: 10%;
+}
+
+/* .edit-profile-button {
   margin: 0% auto 2% auto;
   padding-left: 3%;
   padding-right: 3%;
@@ -463,7 +485,7 @@ button:hover {
   border-radius: 5px;
   background-color: #039600;
   color: white;
-}
+} */
 
 .back-button {
   margin: 2% auto 2% auto;
