@@ -134,17 +134,17 @@ class NavBar extends Component {
         { username
           ?
           <Fragment>
-            <button className={ path === username ? 'nav-button active' : 'nav-button'}
+            <button className={ path === username ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('user') }
                     >
               { username } { renderNewInfoMessage() }
             </button>
-            <button className={ path === 'posts' ? 'nav-button active' : 'nav-button'}
+            <button className={ path === 'posts' ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('posts') }
                     >
               Home { renderPostsWaitingCount() }
             </button>
-            <button className={ path === 'create-post' ? 'nav-button active' : 'nav-button'}
+            <button className={ path === 'create-post' ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('create') }
                     >
               New Post

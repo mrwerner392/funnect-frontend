@@ -71,13 +71,13 @@ class FilterBar extends Component {
       <Fragment>
         <div className='user-filter'
               onClick={ () => handleUserFilterClick('user-posts') }>
-          <button className={ contentType === 'user-posts' ? 'user-filter-button active' : 'user-filter-button' }>
+          <button className={ contentType === 'user-posts' ? 'user-filter-button filter-active' : 'user-filter-button' }>
             My Posts { renderNewInterestedUsersNotification() }
           </button>
         </div>
         <div className='user-filter'
               onClick={ () => handleUserFilterClick('user-events') }>
-          <button className={ contentType === 'user-events' ? 'user-filter-button active' : 'user-filter-button' }>
+          <button className={ contentType === 'user-events' ? 'user-filter-button filter-active' : 'user-filter-button' }>
             My Events { renderNewMessagesNotification() }
           </button>
         </div>

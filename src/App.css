@@ -176,14 +176,22 @@ button:hover {
   border-radius: 0;
   text-align-last: center;
   font-size: 175%;
-  background-color: #ffae45;
+  background-color: #ff8a00;
+  color: white;
+  border: 1px solid white;
 }
 
-/* .available-filter-option {
-  max-width: 30vw;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
+.clear-filter-button {
+  flex-grow: 1;
+  font-size: 150%;
+  background-color: #ffb55e;
+  color: white;
+  border: 1px solid white;
+}
+
+.clear-filter-button:hover {
+  cursor: pointer;
+}
 
 .user-filter {
   appearance: none;
@@ -192,8 +200,9 @@ button:hover {
   border-radius: 0;
   text-align-last: center;
   font-size: 175%;
-  background-color: #ffae45;
+  background-color: #ff8a00;
   border: 1px solid white;
+  color: white;
 }
 
 .user-filter:hover {
@@ -206,8 +215,9 @@ button:hover {
   padding-left: 2%;
   padding-right: 2%;
   font-size: 100%;
-  background-color: #ffae45;
+  background-color: #ff8a00;
   border: none;
+  color: white;
 }
 
 .posts-events-filter {
@@ -217,7 +227,7 @@ button:hover {
   border-radius: 0;
   text-align-last: center;
   font-size: 175%;
-  background-color: #ffae45;
+  background-color: #ff8a00;
 }
 
 #sub-filter-bar {
@@ -229,8 +239,9 @@ button:hover {
   width: 1vw;
   flex-grow: 1;
   font-size: 150%;
-  background-color: #ffdeb8;
+  background-color: #ffb55e;
   border: 1px solid white;
+  color: white;
 }
 
 .user-sub-filter:hover {
@@ -240,7 +251,8 @@ button:hover {
 #user-sub-filter-button {
   margin: auto;
   font-size: 150%;
-  background-color: #ffdeb8;
+  background-color: #ffb55e;
+  color: white;
 }
 
 .active-button {
@@ -249,8 +261,9 @@ button:hover {
   padding-left: 2%;
   padding-right: 2%;
   font-size: 100%;
-  background-color: #ffdeb8;
+  background-color: #ffb55e;
   border: none;
+  color: white;
 }
 
 .past-button {
@@ -259,18 +272,9 @@ button:hover {
   padding-left: 2%;
   padding-right: 2%;
   font-size: 100%;
-  background-color: #ffdeb8;
+  background-color: #ffb55e;
   border: none;
-}
-
-.clear-filter-button {
-  flex-grow: 1;
-  font-size: 150%;
-  background-color: #ffdeb8;
-}
-
-.clear-filter-button:hover {
-  cursor: pointer;
+  color: white;
 }
 
 #content-display {
@@ -892,6 +896,14 @@ input#message-submit {
   margin-bottom: 3%;
 }
 
-.active {
+.nav-active {
   border-bottom: 7px solid white;
+}
+
+.filter-active {
+  border-bottom: 6px solid white;
+}
+
+.sub-filter-active {
+  border-bottom: 5px solid white;
 }
