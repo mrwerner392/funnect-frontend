@@ -50,10 +50,46 @@ class EventCard extends Component {
         : <p className='event-card-header-item explanation' id='event-card-location'>Discuss a location with the other attendees. The host will set it here.</p>
   }
 
+  renderUserInterests = interests => {
+    const interestNames = interests.map(interest => interest.name)
+    return interestNames.join(', ')
+  }
+
+  renderUsers = () => {
+    const { props: {currentEvent, currentEvent: {user}}, renderUserInterests } = this
+    return (
+      <Fragment>
+        <div className='event-card-user'>
+          <p className='event-card-user-item'>{ `${user.first_name}  |  ${user.age}  |  ${user.gender}` }</p>
+          <p className='event-card-user-item'>{ `"${user.bio}"` }</p>
+          <p className='event-card-user-item'>{ `"${user.occupation}"` }</p>
+          <p className='event-card-user-item'>
+            Likes: { renderUserInterests(user.interests) }
+          </p>
+        </div>
+        {
+          currentEvent.users_attending.map(user => {
+            return (
+              <div className='event-card-user'>
+                <p className='event-card-user-item'>{ `${user.first_name}  |  ${user.age}  |  ${user.gender}` }</p>
+                <p className='event-card-user-item'>{ `"${user.bio}"` }</p>
+                <p className='event-card-user-item'>{ `"${user.occupation}"` }</p>
+                <p className='event-card-user-item'>
+                  Likes: { renderUserInterests(user.interests) }
+                </p>
+              </div>
+            )
+          })
+        }
+      </Fragment>
+    )
+  }
+
   renderEvent = () => {
     const { props: {renderProps, currentEvent},
             renderTime,
-            renderLocation } = this
+            renderLocation,
+            renderUsers } = this
 
     return (
       <div id='event-card'>
@@ -64,10 +100,10 @@ class EventCard extends Component {
         </div>
         <p id='event-card-description'>{ currentEvent.description }</p>
         <div id='event-card-attendees-label'>
-          Attendees
+          { `${currentEvent.users_attending.length + 1} Attendees` }
         </div>
         <div id='event-card-users'>
-          Users
+          { renderUsers() }
         </div>
         <div id='event-card-footer'>
           <ChatContainer />
