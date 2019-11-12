@@ -210,25 +210,40 @@ button:hover {
   display: flex;
 }
 
-#user-sub-filter {
+.user-sub-filter {
   width: 1vw;
   flex-grow: 1;
+  font-size: 150%;
+  background-color: #ffdeb8;
+  border: 1px solid white;
+}
+
+#user-sub-filter-button {
+  margin: auto;
   font-size: 150%;
   background-color: #ffdeb8;
 }
 
 .active-button {
-  width: 1vw;
-  flex-grow: 2;
-  font-size: 150%;
+  height: 100%;
+  padding-top: 1%;
+  font-size: 100%;
   background-color: #ffdeb8;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid white;
 }
 
 .past-button {
-  width: 1vw;
-  flex-grow: 1;
-  font-size: 150%;
+  height: 100%;
+  padding-top: 1%;
+  font-size: 100%;
   background-color: #ffdeb8;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid white;
 }
 
 .clear-filter-button {
@@ -861,5 +876,5 @@ input#message-submit {
 }
 
 .active {
-  border-bottom: 10px solid white;
+  border-bottom: 7px solid white;
 }

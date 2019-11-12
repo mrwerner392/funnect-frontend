@@ -41,7 +41,7 @@ class SubFilterBar extends Component {
   renderUserSubFilterBar = () => {
     const { handleEditProfileClick } = this
     return (
-      <button id='user-sub-filter' onClick={ handleEditProfileClick }>Edit Profile</button>
+        <button className='user-sub-filter' onClick={ handleEditProfileClick }>Edit Profile</button>
     )
   }
 
@@ -52,20 +52,25 @@ class SubFilterBar extends Component {
   renderMyPostsOrEventsSubFilterBar = () => {
     const { props: {contentType},
             handleMyPostsOrEventsSubFilterClick } = this
+
     return (
       <Fragment>
-        <button className='posts-events-sub-filter active-button'
-                value='active'
-                onClick={ handleMyPostsOrEventsSubFilterClick }
-                >
-          Active { contentType === 'user-posts' ? 'Posts' : 'Events' }
-        </button>
-        <button className='posts-events-sub-filter past-button'
-                value='past'
-                onClick={ handleMyPostsOrEventsSubFilterClick }
-                >
-          Old { contentType === 'user-posts' ? 'Posts' : 'Events' }
-        </button>
+        <div className='user-sub-filter'>
+          <button className={ contentType === 'user-posts' ? 'posts-events-sub-filter active-button active' : 'posts-events-sub-filter active-button' }
+                  value='active'
+                  onClick={ handleMyPostsOrEventsSubFilterClick }
+                  >
+            Active { contentType === 'user-posts' ? 'Posts' : 'Events' }
+          </button>
+        </div>
+        <div className='user-sub-filter'>
+          <button className={ contentType === 'user-posts' ? 'posts-events-sub-filter past-button' : 'posts-events-sub-filter past-button active' }
+                  value='past'
+                  onClick={ handleMyPostsOrEventsSubFilterClick }
+                  >
+            Old { contentType === 'user-posts' ? 'Posts' : 'Events' }
+          </button>
+        </div>
       </Fragment>
     )
   }

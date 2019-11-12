@@ -46,29 +46,6 @@ class FilterBar extends Component {
         : setAvailablePostsNeighborhoodFilter(value)
   }
 
-  // handleMyPostsOrEventsFilterClick = evt => {
-  //   const { props: {contentType,
-  //                   setCreatedPostsFilter,
-  //                   setPostsInterestedInFilter,
-  //                   setEventsHostingFilter,
-  //                   setEventsAttendingFilter} } = this
-  //
-  //   const filter = evt.target.value
-  //
-  //   switch (contentType) {
-  //     case 'user-posts':
-  //       setCreatedPostsFilter(filter)
-  //       setPostsInterestedInFilter(filter)
-  //       break
-  //     case 'user-events':
-  //       setEventsHostingFilter(filter)
-  //       setEventsAttendingFilter(filter)
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }
-
   renderNewInterestedUsersNotification = () => {
     const { newInterestedUsersExist } = this.props
     return newInterestedUsersExist ? '(New Interested Users)' : null
@@ -131,16 +108,6 @@ class FilterBar extends Component {
       </select>
     )
   }
-
-  // renderMyPostsOrEventsFilterBar = () => {
-  //   const { handleMyPostsOrEventsFilterClick } = this
-  //   return (
-  //     <Fragment>
-  //       <button className='posts-events-filter' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
-  //       <button className='posts-events-filter' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
-  //     </Fragment>
-  //   )
-  // }
 
   renderFilterBar = () => {
     const { props: {contentType},
