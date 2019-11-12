@@ -217,6 +217,20 @@ button:hover {
   background-color: #ffdeb8;
 }
 
+.active-button {
+  width: 1vw;
+  flex-grow: 2;
+  font-size: 150%;
+  background-color: #ffdeb8;
+}
+
+.past-button {
+  width: 1vw;
+  flex-grow: 1;
+  font-size: 150%;
+  background-color: #ffdeb8;
+}
+
 .clear-filter-button {
   flex-grow: 1;
   font-size: 150%;

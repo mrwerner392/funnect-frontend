@@ -54,13 +54,13 @@ class SubFilterBar extends Component {
             handleMyPostsOrEventsSubFilterClick } = this
     return (
       <Fragment>
-        <button className='active-button'
+        <button className='posts-events-sub-filter active-button'
                 value='active'
                 onClick={ handleMyPostsOrEventsSubFilterClick }
                 >
           Active { contentType === 'user-posts' ? 'Posts' : 'Events' }
         </button>
-        <button className='past-button'
+        <button className='posts-events-sub-filter past-button'
                 value='past'
                 onClick={ handleMyPostsOrEventsSubFilterClick }
                 >
