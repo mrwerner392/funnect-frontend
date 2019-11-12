@@ -15,14 +15,6 @@ export default (state = {posts: [], postsWaiting: [], topicFilter: '', neighborh
           }
         ]
       }
-    // case 'ADD_NEW_AVAILABLE_POST_FROM_WS':
-    //   return {
-    //     ...state,
-    //     posts: [
-    //       ...state.posts,
-    //       action.post
-    //     ]
-    //   }
     case 'REMOVE_AVAILABLE_POST':
       return {
         ...state,
@@ -62,6 +54,12 @@ export default (state = {posts: [], postsWaiting: [], topicFilter: '', neighborh
       return {
         ...state,
         neighborhoodFilter: action.filter
+      }
+    case 'CLEAR_AVAILABLE_POSTS_FILTER':
+      return {
+        ...state,
+        topicFilter: '',
+        neighborhoodFilter: ''
       }
     default:
       return state
