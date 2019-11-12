@@ -207,7 +207,7 @@ button:hover {
 #content-display {
   /* grid-area: content-display; */
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   /* flex-direction: column; */
   flex-wrap: wrap;
@@ -407,7 +407,7 @@ button:hover {
 .event-attendee {
   display: inline;
   padding-top: 2.5%;
-  min-width: 160px;
+  min-width: 180px;
   margin-left: 1vw;
   margin-right: 1vw;
   background-color: white;
