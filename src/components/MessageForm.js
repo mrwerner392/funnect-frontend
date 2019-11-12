@@ -21,7 +21,6 @@ class MessageForm extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     const { state: {content}, props: {currentEvent} } = this
-    console.log(content, currentEvent);
     const config = {
       method: 'POST',
       headers: {

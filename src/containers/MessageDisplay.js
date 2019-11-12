@@ -10,7 +10,7 @@ class MessageDisplay extends Component {
 
   renderMessages = () => {
     const { currentEvent } = this.props
-    return currentEvent.messages.map(message => <p key={ message.id }>{ message.content }</p>)
+    return currentEvent.messages.map(message => <Message key={ message.id } message={ message } />)
   }
 
   render() {
