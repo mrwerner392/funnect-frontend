@@ -817,3 +817,7 @@ input#message-submit {
   margin-top: 5%;
   margin-bottom: 3%;
 }
+
+.active {
+  border-bottom: 7px solid white;
+}
