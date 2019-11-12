@@ -156,9 +156,10 @@ button:hover {
   /* display: flex;
   flex-direction: column; */
   display: grid;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 7% 5% 88%;
   grid-template-areas:
     'filter-bar'
+    'sub-filter-bar'
     'content-display';
 }
 
@@ -174,7 +175,7 @@ button:hover {
   flex-grow: 1;
   border-radius: 0;
   text-align-last: center;
-  font-size: 2.5vw;
+  font-size: 175%;
   background-color: #ffae45;
 }
 
@@ -190,7 +191,7 @@ button:hover {
   flex-grow: 1;
   border-radius: 0;
   text-align-last: center;
-  font-size: 2.5vw;
+  font-size: 175%;
   background-color: #ffae45;
 }
 
@@ -200,8 +201,13 @@ button:hover {
   flex-grow: 1;
   border-radius: 0;
   text-align-last: center;
-  font-size: 2.5vw;
+  font-size: 175%;
   background-color: #ffae45;
+}
+
+#sub-filter-bar {
+  grid-area: sub-filter-bar;
+  background-color: white;
 }
 
 #content-display {
@@ -450,7 +456,7 @@ button:hover {
 }
 
 .edit-profile-button {
-  margin: 5% auto 2% auto;
+  margin: 0% auto 2% auto;
   padding-left: 3%;
   padding-right: 3%;
   font-size: 2.5vw;
@@ -819,5 +825,5 @@ input#message-submit {
 }
 
 .active {
-  border-bottom: 7px solid white;
+  border-bottom: 10px solid white;
 }
