@@ -629,6 +629,15 @@ button:hover {
   text-align: center;
   font-size: 1.3vw;
   color: white;
+  background-color: #ff8a00;
+  padding: 2%;
+  border-radius: 5px;
+}
+
+.remove-from-event-list {
+  text-align: center;
+  font-size: 1.3vw;
+  color: white;
   background-color: #039600;
   padding: 2%;
   border-radius: 5px;

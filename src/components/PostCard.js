@@ -25,6 +25,14 @@ class PostCard extends Component {
     })
   }
 
+  handleRemoveFromEventList = userId => {
+    this.setState(prevState => {
+      return {
+        attendees: prevState.attendees.filter(id => id !== userId)
+      }
+    })
+  }
+
   handleBackToPostsClick = () => {
     const { user,
             newInterestedUsersExist,
@@ -60,7 +68,8 @@ class PostCard extends Component {
     const { state: {attendees},
             props: {currentPost},
             renderUserInterests,
-            handleAddToEventList } = this
+            handleAddToEventList,
+            handleRemoveFromEventList } = this
 
     return(
       <Fragment>
@@ -72,7 +81,21 @@ class PostCard extends Component {
               <p className='post-card-user-item'>
                 Likes: { renderUserInterests(user.interests) }
               </p>
-              <button className='add-to-event-list' onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
+              {
+                attendees.includes(user.id)
+                ?
+                <button className='remove-from-event-list'
+                        onClick={ () => handleRemoveFromEventList(user.id) }
+                        >
+                  Added! (Click to Remove)
+                </button>
+                :
+                <button className='add-to-event-list'
+                        onClick={ () => handleAddToEventList(user.id) }
+                        >
+                  Add to Event List
+                </button>
+              }
             </div>
           ))
         }
