@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import AccountFormContainer from './containers/AccountFormContainer';
-import PostFormContainer from './containers/PostFormContainer';
 import ContentContainer from './containers/ContentContainer';
 import ProfileInfoEditForm from './components/ProfileInfoEditForm';
 import PostCard from './components/PostCard';
+import PostForm from './components/PostForm';
 import EventCard from './components/EventCard';
 import EventNotification from './components/EventNotification';
 import NotFound from './components/NotFound';
@@ -280,7 +280,7 @@ class App extends Component {
                   />
           <Route exact
                   path='/create-post'
-                  render={ () => <PostFormContainer /> }
+                  render={ () => <PostForm /> }
                   />
           <Route exact
                   path='/:slug'
