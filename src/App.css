@@ -256,6 +256,8 @@ button:hover {
 .past-button {
   height: 100%;
   padding-top: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
   font-size: 100%;
   background-color: #ffdeb8;
   border: none;

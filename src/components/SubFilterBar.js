@@ -15,14 +15,12 @@ class SubFilterBar extends Component {
 
 
 
-  handleMyPostsOrEventsSubFilterClick = evt => {
+  handleMyPostsOrEventsSubFilterClick = filter => {
     const { props: {contentType,
                     setCreatedPostsFilter,
                     setPostsInterestedInFilter,
                     setEventsHostingFilter,
                     setEventsAttendingFilter} } = this
-
-    const filter = evt.target.value
 
     switch (contentType) {
       case 'user-posts':
@@ -50,23 +48,22 @@ class SubFilterBar extends Component {
   }
 
   renderMyPostsOrEventsSubFilterBar = () => {
-    const { props: {contentType},
+    const { props: {contentType, postFilter, eventFilter},
             handleMyPostsOrEventsSubFilterClick } = this
+    const filter = contentType === 'user-posts' ? postFilter : eventFilter
 
     return (
       <Fragment>
         <div className='user-sub-filter'
-              onClick={ handleMyPostsOrEventsSubFilterClick }>
-          <button className={ contentType === 'user-posts' ? 'posts-events-sub-filter active-button active' : 'posts-events-sub-filter active-button' }
-                  value='active'
+              onClick={ () => handleMyPostsOrEventsSubFilterClick('active') }>
+          <button className={ filter === 'active' ? 'posts-events-sub-filter active-button active' : 'posts-events-sub-filter active-button' }
                   >
             Active { contentType === 'user-posts' ? 'Posts' : 'Events' }
           </button>
         </div>
         <div className='user-sub-filter'
-              onClick={ handleMyPostsOrEventsSubFilterClick }>
-          <button className={ contentType === 'user-posts' ? 'posts-events-sub-filter past-button' : 'posts-events-sub-filter past-button active' }
-                  value='past'
+              onClick={ () => handleMyPostsOrEventsSubFilterClick('past') }>
+          <button className={ filter === 'past' ? 'posts-events-sub-filter past-button active' : 'posts-events-sub-filter past-button' }
                   >
             Old { contentType === 'user-posts' ? 'Posts' : 'Events' }
           </button>
@@ -109,7 +106,9 @@ class SubFilterBar extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    contentType: state.contentType
+    contentType: state.contentType,
+    postFilter: state.postsInterestedIn.filter,
+    eventFilter: state.eventsHosting.filter
   }
 }
 
