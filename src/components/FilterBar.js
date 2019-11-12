@@ -62,14 +62,25 @@ class FilterBar extends Component {
 
   renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
-    const { props: {user: {username}},
+    const { props: {user: {username}, contentType},
             handleUserFilterClick,
             renderNewInterestedUsersNotification,
             renderNewMessagesNotification } = this
+
     return (
       <Fragment>
-        <button className='user-filter' onClick={ () => handleUserFilterClick('user-posts') }>My Posts { renderNewInterestedUsersNotification() }</button>
-        <button className='user-filter' onClick={ () => handleUserFilterClick('user-events') }>My Events { renderNewMessagesNotification() }</button>
+        <div className='user-filter'
+              onClick={ () => handleUserFilterClick('user-posts') }>
+          <button className={ contentType === 'user-posts' ? 'user-filter-button active' : 'user-filter-button' }>
+            My Posts { renderNewInterestedUsersNotification() }
+          </button>
+        </div>
+        <div className='user-filter'
+              onClick={ () => handleUserFilterClick('user-events') }>
+          <button className={ contentType === 'user-events' ? 'user-filter-button active' : 'user-filter-button' }>
+            My Events { renderNewMessagesNotification() }
+          </button>
+        </div>
       </Fragment>
     )
   }

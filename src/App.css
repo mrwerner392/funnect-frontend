@@ -193,6 +193,21 @@ button:hover {
   text-align-last: center;
   font-size: 175%;
   background-color: #ffae45;
+  border: 1px solid white;
+}
+
+.user-filter:hover {
+  cursor: pointer;
+}
+
+.user-filter-button {
+  height: 100%;
+  padding-top: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
+  font-size: 100%;
+  background-color: #ffae45;
+  border: none;
 }
 
 .posts-events-filter {
@@ -218,6 +233,10 @@ button:hover {
   border: 1px solid white;
 }
 
+.user-sub-filter:hover {
+  cursor: pointer;
+}
+
 #user-sub-filter-button {
   margin: auto;
   font-size: 150%;
@@ -227,12 +246,11 @@ button:hover {
 .active-button {
   height: 100%;
   padding-top: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
   font-size: 100%;
   background-color: #ffdeb8;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 1px solid white;
+  border: none;
 }
 
 .past-button {
@@ -240,10 +258,7 @@ button:hover {
   padding-top: 1%;
   font-size: 100%;
   background-color: #ffdeb8;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: 1px solid white;
+  border: none;
 }
 
 .clear-filter-button {
