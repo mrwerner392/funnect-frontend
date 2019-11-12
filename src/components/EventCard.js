@@ -62,7 +62,7 @@ class EventCard extends Component {
         <div className='event-card-user'>
           <p className='event-card-user-item'>{ `${user.first_name}  |  ${user.age}  |  ${user.gender}` }</p>
           <p className='event-card-user-item'>{ `"${user.bio}"` }</p>
-          <p className='event-card-user-item'>{ `"${user.occupation}"` }</p>
+          <p className='event-card-user-item'>{ `${user.occupation}` }</p>
           <p className='event-card-user-item'>
             Likes: { renderUserInterests(user.interests) }
           </p>
@@ -73,7 +73,7 @@ class EventCard extends Component {
               <div className='event-card-user'>
                 <p className='event-card-user-item'>{ `${user.first_name}  |  ${user.age}  |  ${user.gender}` }</p>
                 <p className='event-card-user-item'>{ `"${user.bio}"` }</p>
-                <p className='event-card-user-item'>{ `"${user.occupation}"` }</p>
+                <p className='event-card-user-item'>{ `${user.occupation}` }</p>
                 <p className='event-card-user-item'>
                   Likes: { renderUserInterests(user.interests) }
                 </p>
