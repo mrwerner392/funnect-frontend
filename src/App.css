@@ -61,14 +61,6 @@ button:hover {
   /* overflow: scroll; */
 }
 
-.chat-container {
-  margin: auto;
-  height: 300px;
-  width: 300px;
-  background-color: lime;
-}
-
-
 .event {
   border-style: solid;
   margin: 1%;
@@ -595,7 +587,7 @@ button:hover {
   border-radius: 5px;
   box-shadow: 0px 0px 5px 2px gray;
   display: grid;
-  grid-template-rows: 10% 10% 5% 35% 40%;
+  grid-template-rows: 10% 10% 5% 33% 42%;
   grid-template-areas:
     'event-card-header'
     'event-card-description'
@@ -668,4 +660,51 @@ button:hover {
 #event-card-footer {
   grid-area: event-card-footer;
   border-radius: 0 0 5px 5px;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 80% 20%;
+  grid-template-areas:
+    'message-display'
+    'message-form'
+}
+
+#message-display {
+  grid-area: message-display;
+  margin: auto;
+  margin-bottom: 0;
+  height: 100%;
+  width: 90%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px gray;
+}
+
+form#message-form {
+  grid-area: message-form;
+  margin: auto;
+  padding: 0;
+  box-shadow: none;
+  width: 90%
+}
+
+input#message-input {
+  font-size: 150%;
+  margin: auto;
+  padding-left: 2%;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 0 5px gray;
+}
+
+input#message-input:focus {
+  box-shadow: inset 5px 0px #039600;
+}
+
+input#message-submit {
+  font-size: 150%;
+  padding-left: 1%;
+  padding-right: 1%;
+  background-color: #039600;
+  color: white;
+  border-radius: 0 5px 5px 0;
 }

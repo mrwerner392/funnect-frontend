@@ -37,7 +37,12 @@ class MessageForm extends Component {
     .then(response => {
       if (response.errors) {
         this.setState({
-          errors: response.errors
+          errors: response.errors,
+          content: ''
+        })
+      } else {
+        this.setState({
+          content: ''
         })
       }
     })
@@ -47,9 +52,14 @@ class MessageForm extends Component {
     const { state: {content}, handleChange, handleSubmit } = this
 
     return (
-      <form onSubmit={ handleSubmit }>
-        <input type='text' name='content' value={ content } onChange={ handleChange } />
-        <input type='submit' />
+      <form id='message-form' onSubmit={ handleSubmit }>
+        <input id='message-input'
+                type='text'
+                name='content'
+                placeholder='say something'
+                value={ content }
+                onChange={ handleChange } />
+        {/* <input id='message-submit' type='submit' value='Send' /> */}
       </form>
     )
   }

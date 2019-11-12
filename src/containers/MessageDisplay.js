@@ -16,7 +16,7 @@ class MessageDisplay extends Component {
   render() {
     const { props: {currentEvent}, handleNewMessage, renderMessages } = this
     return (
-      <div>
+      <div id='message-display'>
         { renderMessages() }
       </div>
 
