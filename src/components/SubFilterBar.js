@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions'
-import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions'
-import { setEventsHostingFilter } from '../actions/eventsImHostingActions'
-import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions'
+import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
+import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
+import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
+import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
+import { clearAvailablePostsFilter } from '../actions/availablePostsActions';
 
 class SubFilterBar extends Component {
 
@@ -14,7 +15,8 @@ class SubFilterBar extends Component {
   }
 
   handleClearFilterClick = () => {
-    
+    const { clearAvailablePostsFilter } = this.props
+    clearAvailablePostsFilter()
   }
 
   handleMyPostsOrEventsSubFilterClick = filter => {
@@ -119,7 +121,8 @@ const mapDispatchToProps = {
   setCreatedPostsFilter,
   setPostsInterestedInFilter,
   setEventsHostingFilter,
-  setEventsAttendingFilter
+  setEventsAttendingFilter,
+  clearAvailablePostsFilter
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SubFilterBar))

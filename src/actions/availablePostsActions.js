@@ -51,6 +51,6 @@ export const setAvailablePostsNeighborhoodFilter = filter => dispatch => {
   dispatch({ type: 'SET_AVAILABLE_POSTS_NEIGHBORHOOD_FILTER', filter })
 }
 
-export const clearAvailablePostsFilter = () => {
+export const clearAvailablePostsFilter = () => dispatch => {
   dispatch({ type: 'CLEAR_AVAILABLE_POSTS_FILTER' })
 }
