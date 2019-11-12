@@ -27,39 +27,47 @@ class FilterBar extends Component {
       if (newInterestedUsersExist) {
         toggleNewInterestedUsersExist()
       }
-      history.push(`${user.username}/posts`)
+      history.push(`/${user.username}/posts`)
     } else {
       if (eventsHostingNewMessagesExist) {
         toggleEventsHostingNewMessagesExist()
       } else if (eventsAttendingNewMessagesExist) {
         toggleEventsAttendingNewMessagesExist()
       }
-      history.push(`${user.username}/events`)
+      history.push(`/${user.username}/events`)
     }
   }
 
-  handleMyPostsOrEventsFilterClick = evt => {
-    const { props: {contentType,
-                    setCreatedPostsFilter,
-                    setPostsInterestedInFilter,
-                    setEventsHostingFilter,
-                    setEventsAttendingFilter} } = this
-
-    const filter = evt.target.value
-
-    switch (contentType) {
-      case 'user-posts':
-        setCreatedPostsFilter(filter)
-        setPostsInterestedInFilter(filter)
-        break
-      case 'user-events':
-        setEventsHostingFilter(filter)
-        setEventsAttendingFilter(filter)
-        break
-      default:
-        break
-    }
+  handleAvailablePostsFilterChange = evt => {
+    const { name, value } = evt.target
+    const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
+    name === 'topics'
+        ? setAvailablePostsTopicFilter(value)
+        : setAvailablePostsNeighborhoodFilter(value)
   }
+
+  // handleMyPostsOrEventsFilterClick = evt => {
+  //   const { props: {contentType,
+  //                   setCreatedPostsFilter,
+  //                   setPostsInterestedInFilter,
+  //                   setEventsHostingFilter,
+  //                   setEventsAttendingFilter} } = this
+  //
+  //   const filter = evt.target.value
+  //
+  //   switch (contentType) {
+  //     case 'user-posts':
+  //       setCreatedPostsFilter(filter)
+  //       setPostsInterestedInFilter(filter)
+  //       break
+  //     case 'user-events':
+  //       setEventsHostingFilter(filter)
+  //       setEventsAttendingFilter(filter)
+  //       break
+  //     default:
+  //       break
+  //   }
+  // }
 
   renderNewInterestedUsersNotification = () => {
     const { newInterestedUsersExist } = this.props
@@ -124,23 +132,15 @@ class FilterBar extends Component {
     )
   }
 
-  handleAvailablePostsFilterChange = evt => {
-    const { name, value } = evt.target
-    const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
-    name === 'topics'
-      ? setAvailablePostsTopicFilter(value)
-      : setAvailablePostsNeighborhoodFilter(value)
-  }
-
-  renderMyPostsOrEventsFilterBar = () => {
-    const { handleMyPostsOrEventsFilterClick } = this
-    return (
-      <Fragment>
-        <button className='posts-events-filter' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
-        <button className='posts-events-filter' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
-      </Fragment>
-    )
-  }
+  // renderMyPostsOrEventsFilterBar = () => {
+  //   const { handleMyPostsOrEventsFilterClick } = this
+  //   return (
+  //     <Fragment>
+  //       <button className='posts-events-filter' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
+  //       <button className='posts-events-filter' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
+  //     </Fragment>
+  //   )
+  // }
 
   renderFilterBar = () => {
     const { props: {contentType},
@@ -151,11 +151,11 @@ class FilterBar extends Component {
 
     switch (contentType) {
       case 'user':
+      case 'user-posts':
+      case 'user-events':
         return renderUserFilterBar()
       case 'posts':
         return renderAvailablePostsFilterBar()
-      case 'user-posts':
-      case 'user-events':
         return renderMyPostsOrEventsFilterBar()
       default:
         return null
