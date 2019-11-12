@@ -97,24 +97,32 @@ class FilterBar extends Component {
   }
 
   renderAvailablePostsTopicFilter = () => {
-    const { props: {topics}, handleAvailablePostsFilterChange } = this
+    const { props: {topics, topicFilter},
+            handleAvailablePostsFilterChange } = this
+
     return (
       <select className='available-filter'
               name='topics'
+              value={ topicFilter }
               onChange={ handleAvailablePostsFilterChange }
               >
+        <option className='available-filter-option' value=''>Filter By Topic</option>
         { topics.map(topic => <option className='available-filter-option' key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
       </select>
     )
   }
 
   renderAvailablePostsNeighborhoodFilter = () => {
-    const { props: {neighborhoods}, handleAvailablePostsFilterChange } = this
+    const { props: {neighborhoods, neighborhoodFilter},
+            handleAvailablePostsFilterChange } = this
+
     return (
       <select className='available-filter'
               name='neighborhoods'
+              value={ neighborhoodFilter }
               onChange={ handleAvailablePostsFilterChange }
               >
+        <option className='available-filter-option' value=''>Filter By Neighborhood</option>
         { neighborhoods.map(neighborhood => <option className='available-filter-option' key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
       </select>
     )
@@ -160,7 +168,9 @@ const mapStateToProps = state => {
     contentType: state.contentType,
     newInterestedUsersExist: state.createdPosts.newInterestedUsersExist,
     eventsHostingNewMessagesExist: state.eventsHosting.newMessagesExist,
-    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist
+    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist,
+    topicFilter: state.availablePosts.topicFilter,
+    neighborhoodFilter: state.availablePosts.neighborhoodFilter
   }
 }
 
