@@ -59,7 +59,7 @@ class AccountForm extends Component {
     return interests.map((interest, index) => (
       <p className='acct-form-interest' key={ interest }>
         { `${interest}   ` }
-        <span><button className='interest-delete' type='button' onClick={ () => handleRemoveInterest(index) }>x</button></span>
+        <span className='interest-delete'><button className='interest-delete' type='button' onClick={ () => handleRemoveInterest(index) }>x</button></span>
       </p>
     ))
   }

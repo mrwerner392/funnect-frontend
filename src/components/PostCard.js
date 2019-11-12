@@ -51,20 +51,28 @@ class PostCard extends Component {
     history.push(`/${user.username}/posts`)
   }
 
-  renderInterestedUsers = post => {
-    const {state: {attendees}, handleAddToEventList} = this
+  renderUserInterests = interests => {
+    const interestNames = interests.map(interest => interest.name)
+    return interestNames.join(', ')
+  }
+
+  renderInterestedUsers = () => {
+    const { state: {attendees},
+            props: {currentPost},
+            renderUserInterests,
+            handleAddToEventList } = this
+
     return(
       <Fragment>
         {
-          post.interested_users.map(user => (
-            <div key={ user.id }>
-              <p>{ user.username }</p>
-              <p>{ user.age }</p>
-              <p>{ user.gender }</p>
-              <p>{ user.bio }</p>
-              <p>{ user.college }</p>
-              <p>{ user.occupation }</p>
-              <button onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
+          currentPost.interested_users.map(user => (
+            <div className='post-card-interested-user' key={ user.id }>
+              <p className='post-card-user-item'>{ `${user.username}  |  ${user.age}  |  ${user.occupation}` }</p>
+              <p className='post-card-user-item'>{ `"${user.bio}"` }</p>
+              <p className='post-card-user-item'>
+                Likes: { renderUserInterests(user.interests) }
+              </p>
+              <button className='add-to-event-list' onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
             </div>
           ))
         }
@@ -78,14 +86,23 @@ class PostCard extends Component {
             handleCreateEvent, renderInterestedUsers } = this
 
     return (
-        <Fragment>
-          <p>{ currentPost.topic.name }</p>
-          <p>{ currentPost.neighborhood.name }</p>
-          <p>{ currentPost.user.username }</p>
-          <p>{ currentPost.status }</p>
-          { renderInterestedUsers(currentPost) }
-          <button disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
-        </Fragment>
+        <div id='post-card'>
+          <div id='post-card-header'>
+            <p className='post-card-header-item' id='post-card-topic'>{ currentPost.topic.name }</p>
+            <p className='post-card-header-item'>{ currentPost.neighborhood.name }</p>
+            <p className='post-card-header-item' id='post-card-time-day'>{ `${currentPost.today_or_tomorrow}, ${currentPost.time_of_day}` }</p>
+          </div>
+          <div id='post-card-description'>
+            { currentPost.description }
+          </div>
+          <h1 id='post-card-interested-label'>Interested Users</h1>
+          <div id='post-card-users'>
+            { renderInterestedUsers() }
+          </div>
+          <div id='post-card-footer'>
+            <button id='create-event-button' disabled={ attendees.length ? false : true } onClick={ () => handleCreateEvent(currentPost.id) }>Create Event</button>
+          </div>
+        </div>
     )
   }
 
@@ -93,10 +110,10 @@ class PostCard extends Component {
     const { props: {currentPost}, renderPost, handleBackToPostsClick } = this
 
     return (
-      <div>
-        <button onClick={ handleBackToPostsClick }>Back to My Posts</button>
+      <Fragment>
+        <button className='back-button' onClick={ handleBackToPostsClick }>Back to My Posts</button>
         { Object.keys(currentPost).length ? renderPost() : null }
-      </div>
+      </Fragment>
     )
   }
 
