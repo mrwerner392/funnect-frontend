@@ -116,12 +116,13 @@ class NavBar extends Component {
   }
 
   render() {
-    const { props: {user: {username}},
+    const { props: {user: {username}, history},
               handleLogout,
               handleMatChatClick,
               handleNavBarButtonClick,
               renderPostsWaitingCount,
               renderNewInfoMessage } = this
+    const path = history.location.pathname.split('/')[1]
 
     return (
       <div className='nav-bar'>
@@ -133,17 +134,17 @@ class NavBar extends Component {
         { username
           ?
           <Fragment>
-            <button className='nav-button'
+            <button className={ path === username ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('user') }
                     >
               { username } { renderNewInfoMessage() }
             </button>
-            <button className='nav-button'
+            <button className={ path === 'posts' ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('posts') }
                     >
               Home { renderPostsWaitingCount() }
             </button>
-            <button className='nav-button'
+            <button className={ path === 'create-post' ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('create') }
                     >
               New Post

@@ -27,38 +27,23 @@ class FilterBar extends Component {
       if (newInterestedUsersExist) {
         toggleNewInterestedUsersExist()
       }
-      history.push(`${user.username}/posts`)
+      history.push(`/${user.username}/posts`)
     } else {
       if (eventsHostingNewMessagesExist) {
         toggleEventsHostingNewMessagesExist()
       } else if (eventsAttendingNewMessagesExist) {
         toggleEventsAttendingNewMessagesExist()
       }
-      history.push(`${user.username}/events`)
+      history.push(`/${user.username}/events`)
     }
   }
 
-  handleMyPostsOrEventsFilterClick = evt => {
-    const { props: {contentType,
-                    setCreatedPostsFilter,
-                    setPostsInterestedInFilter,
-                    setEventsHostingFilter,
-                    setEventsAttendingFilter} } = this
-
-    const filter = evt.target.value
-
-    switch (contentType) {
-      case 'user-posts':
-        setCreatedPostsFilter(filter)
-        setPostsInterestedInFilter(filter)
-        break
-      case 'user-events':
-        setEventsHostingFilter(filter)
-        setEventsAttendingFilter(filter)
-        break
-      default:
-        break
-    }
+  handleAvailablePostsFilterChange = evt => {
+    const { name, value } = evt.target
+    const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
+    name === 'topics'
+        ? setAvailablePostsTopicFilter(value)
+        : setAvailablePostsNeighborhoodFilter(value)
   }
 
   renderNewInterestedUsersNotification = () => {
@@ -77,14 +62,25 @@ class FilterBar extends Component {
 
   renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
-    const { props: {user: {username}},
+    const { props: {user: {username}, contentType},
             handleUserFilterClick,
             renderNewInterestedUsersNotification,
             renderNewMessagesNotification } = this
+
     return (
       <Fragment>
-        <button className='user-filter' onClick={ () => handleUserFilterClick('user-posts') }>My Posts { renderNewInterestedUsersNotification() }</button>
-        <button className='user-filter' onClick={ () => handleUserFilterClick('user-events') }>My Events { renderNewMessagesNotification() }</button>
+        <div className='user-filter'
+              onClick={ () => handleUserFilterClick('user-posts') }>
+          <button className={ contentType === 'user-posts' ? 'user-filter-button filter-active' : 'user-filter-button' }>
+            My Posts { renderNewInterestedUsersNotification() }
+          </button>
+        </div>
+        <div className='user-filter'
+              onClick={ () => handleUserFilterClick('user-events') }>
+          <button className={ contentType === 'user-events' ? 'user-filter-button filter-active' : 'user-filter-button' }>
+            My Events { renderNewMessagesNotification() }
+          </button>
+        </div>
       </Fragment>
     )
   }
@@ -101,44 +97,34 @@ class FilterBar extends Component {
   }
 
   renderAvailablePostsTopicFilter = () => {
-    const { props: {topics}, handleAvailablePostsFilterChange } = this
+    const { props: {topics, topicFilter},
+            handleAvailablePostsFilterChange } = this
+
     return (
       <select className='available-filter'
               name='topics'
+              value={ topicFilter }
               onChange={ handleAvailablePostsFilterChange }
               >
+        <option className='available-filter-option' value=''>Filter By Topic</option>
         { topics.map(topic => <option className='available-filter-option' key={ topic.id } value={ topic.name }>{ topic.name }</option>) }
       </select>
     )
   }
 
   renderAvailablePostsNeighborhoodFilter = () => {
-    const { props: {neighborhoods}, handleAvailablePostsFilterChange } = this
+    const { props: {neighborhoods, neighborhoodFilter},
+            handleAvailablePostsFilterChange } = this
+
     return (
       <select className='available-filter'
               name='neighborhoods'
+              value={ neighborhoodFilter }
               onChange={ handleAvailablePostsFilterChange }
               >
+        <option className='available-filter-option' value=''>Filter By Neighborhood</option>
         { neighborhoods.map(neighborhood => <option className='available-filter-option' key={ neighborhood.id } value={ neighborhood.name }>{ neighborhood.name }</option>) }
       </select>
-    )
-  }
-
-  handleAvailablePostsFilterChange = evt => {
-    const { name, value } = evt.target
-    const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
-    name === 'topics'
-      ? setAvailablePostsTopicFilter(value)
-      : setAvailablePostsNeighborhoodFilter(value)
-  }
-
-  renderMyPostsOrEventsFilterBar = () => {
-    const { handleMyPostsOrEventsFilterClick } = this
-    return (
-      <Fragment>
-        <button className='posts-events-filter' value='active' onClick={ handleMyPostsOrEventsFilterClick }>Active</button>
-        <button className='posts-events-filter' value='past' onClick={ handleMyPostsOrEventsFilterClick }>Past</button>
-      </Fragment>
     )
   }
 
@@ -151,11 +137,11 @@ class FilterBar extends Component {
 
     switch (contentType) {
       case 'user':
+      case 'user-posts':
+      case 'user-events':
         return renderUserFilterBar()
       case 'posts':
         return renderAvailablePostsFilterBar()
-      case 'user-posts':
-      case 'user-events':
         return renderMyPostsOrEventsFilterBar()
       default:
         return null
@@ -182,7 +168,9 @@ const mapStateToProps = state => {
     contentType: state.contentType,
     newInterestedUsersExist: state.createdPosts.newInterestedUsersExist,
     eventsHostingNewMessagesExist: state.eventsHosting.newMessagesExist,
-    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist
+    eventsAttendingNewMessagesExist: state.eventsAttending.newMessagesExist,
+    topicFilter: state.availablePosts.topicFilter,
+    neighborhoodFilter: state.availablePosts.neighborhoodFilter
   }
 }
 

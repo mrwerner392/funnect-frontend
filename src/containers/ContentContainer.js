@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FilterBar from '../components/FilterBar';
+import SubFilterBar from '../components/SubFilterBar';
 import ContentDisplay from './ContentDisplay';
 import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
 import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
@@ -14,6 +15,7 @@ class ContentContainer extends Component {
     return (
       <div id='content-container'>
         <FilterBar handleFilter={ handleFilter }/>
+        <SubFilterBar />
         <ContentDisplay />
       </div>
     )

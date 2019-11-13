@@ -45,7 +45,6 @@ export const createNewPost = postInfo => dispatch => {
     },
     body: JSON.stringify(postInfo)
   }
-  console.log('create');
   fetch(URL + '/posts', config)
   // .then(res => res.json())
   // .then(post => dispatch(addPost(post)))

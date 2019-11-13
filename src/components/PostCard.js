@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { newEventHosting } from '../actions/eventsImHostingActions';
+import { newEventHosting, addEvent } from '../actions/eventsImHostingActions';
 import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
 import { toggleHasNewInfo } from '../actions/userActions';
 import { setContentType } from '../actions/contentTypeActions';
+import { setCurrentEvent } from '../actions/currentEventActions';
+
+const URL = 'http://localhost:3000'
 
 class PostCard extends Component {
 
@@ -13,14 +16,42 @@ class PostCard extends Component {
   }
 
   handleCreateEvent = postId => {
-    const { props: {newEventHosting}, state: {attendees} } = this
-    newEventHosting({post_id: postId, user_id: localStorage.id, attendees})
+    const { props: {addEvent, user, history, setCurrentEvent},
+            state: {attendees} } = this
+    // newEventHosting({post_id: postId, user_id: localStorage.id, attendees})
+
+    const eventInfo = {post_id: postId, user_id: user.id, attendees}
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.token
+      },
+      body: JSON.stringify(eventInfo)
+    }
+
+    fetch(URL + '/events', config)
+    .then(res => res.json())
+    .then(event => {
+      addEvent(event)
+      setCurrentEvent(event)
+      history.push(`/${user.username}/events/${event.id}`)
+    })
   }
 
   handleAddToEventList = id => {
     this.setState(prevState => {
       return {
         attendees: [...prevState.attendees, id]
+      }
+    })
+  }
+
+  handleRemoveFromEventList = userId => {
+    this.setState(prevState => {
+      return {
+        attendees: prevState.attendees.filter(id => id !== userId)
       }
     })
   }
@@ -60,7 +91,8 @@ class PostCard extends Component {
     const { state: {attendees},
             props: {currentPost},
             renderUserInterests,
-            handleAddToEventList } = this
+            handleAddToEventList,
+            handleRemoveFromEventList } = this
 
     return(
       <Fragment>
@@ -72,7 +104,21 @@ class PostCard extends Component {
               <p className='post-card-user-item'>
                 Likes: { renderUserInterests(user.interests) }
               </p>
-              <button className='add-to-event-list' onClick={ () => handleAddToEventList(user.id) }>Add to Event List</button>
+              {
+                attendees.includes(user.id)
+                ?
+                <button className='remove-from-event-list'
+                        onClick={ () => handleRemoveFromEventList(user.id) }
+                        >
+                  Added! (Click to Remove)
+                </button>
+                :
+                <button className='add-to-event-list'
+                        onClick={ () => handleAddToEventList(user.id) }
+                        >
+                  Add to Event List
+                </button>
+              }
             </div>
           ))
         }
@@ -133,7 +179,9 @@ const mapDispatchToProps = {
   newEventHosting,
   toggleNewInterestedUsersExist,
   toggleHasNewInfo,
-  setContentType
+  setContentType,
+  addEvent,
+  setCurrentEvent
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostCard))

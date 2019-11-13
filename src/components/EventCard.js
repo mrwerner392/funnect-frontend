@@ -40,14 +40,14 @@ class EventCard extends Component {
     const { currentEvent } = this.props
     return currentEvent.time_hour
         ? <p className='event-card-header-item time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-        : <p className='event-card-header-item explanation'>Discuss a time with the other attendees. The host will set it here.</p>
+        : <p className='event-card-header-item explanation'>The host has not set the time.</p>
   }
 
   renderLocation = () => {
     const { currentEvent } = this.props
     return currentEvent.location
         ? <p className='event-card-header-item location' id='event-card-location'>{ currentEvent.location }</p>
-        : <p className='event-card-header-item explanation' id='event-card-location'>Discuss a location with the other attendees. The host will set it here.</p>
+        : <p className='event-card-header-item explanation' id='event-card-location'>The host has not set the location.</p>
   }
 
   renderUserInterests = interests => {
