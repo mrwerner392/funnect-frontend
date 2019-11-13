@@ -9,7 +9,9 @@ export default (state = {events: [], eventWaiting: {}, newEventExists: false, ne
       return {
         ...state,
         events: [],
-        filter: 'active'
+        filter: 'active',
+        eventWaiting: {},
+        newEventExists: false
       }
     case 'NEW_EVENT_ATTENDING':
       console.log('reducer');

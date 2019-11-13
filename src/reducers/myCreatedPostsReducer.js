@@ -9,8 +9,8 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
       return {
         ...state,
         posts: [
-          ...state.posts,
-          action.post
+          action.post,
+          ...state.posts
         ]
       }
     case 'CLEAR_CREATED_POSTS':
