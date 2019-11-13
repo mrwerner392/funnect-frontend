@@ -84,6 +84,11 @@ button:hover {
   color: white;
 }
 
+#new-info {
+  background-color: #039600;
+  color: #ff8a00;
+}
+
 .mat-chat {
   font-weight: 900;
 }
