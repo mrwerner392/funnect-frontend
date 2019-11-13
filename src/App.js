@@ -347,6 +347,7 @@ const mapDispatchToProps = {
   addCreatedPost,
   addNewInterestedUser,
   addNewInterestedUserCurrentPost,
+  clearNewInterestedUsers,
   toggleNewInterestedUsersExist,
   toggleHasNewInfo,
   addEventHostingMessage,

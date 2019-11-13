@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { newEventHosting } from '../actions/eventsImHostingActions';
+import { newEventHosting, addEvent } from '../actions/eventsImHostingActions';
 import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
 import { toggleHasNewInfo } from '../actions/userActions';
 import { setContentType } from '../actions/contentTypeActions';
+import { setCurrentEvent } from '../actions/currentEventActions';
+
+const URL = 'http://localhost:3000'
 
 class PostCard extends Component {
 
@@ -13,8 +16,28 @@ class PostCard extends Component {
   }
 
   handleCreateEvent = postId => {
-    const { props: {newEventHosting}, state: {attendees} } = this
-    newEventHosting({post_id: postId, user_id: localStorage.id, attendees})
+    const { props: {addEvent, user, history, setCurrentEvent},
+            state: {attendees} } = this
+    // newEventHosting({post_id: postId, user_id: localStorage.id, attendees})
+
+    const eventInfo = {post_id: postId, user_id: user.id, attendees}
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': localStorage.token
+      },
+      body: JSON.stringify(eventInfo)
+    }
+
+    fetch(URL + '/events', config)
+    .then(res => res.json())
+    .then(event => {
+      addEvent(event)
+      setCurrentEvent(event)
+      history.push(`/${user.username}/events/${event.id}`)
+    })
   }
 
   handleAddToEventList = id => {
@@ -156,7 +179,9 @@ const mapDispatchToProps = {
   newEventHosting,
   toggleNewInterestedUsersExist,
   toggleHasNewInfo,
-  setContentType
+  setContentType,
+  addEvent,
+  setCurrentEvent
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostCard))

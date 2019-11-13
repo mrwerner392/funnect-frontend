@@ -7,11 +7,8 @@ const setEvents = events => {
   }
 }
 
-const addEvent = event => {
-  return {
-    type: 'ADD_EVENT_HOSTING',
-    event
-  }
+export const addEvent = event => dispatch => {
+  dispatch({ type: 'ADD_EVENT_HOSTING', event })
 }
 
 export const getEventsHosting = () => dispatch => {

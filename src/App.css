@@ -782,9 +782,10 @@ input#message-input {
   font-size: 150%;
   margin: auto;
   padding-left: 2%;
-  width: 100%;
+  width: 97%;
   border-radius: 5px;
   box-shadow: 0 0 5px gray;
+  overflow-x: hidden;
 }
 
 input#message-input:focus {

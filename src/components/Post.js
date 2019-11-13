@@ -6,6 +6,7 @@ import { addPostInterestedIn } from '../actions/postsImInterestedInActions';
 import { removeAvailablePost } from '../actions/availablePostsActions';
 import { removePostInterestedIn } from '../actions/postsImInterestedInActions';
 import { setCurrentPost } from '../actions/currentPostActions';
+import { setCurrentEvent } from '../actions/currentEventActions';
 import { clearNewInterestedUsers } from '../actions/myCreatedPostsActions';
 
 class Post extends Component {
@@ -34,6 +35,20 @@ class Post extends Component {
     history.push(`/${username}/posts/${post.id}`)
   }
 
+  handleGoToEventClick = postId => {
+    const { user: {username},
+            eventsHosting,
+            eventsAttending,
+            setCurrentEvent,
+            history } = this.props
+    const allEvents = [...eventsHosting, ...eventsAttending]
+    console.log(allEvents, postId);
+    const event = allEvents.find(event => event.post.id === postId)
+
+    setCurrentEvent(event)
+    history.push(`/${username}/events/${event.id}`)
+  }
+
   renderNotification = () => {
     const { post } = this.props
     const numNew = post.newInterestedUsers ? post.newInterestedUsers.length : 0
@@ -48,20 +63,30 @@ class Post extends Component {
   }
 
   renderPostFooter = () => {
-    const { props: {post, user},
+    const { props: {post, user, eventsHosting, eventsAttending},
             handleInterestedClick,
             handleNotInterestedClick,
-            handleManagePostClick } = this
+            handleManagePostClick,
+            handleGoToEventClick } = this
     const interestedIds = post.interested_users.map(user => user.id)
     if (post.newInterestedUsers) {
       post.newInterestedUsers.forEach(user => interestedIds.push(user.id))
     }
 
     if (post.user.id === user.id) {
+      const allEvents = [...eventsHosting, ...eventsAttending]
+      const postIdsWithAnEvent = allEvents.map(event => event.post.id)
+
       return (
         <Fragment>
           <p id='my-post-footer-text'>{ interestedIds.length } users are interested</p>
-          <button id='my-post-footer-button' onClick={ handleManagePostClick }>Manage Post</button>
+          {
+            postIdsWithAnEvent.includes(post.id)
+            ?
+            <button id='my-post-footer-button' onClick={ () => handleGoToEventClick(post.id) }>View Event for This Post</button>
+            :
+            <button id='my-post-footer-button' onClick={ handleManagePostClick }>Manage Post</button>
+          }
         </Fragment>
       )
     } else if (interestedIds.includes(user.id)) {
@@ -115,8 +140,11 @@ class Post extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
-    user: state.user
+    user: state.user,
+    eventsHosting: state.eventsHosting.events,
+    eventsAttending: state.eventsAttending.events
   }
 }
 
@@ -126,6 +154,7 @@ const mapDispatchToProps = {
   removeAvailablePost,
   removePostInterestedIn,
   setCurrentPost,
+  setCurrentEvent,
   clearNewInterestedUsers
 }
 
