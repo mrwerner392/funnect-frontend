@@ -306,13 +306,14 @@ button:hover {
   background-color: white;
   overflow: scroll;
   box-shadow: inset 10px 0px 10px -10px, inset -10px 0px 10px -10px;
+  padding-top: 50px;
 }
 
 #post {
   width: 66vw;
   height: 25vh;
-  margin-top: 50px;
-  margin-bottom: 25px;
+  /* margin-top: 50px; */
+  margin-bottom: 50px;
   border-style: solid;
   border-width: 2px;
   display: grid;
@@ -323,6 +324,14 @@ button:hover {
     'post-user'
     'post-footer';
   background-color: white;
+}
+
+.post-noti {
+  margin: 0;
+  padding-left: 7%;
+  padding-right: 7%;
+  font-size: 100%;
+  background-color: tomato;
 }
 
 #post-header {
@@ -432,8 +441,8 @@ button:hover {
 #event {
   width: 66vw;
   height: 25vh;
-  margin-top: 4%;
-  margin-bottom: 2%;
+  /* margin-top: 4%; */
+  margin-bottom: 50px;
   border-style: solid;
   border-width: 2px;
   display: grid;

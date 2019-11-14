@@ -53,7 +53,7 @@ class Post extends Component {
     const { post } = this.props
     const numNew = post.newInterestedUsers ? post.newInterestedUsers.length : 0
     return numNew
-              ? <p>{ numNew } new interested { numNew === 1 ? 'user' : 'users' }</p>
+              ? <p className='post-noti'>{ numNew } new interested { numNew === 1 ? 'user' : 'users' }</p>
               : null
   }
 
