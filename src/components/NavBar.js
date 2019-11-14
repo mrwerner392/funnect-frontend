@@ -112,7 +112,7 @@ class NavBar extends Component {
 
   renderNewInfoMessage = () => {
     const { hasNewInfo } = this.props.user
-    return hasNewInfo ? '(New Info)' : null
+    return hasNewInfo ? <span id='new-info'>(+)</span> : null
   }
 
   render() {

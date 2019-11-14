@@ -44,7 +44,7 @@ class PostForm extends Component {
     evt.preventDefault()
     const { user, createNewPost, setContentType, history } = this.props
     createNewPost({ ...this.state, id: localStorage.id })
-    setContentType('posts')
+    setContentType('user-posts')
     history.push(`/${user.username}/posts`)
   }
 

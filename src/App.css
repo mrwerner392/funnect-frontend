@@ -84,6 +84,11 @@ button:hover {
   color: white;
 }
 
+#new-info {
+  background-color: #039600;
+  color: #ff8a00;
+}
+
 .mat-chat {
   font-weight: 900;
 }
@@ -203,6 +208,14 @@ button:hover {
   background-color: #ff8a00;
   border: 1px solid white;
   color: white;
+}
+
+#new-interesteds {
+  background-color: #ff8a00;
+}
+
+#new-messages {
+  background-color: #ff8a00;
 }
 
 .user-filter:hover {
@@ -699,12 +712,49 @@ button:hover {
   background-color: #a7ff87;
 }
 
+.event-card-host-edit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#event-card-location {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.5vw;
+  padding-top: 1%;
+  background-color: #a7ff87;
+}
+
+#event-card-time {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.5vw;
+  padding-top: 1%;
+  background-color: #a7ff87;
+}
+
+.event-edit {
+  flex-grow: 1;
+  margin: 1%;
+  background-color: #ff8a00;
+  border-radius: 5px;
+  font-size: 80%;
+  width: 25%;
+  max-height: 50%;
+  z-index: 10;
+}
+
 #event-card-day {
   border-radius: 5px 0 0 0;
 }
 
 #event-card-location {
   border-radius: 0 5px 0 0;
+}
+
+.event-edit {
+  display: block;
 }
 
 #event-card-description {

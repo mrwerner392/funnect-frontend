@@ -48,7 +48,7 @@ class FilterBar extends Component {
 
   renderNewInterestedUsersNotification = () => {
     const { newInterestedUsersExist } = this.props
-    return newInterestedUsersExist ? '(New Interested Users)' : null
+    return newInterestedUsersExist ? <span id='new-interesteds'>(New Interesteds)</span> : null
   }
 
   renderNewMessagesNotification = () => {
@@ -57,7 +57,7 @@ class FilterBar extends Component {
       eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
     )
 
-    return showNotification ? '(New Messages)' : null
+    return showNotification ? <span id='new-messages'>(New Messages)</span> : null
   }
 
   renderUserFilterBar = () => {
