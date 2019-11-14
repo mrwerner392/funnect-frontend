@@ -89,6 +89,11 @@ button:hover {
   color: #ff8a00;
 }
 
+#new-posts {
+  background-color: #039600;
+  color: #ff8a00;
+}
+
 .mat-chat {
   font-weight: 900;
 }
