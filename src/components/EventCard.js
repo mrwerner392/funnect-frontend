@@ -8,12 +8,14 @@ import { updateCurrentEvent } from '../actions/currentEventActions'
 import { toggleHasNewInfo } from '../actions/userActions';
 import { setContentType } from '../actions/contentTypeActions';
 
+const URL = 'http://localhost:3000'
+
 class EventCard extends Component {
 
   state = {
     time_hour: null,
     time_minute: null,
-    time_am_pm: '',
+    time_am_pm: null,
     hostIsEditing: false,
     errors: null
   }
@@ -51,10 +53,18 @@ class EventCard extends Component {
     })
   }
 
-  handleSaveTimeEdit = () => {
-    const { state: {time_hour, time_minute, time_am_am},
-            props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
+  handleEventEditing = evt => {
+    console.log(evt.target);
+    this.setState({
+      [evt.target.name]: evt.target.value,
+      errors: null,
+    })
+  }
 
+  handleSaveTimeEdit = () => {
+    const { state: {time_hour, time_minute, time_am_pm},
+            props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
+    debugger
     if (time_hour !== null && time_minute !== null && time_am_pm !== '') {
       const config = {
         method: 'PATCH',
@@ -72,13 +82,14 @@ class EventCard extends Component {
 
       fetch(URL + `/events/${currentEvent.id}/update_time`, config)
       .then(res => res.json())
+      // .then(console.log)
       .then(event => {
         updateEventHosting(event)
         updateCurrentEvent(event)
         this.setState({
           time_hour: null,
           time_minute: null,
-          time_am_pm: '',
+          time_am_pm: null,
           hostIsEditing: false,
           errors: null
         })
@@ -114,17 +125,19 @@ class EventCard extends Component {
   }
 
   renderTimeEdit = () => {
-    const { renderTimeHourSelect, renderTimeMinuteSelect } = this
+    const { state: {time_hour, time_minute, time_am_pm},
+            renderTimeHourSelect, renderTimeMinuteSelect, handleEventEditing } = this
     return (
       <div id='time-edit'>
-        <select id='time-hour-select'>
+        <select id='time-hour-select' name='time_hour' value={ time_hour } onChange={ handleEventEditing }>
           { renderTimeHourSelect() }
         </select>
         { <span id='time-edit-colon'>:</span> }
-        <select id='time-minute-select'>
+        <select id='time-minute-select' name='time_minute' value={ time_minute } onChange={ handleEventEditing }>
           { renderTimeMinuteSelect() }
         </select>
-        <select id='time-am-pm-select'>
+        <select id='time-am-pm-select' name='time_am_pm' value={ time_am_pm } onChange={ handleEventEditing }>
+          <option value={ null }></option>
           <option value='am'>am</option>
           <option value='pm'>pm</option>
         </select>
@@ -140,7 +153,7 @@ class EventCard extends Component {
             handleSaveTimeEdit } = this
 
     if ( currentEvent.user.id === user.id ) {
-      return(
+      return (
         <div className='event-card-header-item event-card-host-edit'>
           { hostIsEditing ? renderTimeEdit() : null }
           { currentEvent.time_hour && !hostIsEditing
