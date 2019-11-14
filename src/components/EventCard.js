@@ -9,6 +9,14 @@ import { setContentType } from '../actions/contentTypeActions';
 
 class EventCard extends Component {
 
+  state = {
+    time_hour: null,
+    time_minute: null,
+    time_am_pm: '',
+    hostIsEditing: false,
+    errors: null
+  }
+
   handleBackToEventsClick = () => {
     const { user,
             eventsHostingNewMessagesExist,
@@ -36,24 +44,99 @@ class EventCard extends Component {
     history.push(`/${user.username}/events`)
   }
 
-  handleEditClick = evt => {
-    console.log(evt.target.value);
+  handleEditClick = () => {
+    this.setState({
+      hostIsEditing: true
+    })
+  }
+
+  handleSaveTimeEdit = () => {
+    const { time_hour, time_minute, time_am_am } = this.state
+    if (time_hour !== null && time_minute !== null && time_am_pm !== '') {
+      do something
+    } else {
+      this.setState({
+        errors: 'Please choose and appropropiate time.'
+      })
+    }
+  }
+
+  renderTimeHourSelect = () => {
+    let hours = []
+    for (let i = 1; i <= 12; i++) {
+      hours.push(i)
+    }
+    return (
+      <Fragment>
+        <option value={ null }></option>
+        { hours.map(hour => <option value={ hour }>{ hour }</option>) }
+      </Fragment>
+    )
+  }
+
+  renderTimeMinuteSelect = () => {
+    let minutes = [0, 15, 30, 45]
+    return (
+      <Fragment>
+        <option value={ null }></option>
+        { minutes.map(minute => <option value={ minute }>{ minute === 0 ? '00' : minute }</option>) }
+      </Fragment>
+    )
+  }
+
+  renderTimeEdit = () => {
+    const { renderTimeHourSelect, renderTimeMinuteSelect } = this
+    return (
+      <div id='time-edit'>
+        <select id='time-hour-select'>
+          { renderTimeHourSelect() }
+        </select>
+        { <span id='time-edit-colon'>:</span> }
+        <select id='time-minute-select'>
+          { renderTimeMinuteSelect() }
+        </select>
+        <select id='time-am-pm-select'>
+          <option value='am'>am</option>
+          <option value='pm'>pm</option>
+        </select>
+      </div>
+    )
   }
 
   renderTime = () => {
-    const { props: {user, currentEvent}, handleEditClick } = this
+    const { props: {user, currentEvent},
+            state: {hostIsEditing},
+            renderTimeEdit,
+            handleEditClick,
+            handleSaveTimeEdit } = this
+
+    if ( currentEvent.user.id === user.id ) {
+      return(
+        <div className='event-card-header-item event-card-host-edit'>
+          { hostIsEditing ? renderTimeEdit() : null }
+          { currentEvent.time_hour && !hostIsEditing
+            ?
+            <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+            :
+            null
+          }
+          { hostIsEditing ? <button className='time-edit-submit' onClick={ handleSaveTimeEdit }>Save</button> : <button className='event-edit' value='time' onClick={ handleEditClick }>Edit Time</button> }
+        </div>
+      )
+
+    }
 
     if ( currentEvent.time_hour ) {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : null }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit Time</button> : null }
         </div>
         )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit Time</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
         </div>
       )
     }
@@ -66,13 +149,13 @@ class EventCard extends Component {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='location' id='event-card-location'>{ currentEvent.location }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='location' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='location' onClick={ handleEditClick }>Edit Location</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
         </div>
       )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit Location</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
         </div>
       )
     }
@@ -141,10 +224,15 @@ class EventCard extends Component {
   }
 
   render() {
-    const { props: {currentEvent}, renderEvent, handleBackToEventsClick } = this
+    const { props: {currentEvent},
+            state: {errors},
+            renderEvent,
+            handleBackToEventsClick } = this
+
     return (
       <Fragment>
         <button className='back-button' onClick={ handleBackToEventsClick }>Back to My Events</button>
+        { errors ? <p id='event-card-errors'>{ errors }</p> : null }
         { Object.keys(currentEvent).length ? renderEvent() : null }
       </Fragment>
     )
