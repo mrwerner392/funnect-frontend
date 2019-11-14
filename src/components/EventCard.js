@@ -97,7 +97,6 @@ class EventCard extends Component {
           time_hour: null,
           time_minute: null,
           time_am_pm: null,
-          location: null,
           hostIsEditingTime: false,
           errors: null
         })
@@ -132,9 +131,6 @@ class EventCard extends Component {
         updateEventHosting(event)
         updateCurrentEvent(event)
         this.setState({
-          time_hour: null,
-          time_minute: null,
-          time_am_pm: null,
           location: null,
           hostIsEditingLocation: false,
           errors: null
