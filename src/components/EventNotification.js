@@ -24,8 +24,8 @@ class EventNotification extends Component {
     return (
       <div className='event-noti'>
         <p>You have been invited to a new event!</p>
-        <button onClick={ () => handleClick('go') }>Go to Event</button>
-        <button onClick={ () => handleClick('stay') }>Ok</button>
+        <button className='event-noti-button' onClick={ () => handleClick('go') }>Go to Event</button>
+        <button className='event-noti-button' onClick={ () => handleClick('stay') }>Ok</button>
       </div>
     )
   }

@@ -438,6 +438,20 @@ button:hover {
   background-color: #039600;
 }
 
+.event-noti {
+  font-size: 150%;
+  margin: 1%;
+}
+
+.event-noti-button {
+  margin: 1%;
+  padding: 1%;
+  font-size: 75%;
+  border-radius: 5px;
+  background-color: #039600;
+  color: white;
+}
+
 #event {
   width: 66vw;
   height: 25vh;
@@ -454,6 +468,15 @@ button:hover {
     'event-footer';
   background-color: white;
 }
+
+.event-message-noti {
+  margin: 0;
+  padding-left: 7%;
+  padding-right: 7%;
+  font-size: 100%;
+  background-color: tomato;
+}
+
 
 #event-header {
   grid-area: event-header;

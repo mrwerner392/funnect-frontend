@@ -14,7 +14,7 @@ class Event extends Component {
   renderNotification = () => {
     const { event } = this.props
     const newMessages = !!event.hasNewMessages
-    return newMessages ? <p>New messages</p> : null
+    return newMessages ? <p className='event-message-noti'>New messages</p> : null
   }
 
   renderAttendees = () => {
