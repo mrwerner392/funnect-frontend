@@ -36,39 +36,43 @@ class EventCard extends Component {
     history.push(`/${user.username}/events`)
   }
 
+  handleEditClick = evt => {
+    console.log(evt.target.value);
+  }
+
   renderTime = () => {
-    const { user, currentEvent } = this.props
+    const { props: {user, currentEvent}, handleEditClick } = this
 
     if ( currentEvent.time_hour ) {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : null }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : null }
         </div>
         )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
         </div>
       )
     }
   }
 
   renderLocation = () => {
-    const { user, currentEvent } = this.props
+    const { props: {user, currentEvent}, handleEditClick } = this
 
     if ( currentEvent.location ) {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='location' id='event-card-location'>{ currentEvent.location }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='location' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
         </div>
       )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
         </div>
       )
     }

@@ -739,9 +739,10 @@ button:hover {
   margin: 1%;
   background-color: #ff8a00;
   border-radius: 5px;
-  font-size: 100%;
-  width: 30%;
+  font-size: 80%;
+  width: 25%;
   max-height: 50%;
+  z-index: 10;
 }
 
 #event-card-day {
