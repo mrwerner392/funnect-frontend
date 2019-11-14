@@ -12,8 +12,14 @@ class Event extends Component {
   }
 
   renderNotification = () => {
+
+    // NOT WORKING PROPERLY
+    // newMessagesExist is not a key on each event in redux
+    // need to make this key in order for this to work
     const { event } = this.props
-    const newMessages = !!event.hasNewMessages
+    const newMessages = !!event.newMessagesExist
+    console.log(event);
+    console.log(event.newMessagesExist);
     return newMessages ? <p className='event-message-noti'>New messages</p> : null
   }
 
