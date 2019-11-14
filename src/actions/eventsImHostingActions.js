@@ -11,6 +11,13 @@ export const addEvent = event => dispatch => {
   dispatch({ type: 'ADD_EVENT_HOSTING', event })
 }
 
+const updateEvent = event => {
+  return {
+    type: 'UPDATE_EVENT_HOSTING',
+    event
+  }
+}
+
 export const getEventsHosting = () => dispatch => {
   const config = {
     headers: {
@@ -41,6 +48,22 @@ export const newEventHosting = eventInfo => dispatch => {
   fetch(URL + '/events', config)
   .then(res => res.json())
   .then(event => dispatch(addEvent(event)))
+}
+
+export const updateEventHostingTime = (eventInfo, id) => dispatch => {
+  const config = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': localStorage.token
+    },
+    body: JSON.stringify(eventInfo)
+  }
+
+  fetch(URL + `/events/${id}/update_time`, config)
+  .then(res => res.json())
+  .then(event => dispatch(updateEvent(event)))
 }
 
 export const addEventHostingMessage = (message, eventId) => dispatch => {
