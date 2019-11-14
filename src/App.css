@@ -210,6 +210,14 @@ button:hover {
   color: white;
 }
 
+#new-interesteds {
+  background-color: #ff8a00;
+}
+
+#new-messages {
+  background-color: #ff8a00;
+}
+
 .user-filter:hover {
   cursor: pointer;
 }
