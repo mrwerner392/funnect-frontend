@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ChatContainer from '../containers/ChatContainer';
-import { toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
+import { toggleEventsHostingNewMessagesExist, updateEventHostingTime } from '../actions/eventsImHostingActions';
 import { toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
 import { toggleHasNewInfo } from '../actions/userActions';
 import { setContentType } from '../actions/contentTypeActions';
@@ -51,9 +51,37 @@ class EventCard extends Component {
   }
 
   handleSaveTimeEdit = () => {
-    const { time_hour, time_minute, time_am_am } = this.state
+    const { state: {time_hour, time_minute, time_am_am},
+            props: {currentEvent, updateEventHostingTime} } = this
+
     if (time_hour !== null && time_minute !== null && time_am_pm !== '') {
-      do something
+      const config = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': localStorage.token
+        },
+        body: JSON.stringify({
+          time_hour,
+          time_minute,
+          time_am_pm
+        })
+      }
+
+      fetch(URL + `/events/${currentEvent.id}/update_time`, config)
+      .then(res => res.json())
+      .then(event => {
+        updateEventHosting(event)
+        updateCurrentEvent(event)
+        this.setState({
+          time_hour: null,
+          time_minute: null,
+          time_am_pm: '',
+          hostIsEditing: false,
+          errors: null
+        })
+      })
     } else {
       this.setState({
         errors: 'Please choose and appropropiate time.'
