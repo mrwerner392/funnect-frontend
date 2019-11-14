@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ChatContainer from '../containers/ChatContainer';
-import { toggleEventsHostingNewMessagesExist, updateEventHostingTime } from '../actions/eventsImHostingActions';
+import { toggleEventsHostingNewMessagesExist, updateEventHosting } from '../actions/eventsImHostingActions';
 import { toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
+import { updateCurrentEvent } from '../actions/currentEventActions'
 import { toggleHasNewInfo } from '../actions/userActions';
 import { setContentType } from '../actions/contentTypeActions';
 
@@ -52,7 +53,7 @@ class EventCard extends Component {
 
   handleSaveTimeEdit = () => {
     const { state: {time_hour, time_minute, time_am_am},
-            props: {currentEvent, updateEventHostingTime} } = this
+            props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
 
     if (time_hour !== null && time_minute !== null && time_am_pm !== '') {
       const config = {
@@ -282,7 +283,9 @@ const mapDispatchToProps = {
   toggleEventsHostingNewMessagesExist,
   toggleEventsAttendingNewMessagesExist,
   toggleHasNewInfo,
-  setContentType
+  setContentType,
+  updateEventHosting,
+  updateCurrentEvent
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EventCard))
