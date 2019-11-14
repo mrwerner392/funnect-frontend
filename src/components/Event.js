@@ -53,8 +53,18 @@ class Event extends Component {
         <div id='event'>
           <div id='event-header'>
             <p className='event-header-item'>{ event.today_or_tomorrow }</p>
-            <p className='event-header-item'>{ `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}` }</p>
-            <p className='event-header-item'>{ event.location }</p>
+            <p className='event-header-item'>
+              {
+                event.time_hour
+                ?
+                `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}`
+                :
+                'Time TBD'
+              }
+            </p>
+            <p className='event-header-item'>
+              { event.location ? event.location : 'Location TBD' }
+            </p>
           </div>
           <p id='event-description'>{ event.description }</p>
           <div id='event-users'>
