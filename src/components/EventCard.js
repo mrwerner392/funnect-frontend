@@ -37,17 +37,41 @@ class EventCard extends Component {
   }
 
   renderTime = () => {
-    const { currentEvent } = this.props
-    return currentEvent.time_hour
-        ? <p className='event-card-header-item time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-        : <p className='event-card-header-item explanation'>The host has not set the time.</p>
+    const { user, currentEvent } = this.props
+
+    if ( currentEvent.time_hour ) {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : null }
+        </div>
+        )
+    } else {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
+        </div>
+      )
+    }
   }
 
   renderLocation = () => {
-    const { currentEvent } = this.props
-    return currentEvent.location
-        ? <p className='event-card-header-item location' id='event-card-location'>{ currentEvent.location }</p>
-        : <p className='event-card-header-item explanation' id='event-card-location'>The host has not set the location.</p>
+    const { user, currentEvent } = this.props
+
+    if ( currentEvent.location ) {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          <p className='location' id='event-card-location'>{ currentEvent.location }</p>
+          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+        </div>
+      )
+    } else {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          { currentEvent.user.id === user.id ? <button className='event-edit'>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+        </div>
+      )
+    }
   }
 
   renderUserInterests = interests => {
