@@ -14,7 +14,6 @@ class EventNotification extends Component {
             history } = this.props
     newEventAttendingSeen()
     if (direction === 'go') {
-      console.log(eventWaiting);
       setCurrentEvent(eventWaiting)
       history.push(`/${user.username}/events/${eventWaiting.id}`)
     }
