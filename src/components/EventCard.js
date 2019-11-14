@@ -82,7 +82,6 @@ class EventCard extends Component {
 
       fetch(URL + `/events/${currentEvent.id}/update_time`, config)
       .then(res => res.json())
-      // .then(console.log)
       .then(event => {
         updateEventHosting(event)
         updateCurrentEvent(event)
@@ -166,19 +165,16 @@ class EventCard extends Component {
         </div>
       )
 
-    }
-
-    if ( currentEvent.time_hour ) {
+    } else if ( currentEvent.time_hour ) {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit Time</button> : null }
         </div>
         )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit Time</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
+          <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
         </div>
       )
     }
@@ -186,6 +182,19 @@ class EventCard extends Component {
 
   renderLocation = () => {
     const { props: {user, currentEvent}, handleEditClick } = this
+
+    if ( currentEvent.user.id === user.id ) {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          { hostIsEditing ? renderTimeEdit() : null }
+          { currentEvent.location && !hostIsEditing
+            ?
+            <p className='location' id='event-card-location'>{ currentEvent.location }</p>
+            :
+            null
+          }
+      )
+    }
 
     if ( currentEvent.location ) {
       return (
