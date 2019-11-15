@@ -89,6 +89,11 @@ button:hover {
   color: #ff8a00;
 }
 
+#new-posts {
+  background-color: #039600;
+  color: #ff8a00;
+}
+
 .mat-chat {
   font-weight: 900;
 }
@@ -301,13 +306,14 @@ button:hover {
   background-color: white;
   overflow: scroll;
   box-shadow: inset 10px 0px 10px -10px, inset -10px 0px 10px -10px;
+  padding-top: 50px;
 }
 
 #post {
   width: 66vw;
   height: 25vh;
-  margin-top: 50px;
-  margin-bottom: 25px;
+  /* margin-top: 50px; */
+  margin-bottom: 50px;
   border-style: solid;
   border-width: 2px;
   display: grid;
@@ -318,6 +324,14 @@ button:hover {
     'post-user'
     'post-footer';
   background-color: white;
+}
+
+.post-noti {
+  margin: 0;
+  padding-left: 7%;
+  padding-right: 7%;
+  font-size: 100%;
+  background-color: tomato;
 }
 
 #post-header {
@@ -424,11 +438,25 @@ button:hover {
   background-color: #039600;
 }
 
+.event-noti {
+  font-size: 150%;
+  margin: 1%;
+}
+
+.event-noti-button {
+  margin: 1%;
+  padding: 1%;
+  font-size: 75%;
+  border-radius: 5px;
+  background-color: #039600;
+  color: white;
+}
+
 #event {
   width: 66vw;
   height: 25vh;
-  margin-top: 4%;
-  margin-bottom: 2%;
+  /* margin-top: 4%; */
+  margin-bottom: 50px;
   border-style: solid;
   border-width: 2px;
   display: grid;
@@ -440,6 +468,15 @@ button:hover {
     'event-footer';
   background-color: white;
 }
+
+.event-message-noti {
+  margin: 0;
+  padding-left: 7%;
+  padding-right: 7%;
+  font-size: 100%;
+  background-color: tomato;
+}
+
 
 #event-header {
   grid-area: event-header;
@@ -740,7 +777,7 @@ button:hover {
   background-color: #ff8a00;
   border-radius: 5px;
   font-size: 80%;
-  width: 25%;
+  width: 35%;
   max-height: 50%;
   z-index: 10;
 }

@@ -107,7 +107,7 @@ class NavBar extends Component {
 
   renderPostsWaitingCount = () => {
     const { postsWaiting } = this.props
-    return postsWaiting.length ? `(${postsWaiting.length})` : null
+    return postsWaiting.length ? <span id='new-posts'>{ `(${postsWaiting.length})` }</span> : null
   }
 
   renderNewInfoMessage = () => {
@@ -142,7 +142,7 @@ class NavBar extends Component {
             <button className={ path === 'posts' ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('posts') }
                     >
-              Home { renderPostsWaitingCount() }
+              Posts { renderPostsWaitingCount() }
             </button>
             <button className={ path === 'create-post' ? 'nav-button nav-active' : 'nav-button'}
                     onClick={ () => handleNavBarButtonClick('create') }

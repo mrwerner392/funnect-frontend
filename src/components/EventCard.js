@@ -2,12 +2,25 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ChatContainer from '../containers/ChatContainer';
-import { toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
+import { toggleEventsHostingNewMessagesExist, updateEventHosting } from '../actions/eventsImHostingActions';
 import { toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
+import { updateCurrentEvent } from '../actions/currentEventActions'
 import { toggleHasNewInfo } from '../actions/userActions';
 import { setContentType } from '../actions/contentTypeActions';
 
+const URL = 'http://localhost:3000'
+
 class EventCard extends Component {
+
+  state = {
+    time_hour: null,
+    time_minute: null,
+    time_am_pm: null,
+    location: null,
+    hostIsEditingTime: false,
+    hostIsEditingLocation: false,
+    errors: null
+  }
 
   handleBackToEventsClick = () => {
     const { user,
@@ -36,43 +49,215 @@ class EventCard extends Component {
     history.push(`/${user.username}/events`)
   }
 
-  handleEditClick = evt => {
-    console.log(evt.target.value);
+  handleEditTimeClick = () => {
+    this.setState({
+      hostIsEditingTime: true
+    })
+  }
+
+  handleEditLocationClick = () => {
+    this.setState({
+      hostIsEditingLocation: true
+    })
+  }
+
+  handleEventEditing = evt => {
+    console.log(evt.target);
+    this.setState({
+      [evt.target.name]: evt.target.value,
+      errors: null,
+    })
+  }
+
+  handleSaveTimeEdit = () => {
+    const { state: {time_hour, time_minute, time_am_pm},
+            props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
+
+    if (time_hour !== null && time_minute !== null && time_am_pm !== '') {
+      const config = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': localStorage.token
+        },
+        body: JSON.stringify({
+          time_hour,
+          time_minute,
+          time_am_pm
+        })
+      }
+
+      fetch(URL + `/events/${currentEvent.id}/update_time`, config)
+      .then(res => res.json())
+      .then(event => {
+        updateEventHosting(event)
+        updateCurrentEvent(event)
+        this.setState({
+          time_hour: null,
+          time_minute: null,
+          time_am_pm: null,
+          hostIsEditingTime: false,
+          errors: null
+        })
+      })
+    } else {
+      this.setState({
+        errors: 'Please choose and appropropiate time.'
+      })
+    }
+  }
+
+  handleSaveLocationEdit = () => {
+    const { state: {location},
+            props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
+
+    if (location != null) {
+      const config = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': localStorage.token
+        },
+        body: JSON.stringify({
+          location
+        })
+      }
+
+      fetch(URL + `/events/${currentEvent.id}/update_location`, config)
+      .then(res => res.json())
+      .then(event => {
+        updateEventHosting(event)
+        updateCurrentEvent(event)
+        this.setState({
+          location: null,
+          hostIsEditingLocation: false,
+          errors: null
+        })
+      })
+    }
+  }
+
+  renderTimeHourSelect = () => {
+    let hours = []
+    for (let i = 1; i <= 12; i++) {
+      hours.push(i)
+    }
+    return (
+      <Fragment>
+        <option value={ null }></option>
+        { hours.map(hour => <option value={ hour }>{ hour }</option>) }
+      </Fragment>
+    )
+  }
+
+  renderTimeMinuteSelect = () => {
+    let minutes = [0, 15, 30, 45]
+    return (
+      <Fragment>
+        <option value={ null }></option>
+        { minutes.map(minute => <option value={ minute }>{ minute === 0 ? '00' : minute }</option>) }
+      </Fragment>
+    )
+  }
+
+  renderTimeEdit = () => {
+    const { state: {time_hour, time_minute, time_am_pm},
+            renderTimeHourSelect, renderTimeMinuteSelect, handleEventEditing } = this
+    return (
+      <div id='time-edit'>
+        <select id='time-hour-select' name='time_hour' value={ time_hour } onChange={ handleEventEditing }>
+          { renderTimeHourSelect() }
+        </select>
+        { <span id='time-edit-colon'>:</span> }
+        <select id='time-minute-select' name='time_minute' value={ time_minute } onChange={ handleEventEditing }>
+          { renderTimeMinuteSelect() }
+        </select>
+        <select id='time-am-pm-select' name='time_am_pm' value={ time_am_pm } onChange={ handleEventEditing }>
+          <option value={ null }></option>
+          <option value='am'>am</option>
+          <option value='pm'>pm</option>
+        </select>
+      </div>
+    )
   }
 
   renderTime = () => {
-    const { props: {user, currentEvent}, handleEditClick } = this
+    const { props: {user, currentEvent},
+            state: {hostIsEditingTime},
+            renderTimeEdit,
+            handleEditTimeClick,
+            handleSaveTimeEdit } = this
 
-    if ( currentEvent.time_hour ) {
+    if ( currentEvent.user.id === user.id ) {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          { hostIsEditingTime ? renderTimeEdit() : null }
+          {
+            currentEvent.time_hour && !hostIsEditingTime
+            ?
+            <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
+            :
+            null
+          }
+          { hostIsEditingTime ? <button className='time-edit-submit' onClick={ handleSaveTimeEdit }>Save</button> : <button className='event-edit' value='time' onClick={ handleEditTimeClick }>Edit Time</button> }
+        </div>
+      )
+
+    } else if ( currentEvent.time_hour ) {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='time' id='event-card-time'>{ `${currentEvent.time_hour}:${currentEvent.time_minute < 10 ? '0' + currentEvent.time_minute : currentEvent.time_minute} ${currentEvent.time_am_pm}` }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : null }
         </div>
         )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-time'>The host has not set the time.</p> }
+          <p className='explanation' id='event-card-time'>The host has not set the time.</p>
         </div>
       )
     }
   }
 
   renderLocation = () => {
-    const { props: {user, currentEvent}, handleEditClick } = this
+    const { props: {user, currentEvent},
+            state: {location, hostIsEditingLocation},
+            renderLocationEdit,
+            handleEditLocationClick,
+            handleEventEditing,
+            handleSaveLocationEdit } = this
 
-    if ( currentEvent.location ) {
+    if ( currentEvent.user.id === user.id ) {
+      return (
+        <div className='event-card-header-item event-card-host-edit'>
+          {
+            hostIsEditingLocation
+            ?
+            <input id='location-edit' name='location' value={ location } onChange={ handleEventEditing } />
+            :
+            null
+          }
+          {
+            currentEvent.location && !hostIsEditingLocation
+            ?
+            <p className='location' id='event-card-location'>{ currentEvent.location }</p>
+            :
+            null
+          }
+          { hostIsEditingLocation ? <button className='location-edit-submit' onClick={ handleSaveLocationEdit }>Save</button> : <button className='event-edit' value='location' onClick={ handleEditLocationClick }>Edit Location</button> }
+        </div>
+      )
+    } else if ( currentEvent.location ) {
       return (
         <div className='event-card-header-item event-card-host-edit'>
           <p className='location' id='event-card-location'>{ currentEvent.location }</p>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='location' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
         </div>
       )
     } else {
       return (
         <div className='event-card-header-item event-card-host-edit'>
-          { currentEvent.user.id === user.id ? <button className='event-edit' value='time' onClick={ handleEditClick }>Edit</button> : <p className='explanation' id='event-card-location'>The host has not set the location.</p> }
+          <p className='explanation' id='event-card-location'>The host has not set the location.</p>
         </div>
       )
     }
@@ -141,10 +326,15 @@ class EventCard extends Component {
   }
 
   render() {
-    const { props: {currentEvent}, renderEvent, handleBackToEventsClick } = this
+    const { props: {currentEvent},
+            state: {errors},
+            renderEvent,
+            handleBackToEventsClick } = this
+
     return (
       <Fragment>
         <button className='back-button' onClick={ handleBackToEventsClick }>Back to My Events</button>
+        { errors ? <p id='event-card-errors'>{ errors }</p> : null }
         { Object.keys(currentEvent).length ? renderEvent() : null }
       </Fragment>
     )
@@ -166,7 +356,9 @@ const mapDispatchToProps = {
   toggleEventsHostingNewMessagesExist,
   toggleEventsAttendingNewMessagesExist,
   toggleHasNewInfo,
-  setContentType
+  setContentType,
+  updateEventHosting,
+  updateCurrentEvent
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EventCard))

@@ -12,6 +12,11 @@ export default (state = {events: [], newMessagesExist: false, filter: 'active'},
           ...state.events, action.event
         ]
       }
+    case 'UPDATE_EVENT_HOSTING':
+      return {
+        ...state,
+        events: state.events.map(event => event.id === action.event.id ? action.event : event)
+      }
     case 'CLEAR_EVENTS_HOSTING':
       return {
         ...state,

@@ -11,6 +11,10 @@ export const addEvent = event => dispatch => {
   dispatch({ type: 'ADD_EVENT_HOSTING', event })
 }
 
+export const updateEventHosting = event => dispatch => {
+  dispatch({ type: 'UPDATE_EVENT_HOSTING', event })
+}
+
 export const getEventsHosting = () => dispatch => {
   const config = {
     headers: {

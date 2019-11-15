@@ -111,7 +111,7 @@ class ContentDisplay extends Component {
       case 'posts':
         return renderAvailablePosts()
       default:
-        return <div>not found</div>
+        return <div>Loading...</div>
     }
   }
 
