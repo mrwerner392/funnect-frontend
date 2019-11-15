@@ -70,6 +70,7 @@ class FormContainer extends Component {
             getAvailablePosts,
             getTopics,
             getNeighborhoods,
+            setContentType,
             history } = this.props
 
     const config = {
