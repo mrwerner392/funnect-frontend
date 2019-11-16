@@ -167,14 +167,14 @@ class EventCard extends Component {
             renderTimeHourSelect, renderTimeMinuteSelect, handleEventEditing } = this
     return (
       <div id='time-edit'>
-        <select id='time-hour-select' name='time_hour' value={ time_hour } onChange={ handleEventEditing }>
+        <select className='time-select' name='time_hour' value={ time_hour } onChange={ handleEventEditing }>
           { renderTimeHourSelect() }
         </select>
         { <span id='time-edit-colon'>:</span> }
-        <select id='time-minute-select' name='time_minute' value={ time_minute } onChange={ handleEventEditing }>
+        <select className='time-select' name='time_minute' value={ time_minute } onChange={ handleEventEditing }>
           { renderTimeMinuteSelect() }
         </select>
-        <select id='time-am-pm-select' name='time_am_pm' value={ time_am_pm } onChange={ handleEventEditing }>
+        <select className='time-select' name='time_am_pm' value={ time_am_pm } onChange={ handleEventEditing }>
           <option value={ null }></option>
           <option value='am'>am</option>
           <option value='pm'>pm</option>
@@ -201,7 +201,7 @@ class EventCard extends Component {
             :
             null
           }
-          { hostIsEditingTime ? <button className='time-edit-submit' onClick={ handleSaveTimeEdit }>Save</button> : <button className='event-edit' value='time' onClick={ handleEditTimeClick }>Edit Time</button> }
+          { hostIsEditingTime ? <button className='event-edit-submit' onClick={ handleSaveTimeEdit }>Save</button> : <button className='event-edit' value='time' onClick={ handleEditTimeClick }>Edit Time</button> }
         </div>
       )
 
@@ -245,7 +245,7 @@ class EventCard extends Component {
             :
             null
           }
-          { hostIsEditingLocation ? <button className='location-edit-submit' onClick={ handleSaveLocationEdit }>Save</button> : <button className='event-edit' value='location' onClick={ handleEditLocationClick }>Edit Location</button> }
+          { hostIsEditingLocation ? <button className='event-edit-submit' onClick={ handleSaveLocationEdit }>Save</button> : <button className='event-edit' value='location' onClick={ handleEditLocationClick }>Edit Location</button> }
         </div>
       )
     } else if ( currentEvent.location ) {

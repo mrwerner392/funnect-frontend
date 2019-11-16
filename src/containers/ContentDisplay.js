@@ -89,7 +89,7 @@ class ContentDisplay extends Component {
   renderNewPostsNotification = () => {
     const { props: {postsWaiting}, handleNewPostsNotificationClick } = this
     return postsWaiting.length
-            ? <button onClick={ handleNewPostsNotificationClick }>{ `${postsWaiting.length} new posts`}</button>
+            ? <button id='new-posts-button' onClick={ handleNewPostsNotificationClick }>{ `${postsWaiting.length} new posts`}</button>
             : null
   }
 
