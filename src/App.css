@@ -755,6 +755,37 @@ button:hover {
   align-items: center;
 }
 
+.time-select {
+  font-size: 100%;
+  margin:0 1% 1% 1%;
+}
+
+#time-edit {
+  width: 100%;
+  background-color: #a7ff87;
+}
+
+#time-edit-colon {
+  font-size: 150%;
+  background-color: #a7ff87;
+}
+
+#location-edit {
+  font-size: 75%;
+  margin: 1%;
+  border-radius: 5px;
+}
+
+.event-edit-submit {
+  margin: 1%;
+  background-color: #ff8a00;
+  border-radius: 5px;
+  font-size: 80%;
+  width: 35%;
+  max-height: 50%;
+  z-index: 10;
+}
+
 #event-card-location {
   flex-grow: 1;
   text-align: center;
