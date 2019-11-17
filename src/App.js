@@ -31,7 +31,6 @@ class App extends Component {
   // action cable response handler -- new posts
   handleNewPost = post => {
     const { user, addPostWaiting, addCreatedPost } = this.props
-    console.log(post);
     if (user.id && post.user.id !== user.id) {
       addPostWaiting(post)
     } else if (user.id && post.user.id === user.id) {
@@ -315,16 +314,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.user,
-    // availablePosts: state.availablePosts,
     createdPosts: state.createdPosts,
-    // postsInterestedIn: state.postsInterestedIn,
     eventsHosting: state.eventsHosting,
     eventsAttending: state.eventsAttending,
-    // topics: state.topics,
-    // neighborhoods: state.neighborhoods
     currentEvent: state.currentEvent,
     currentPost: state.currentPost
   }
