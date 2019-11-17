@@ -15,7 +15,7 @@ import { setContentType, clearContentType } from '../actions/contentTypeActions'
 
 class NavBar extends Component {
 
-  handleMatChatClick = () => {
+  handleFunnectClick = () => {
     const { props: {
               user: {username},
               setContentType,
@@ -118,7 +118,7 @@ class NavBar extends Component {
   render() {
     const { props: {user: {username}, history},
               handleLogout,
-              handleMatChatClick,
+              handleFunnectClick,
               handleNavBarButtonClick,
               renderPostsWaitingCount,
               renderNewInfoMessage } = this
@@ -127,9 +127,9 @@ class NavBar extends Component {
     return (
       <div className='nav-bar'>
         <button className='nav-button mat-chat'
-                onClick={ handleMatChatClick }
+                onClick={ handleFunnectClick }
                 >
-          MatChat
+          Funnect
         </button>
         { username
           ?
