@@ -9,66 +9,70 @@ import { setCurrentPost } from '../actions/currentPostActions';
 import { setCurrentEvent } from '../actions/currentEventActions';
 import { clearNewInterestedUsers } from '../actions/myCreatedPostsActions';
 
-class Post extends Component {
+const Post = props => {
 
-  handleInterestedClick = post => {
-    const { user, addPostInterestedIn, removeAvailablePost } = this.props
+  const { user,
+          post,
+          addPostInterestedIn,
+          addAvailablePost,
+          removePostInterestedIn,
+          removeAvailablePost,
+          setCurrentPost,
+          setCurrentEvent,
+          clearNewInterestedUsers,
+          eventsHosting,
+          eventsAttending,
+          history } = props
+
+  const handleInterestedClick = post => {
     addPostInterestedIn(post.id, user.id)
     removeAvailablePost(post.id)
   }
 
-  handleNotInterestedClick = post => {
-    const { user, addAvailablePost, removePostInterestedIn } = this.props
+  const handleNotInterestedClick = post => {
     addAvailablePost(post, user.id)
     removePostInterestedIn(post.id, user.id)
   }
 
-  handleManagePostClick = () => {
-    const { post, user: {username},
-            setCurrentPost,
-            clearNewInterestedUsers,
-            history } = this.props
+  const handleManagePostClick = () => {
     setCurrentPost(post)
+
     if (post.newInterestedUsers) {
       clearNewInterestedUsers(post.id)
     }
-    history.push(`/${username}/posts/${post.id}`)
+
+    history.push(`/${user.username}/posts/${post.id}`)
   }
 
-  handleGoToEventClick = postId => {
-    const { user: {username},
-            eventsHosting,
-            eventsAttending,
-            setCurrentEvent,
-            history } = this.props
+  const handleGoToEventClick = postId => {
     const allEvents = [...eventsHosting, ...eventsAttending]
-    console.log(allEvents, postId);
     const event = allEvents.find(event => event.post.id === postId)
 
     setCurrentEvent(event)
-    history.push(`/${username}/events/${event.id}`)
+    history.push(`/${user.username}/events/${event.id}`)
   }
 
-  renderNotification = () => {
-    const { post } = this.props
+  const renderNotification = () => {
+    const { post } = props
     const numNew = post.newInterestedUsers ? post.newInterestedUsers.length : 0
+
     return numNew
-              ? <p className='post-noti'>{ numNew } new interested { numNew === 1 ? 'user' : 'users' }</p>
-              : null
+              ?
+              <p className='post-noti'>
+                { numNew } new interested { numNew === 1 ? 'user' : 'users' }
+              </p>
+              :
+              null
   }
 
-  renderUserInterests = interests => {
+  const renderUserInterests = interests => {
     const interestNames = interests.map(interest => interest.name)
     return interestNames.join(', ')
   }
 
-  renderPostFooter = () => {
-    const { props: {post, user, eventsHosting, eventsAttending},
-            handleInterestedClick,
-            handleNotInterestedClick,
-            handleManagePostClick,
-            handleGoToEventClick } = this
+  const renderPostFooter = () => {
     const interestedIds = post.interested_users.map(user => user.id)
+
     if (post.newInterestedUsers) {
       post.newInterestedUsers.forEach(user => interestedIds.push(user.id))
     }
@@ -106,36 +110,30 @@ class Post extends Component {
     }
   }
 
-  render() {
-    const { props: {post, user},
-            renderNotification,
-            renderUserInterests,
-            renderPostFooter } = this
-    return (
-      <div className='post-unit'>
-        { renderNotification() }
-        <div className='post'>
-          <div className='post-header'>
-            <p className='post-header-item'>{ post.topic.name }</p>
-            <p className='post-header-item'>{ post.neighborhood.name }</p>
-            <p className='post-header-item'>{ `${post.today_or_tomorrow}, ${post.time_of_day}` }</p>
-          </div>
-          <p className='post-description'>{ post.description }</p>
-          <div className='post-user'>
-            <h4 className='about-the-poster'>ABOUT THE POSTER</h4>
-            <div className='post-user-info'>
-              <p className='post-user-item'>{ `${post.user.username}  |  ${post.user.age}  |  ${post.user.occupation}` }</p>
-              <p className='post-user-item'>{ `"${post.user.bio}"` }</p>
-              <p className='post-user-item'>Likes: { renderUserInterests(post.user.interests) }</p>
-            </div>
-          </div>
-          <div className='post-footer'>
-            { renderPostFooter() }
+  return (
+    <div className='post-unit'>
+      { renderNotification() }
+      <div className='post'>
+        <div className='post-header'>
+          <p className='post-header-item'>{ post.topic.name }</p>
+          <p className='post-header-item'>{ post.neighborhood.name }</p>
+          <p className='post-header-item'>{ `${post.today_or_tomorrow}, ${post.time_of_day}` }</p>
+        </div>
+        <p className='post-description'>{ post.description }</p>
+        <div className='post-user'>
+          <h4 className='about-the-poster'>ABOUT THE POSTER</h4>
+          <div className='post-user-info'>
+            <p className='post-user-item'>{ `${post.user.username}  |  ${post.user.age}  |  ${post.user.occupation}` }</p>
+            <p className='post-user-item'>{ `"${post.user.bio}"` }</p>
+            <p className='post-user-item'>Likes: { renderUserInterests(post.user.interests) }</p>
           </div>
         </div>
+        <div className='post-footer'>
+          { renderPostFooter() }
+        </div>
       </div>
-    )
-  }
+    </div>
+  )
 
 }
 
