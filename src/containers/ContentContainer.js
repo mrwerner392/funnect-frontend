@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import FilterBar from '../components/FilterBar';
 import SubFilterBar from '../components/SubFilterBar';
@@ -8,18 +8,15 @@ import { setPostsInterestedInFilter } from '../actions/postsImInterestedInAction
 import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
 import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
 
-class ContentContainer extends Component {
+const ContentContainer = ({ user, contentType }) => {
 
-  render() {
-    const { props: {contentType, user}, handleFilter } = this
-    return (
-      <div id='content-container'>
-        <FilterBar handleFilter={ handleFilter }/>
-        <SubFilterBar />
-        <ContentDisplay />
-      </div>
-    )
-  }
+  return (
+    <div id='content-container'>
+      <FilterBar />
+      <SubFilterBar />
+      <ContentDisplay />
+    </div>
+  )
 
 }
 

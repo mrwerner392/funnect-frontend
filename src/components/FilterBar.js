@@ -1,26 +1,32 @@
-import React, { Component, Fragment } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
-import { setCreatedPostsFilter, toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
-import { setPostsInterestedInFilter } from '../actions/postsImInterestedInActions';
-import { setEventsHostingFilter, toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
-import { setEventsAttendingFilter, toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
+import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { toggleEventsHostingNewMessagesExist } from '../actions/eventsImHostingActions';
+import { toggleEventsAttendingNewMessagesExist } from '../actions/eventsImAttendingActions';
 import { setContentType } from '../actions/contentTypeActions';
 
-class FilterBar extends Component {
+const FilterBar = props => {
 
-  handleUserFilterClick = contentType => {
-    const { user,
-            history,
-            setContentType,
-            newInterestedUsersExist,
-            toggleNewInterestedUsersExist,
-            eventsHostingNewMessagesExist,
-            eventsAttendingNewMessagesExist,
-            toggleEventsHostingNewMessagesExist,
-            toggleEventsAttendingNewMessagesExist } = this.props
+  const { user,
+          contentType,
+          setContentType,
+          topics,
+          topicFilter,
+          neighborhoods,
+          neighborhoodFilter,
+          newInterestedUsersExist,
+          toggleNewInterestedUsersExist,
+          eventsHostingNewMessagesExist,
+          eventsAttendingNewMessagesExist,
+          toggleEventsHostingNewMessagesExist,
+          toggleEventsAttendingNewMessagesExist,
+          setAvailablePostsTopicFilter,
+          setAvailablePostsNeighborhoodFilter,
+          history } = props
 
+  const handleUserFilterClick = contentType => {
     setContentType(contentType)
 
     if (contentType === 'user-posts') {
@@ -38,35 +44,29 @@ class FilterBar extends Component {
     }
   }
 
-  handleAvailablePostsFilterChange = evt => {
+  const handleAvailablePostsFilterChange = evt => {
     const { name, value } = evt.target
-    const { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } = this.props
     name === 'topics'
         ? setAvailablePostsTopicFilter(value)
         : setAvailablePostsNeighborhoodFilter(value)
   }
 
-  renderNewInterestedUsersNotification = () => {
-    const { newInterestedUsersExist } = this.props
-    return newInterestedUsersExist ? <span id='new-interesteds'>(New Interesteds)</span> : null
+  const renderNewInterestedUsersNotification = () => {
+    return newInterestedUsersExist
+              ? <span id='new-interesteds'>(New Interesteds)</span>
+              : null
   }
 
-  renderNewMessagesNotification = () => {
-    const { eventsHostingNewMessagesExist, eventsAttendingNewMessagesExist} = this.props
-    const showNotification = (
-      eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
-    )
+  const renderNewMessagesNotification = () => {
+    const showNotification = eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
 
-    return showNotification ? <span id='new-messages'>(New Messages)</span> : null
+    return showNotification
+              ? <span id='new-messages'>(New Messages)</span>
+              : null
   }
 
-  renderUserFilterBar = () => {
+  const renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
-    const { props: {user: {username}, contentType},
-            handleUserFilterClick,
-            renderNewInterestedUsersNotification,
-            renderNewMessagesNotification } = this
-
     return (
       <Fragment>
         <div className='user-filter'
@@ -85,9 +85,7 @@ class FilterBar extends Component {
     )
   }
 
-  renderAvailablePostsFilterBar = () => {
-    const { renderAvailablePostsTopicFilter,
-            renderAvailablePostsNeighborhoodFilter } = this
+  const renderAvailablePostsFilterBar = () => {
     return (
       <Fragment>
         { renderAvailablePostsTopicFilter() }
@@ -96,10 +94,7 @@ class FilterBar extends Component {
     )
   }
 
-  renderAvailablePostsTopicFilter = () => {
-    const { props: {topics, topicFilter},
-            handleAvailablePostsFilterChange } = this
-
+  const renderAvailablePostsTopicFilter = () => {
     return (
       <select className='available-filter'
               name='topics'
@@ -112,10 +107,7 @@ class FilterBar extends Component {
     )
   }
 
-  renderAvailablePostsNeighborhoodFilter = () => {
-    const { props: {neighborhoods, neighborhoodFilter},
-            handleAvailablePostsFilterChange } = this
-
+  const renderAvailablePostsNeighborhoodFilter = () => {
     return (
       <select className='available-filter'
               name='neighborhoods'
@@ -128,13 +120,7 @@ class FilterBar extends Component {
     )
   }
 
-  renderFilterBar = () => {
-    const { props: {contentType},
-            renderUserFilterBar,
-            renderAvailablePostsFilterBar,
-            renderMyPostsOrEventsFilterBar,
-            renderMyEventsFilterBar } = this
-
+  const renderFilterBar = () => {
     switch (contentType) {
       case 'user':
       case 'user-posts':
@@ -142,21 +128,16 @@ class FilterBar extends Component {
         return renderUserFilterBar()
       case 'posts':
         return renderAvailablePostsFilterBar()
-        return renderMyPostsOrEventsFilterBar()
       default:
         return null
     }
   }
 
-  render() {
-    const { renderFilterBar } = this
-
-    return (
-      <div id='filter-bar'>
-        { renderFilterBar() }
-      </div>
-    )
-  }
+  return (
+    <div id='filter-bar'>
+      { renderFilterBar() }
+    </div>
+  )
 
 }
 
@@ -178,10 +159,6 @@ const mapDispatchToProps = {
   setAvailablePostsTopicFilter,
   setAvailablePostsNeighborhoodFilter,
   setContentType,
-  setCreatedPostsFilter,
-  setPostsInterestedInFilter,
-  setEventsHostingFilter,
-  setEventsAttendingFilter,
   toggleNewInterestedUsersExist,
   toggleEventsHostingNewMessagesExist,
   toggleEventsAttendingNewMessagesExist

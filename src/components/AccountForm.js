@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 class AccountForm extends Component {
 
@@ -70,8 +69,7 @@ class AccountForm extends Component {
                     gender,
                     bio,
                     college,
-                    occupation,
-                    interests},
+                    occupation},
             props: {interestOptions},
             renderInterests } = this
 

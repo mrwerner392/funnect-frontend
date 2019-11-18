@@ -1,6 +1,5 @@
 import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
-import { ActionCableConsumer } from 'react-actioncable-provider';
 import Message from '../components/Message';
 import { addEventHostingMessage } from '../actions/eventsImHostingActions'
 import { addEventAttendingMessage } from '../actions/eventsImAttendingActions'
@@ -31,12 +30,12 @@ class MessageDisplay extends Component {
   }
 
   render() {
-    const { props: {currentEvent}, handleNewMessage, renderMessages, displayRef } = this
+    const { renderMessages, displayRef } = this
+    
     return (
       <div id='message-display' ref={ displayRef }>
         { renderMessages() }
       </div>
-
     )
   }
 

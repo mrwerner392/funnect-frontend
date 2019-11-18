@@ -31,7 +31,6 @@ class App extends Component {
   // action cable response handler -- new posts
   handleNewPost = post => {
     const { user, addPostWaiting, addCreatedPost } = this.props
-    console.log(post);
     if (user.id && post.user.id !== user.id) {
       addPostWaiting(post)
     } else if (user.id && post.user.id === user.id) {
@@ -42,7 +41,6 @@ class App extends Component {
   // action cable response handler -- new user interested in my post
   handleNewPostInterest = ({ post, interested_user }) => {
     const { user,
-            currentPost,
             createdPosts,
             toggleHasNewInfo,
             addNewInterestedUser,
@@ -89,7 +87,6 @@ class App extends Component {
   // action cable response handler -- new message in one of my events
   handleNewMessage = (message, event) => {
     const { user,
-            currentEvent,
             eventsHosting,
             eventsAttending,
             addEventHostingMessage,
@@ -150,7 +147,7 @@ class App extends Component {
   }
 
   handleNewEvent = event => {
-    const { user, newEventExists, newEventAttending } = this.props
+    const { user, newEventAttending } = this.props
     const attendingIds = event.users_attending.map(user => user.id)
     if (attendingIds.includes(user.id)) {
       newEventAttending(event)
@@ -258,8 +255,7 @@ class App extends Component {
   render() {
     const { props: {eventsAttending: {newEventExists} },
             renderActionCables,
-            renderContent,
-            handleNewPost } = this
+            renderContent } = this
 
     return (
       <div className='App'>
@@ -301,11 +297,11 @@ class App extends Component {
                   />
           <Route exact
                   path='/:slug/posts/:postSlug'
-                  render={ renderProps => <PostCard renderProps={ renderProps } /> }
+                  render={ () => <PostCard /> }
                   />
           <Route exact
                   path='/:slug/events/:eventSlug'
-                  render={ renderProps => <EventCard renderProps={ renderProps } /> }
+                  render={ () => <EventCard /> }
                   />
           <Route component={ NotFound } />
         </Switch>
@@ -315,18 +311,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     user: state.user,
-    // availablePosts: state.availablePosts,
     createdPosts: state.createdPosts,
-    // postsInterestedIn: state.postsInterestedIn,
     eventsHosting: state.eventsHosting,
     eventsAttending: state.eventsAttending,
-    // topics: state.topics,
-    // neighborhoods: state.neighborhoods
-    currentEvent: state.currentEvent,
-    currentPost: state.currentPost
   }
 }
 

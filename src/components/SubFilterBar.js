@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCreatedPostsFilter } from '../actions/myCreatedPostsActions';
@@ -7,25 +7,28 @@ import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
 import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
 import { clearAvailablePostsFilter } from '../actions/availablePostsActions';
 
-class SubFilterBar extends Component {
+const  SubFilterBar = props => {
 
-  handleEditProfileClick = () => {
-    const { user: {username}, history } = this.props
-    history.push(`/${username}/edit`)
+  const { user,
+          contentType,
+          postFilter,
+          eventFilter,
+          clearAvailablePostsFilter,
+          setCreatedPostsFilter,
+          setPostsInterestedInFilter,
+          setEventsHostingFilter,
+          setEventsAttendingFilter,
+          history } = props
+
+  const handleEditProfileClick = () => {
+    history.push(`/${user.username}/edit`)
   }
 
-  handleClearFilterClick = () => {
-    const { clearAvailablePostsFilter } = this.props
+  const handleClearFilterClick = () => {
     clearAvailablePostsFilter()
   }
 
-  handleMyPostsOrEventsSubFilterClick = filter => {
-    const { props: {contentType,
-                    setCreatedPostsFilter,
-                    setPostsInterestedInFilter,
-                    setEventsHostingFilter,
-                    setEventsAttendingFilter} } = this
-
+  const handleMyPostsOrEventsSubFilterClick = filter => {
     switch (contentType) {
       case 'user-posts':
         setCreatedPostsFilter(filter)
@@ -40,35 +43,33 @@ class SubFilterBar extends Component {
     }
   }
 
-  renderUserSubFilterBar = () => {
-    const { handleEditProfileClick } = this
-    return (
-        <button className='user-sub-filter' onClick={ handleEditProfileClick }>Edit Profile</button>
-    )
+  const renderUserSubFilterBar = () => {
+    return <button className='user-sub-filter' onClick={ handleEditProfileClick }>Edit Profile</button>
   }
 
-  renderAvailablePostsSubFilterBar = () => {
-    const { handleClearFilterClick } = this
+  const renderAvailablePostsSubFilterBar = () => {
     return <button className='clear-filter-button' onClick={ handleClearFilterClick }>Clear Filters</button>
   }
 
-  renderMyPostsOrEventsSubFilterBar = () => {
-    const { props: {contentType, postFilter, eventFilter},
-            handleMyPostsOrEventsSubFilterClick } = this
+  const renderMyPostsOrEventsSubFilterBar = () => {
     const filter = contentType === 'user-posts' ? postFilter : eventFilter
 
     return (
       <Fragment>
         <div className='user-sub-filter'
               onClick={ () => handleMyPostsOrEventsSubFilterClick('active') }>
-          <button className={ filter === 'active' ? 'posts-events-sub-filter active-button sub-filter-active' : 'posts-events-sub-filter active-button' }
+          <button className={ filter === 'active'
+                                      ? 'posts-events-sub-filter active-button sub-filter-active'
+                                      : 'posts-events-sub-filter active-button' }
                   >
             Active { contentType === 'user-posts' ? 'Posts' : 'Events' }
           </button>
         </div>
         <div className='user-sub-filter'
               onClick={ () => handleMyPostsOrEventsSubFilterClick('past') }>
-          <button className={ filter === 'past' ? 'posts-events-sub-filter past-button sub-filter-active' : 'posts-events-sub-filter past-button' }
+          <button className={ filter === 'past'
+                                      ? 'posts-events-sub-filter past-button sub-filter-active'
+                                      : 'posts-events-sub-filter past-button' }
                   >
             Old { contentType === 'user-posts' ? 'Posts' : 'Events' }
           </button>
@@ -77,12 +78,7 @@ class SubFilterBar extends Component {
     )
   }
 
-  renderSubFilterBar = () => {
-    const { props: {contentType},
-            renderUserSubFilterBar,
-            renderAvailablePostsSubFilterBar,
-            renderMyPostsOrEventsSubFilterBar } = this
-
+  const renderSubFilterBar = () => {
     switch (contentType) {
       case 'user':
         return renderUserSubFilterBar()
@@ -96,15 +92,11 @@ class SubFilterBar extends Component {
     }
   }
 
-  render() {
-    const { props: {user, contentType}, renderSubFilterBar } = this
-
-    return (
-      <div id='sub-filter-bar'>
-        { renderSubFilterBar() }
-      </div>
-    )
-  }
+  return (
+    <div id='sub-filter-bar'>
+      { renderSubFilterBar() }
+    </div>
+  )
 
 }
 
