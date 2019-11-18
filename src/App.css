@@ -309,7 +309,11 @@ button:hover {
   padding-top: 50px;
 }
 
-#post {
+.post-unit {
+  background-color: white;
+}
+
+.post {
   width: 66vw;
   height: 25vh;
   /* margin-top: 50px; */
@@ -335,7 +339,7 @@ button:hover {
   max-height: 3.5%;
 }
 
-#post-header {
+.post-header {
   grid-area: post-header;
   display: flex;
 }
@@ -349,7 +353,7 @@ button:hover {
   background-color: #a7ff87;
 }
 
-#post-description {
+.post-description {
   grid-area: post-description;
   font-size: 1.3vw;
   padding-top: 1%;
@@ -357,7 +361,7 @@ button:hover {
   border-bottom: 1px solid;
 }
 
-#post-user {
+.post-user {
   padding-top: 1%;
   grid-area: post-user;
   display: flex;
@@ -365,7 +369,7 @@ button:hover {
   background-color: white;
 }
 
-#about-the-poster {
+.about-the-poster {
   width: 1vw;
   flex-grow: 1;
   text-align: center;
@@ -376,7 +380,7 @@ button:hover {
   /* border-right: 1px solid; */
 }
 
-#post-user-info {
+.post-user-info {
   width: 1vw;
   flex-grow: 5;
   text-align: center;
@@ -389,12 +393,12 @@ button:hover {
   background-color: white;
 }
 
-#post-footer {
+.post-footer {
   grid-area: post-footer;
   display: flex;
 }
 
-#my-post-footer-text {
+.my-post-footer-text {
   width: 1vw;
   flex-grow: 2;
   text-align: center;
@@ -403,7 +407,7 @@ button:hover {
   background-color: white;
 }
 
-#my-post-footer-button {
+.my-post-footer-button {
   width: 1vw;
   flex-grow: 1;
   text-align: center;
@@ -412,7 +416,7 @@ button:hover {
   background-color: #039600;
 }
 
-#post-interested-footer-text {
+.post-interested-footer-text {
   width: 1vw;
   flex-grow: 1;
   text-align: center;
@@ -421,7 +425,7 @@ button:hover {
   background-color: white;
 }
 
-#available-footer-text {
+.available-footer-text {
   width: 1vw;
   flex-grow: 1;
   text-align: center;
@@ -430,7 +434,7 @@ button:hover {
   background-color: white;
 }
 
-#available-footer-button {
+.available-footer-button {
   width: 1vw;
   flex-grow: 1;
   text-align: center;
