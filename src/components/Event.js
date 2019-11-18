@@ -29,7 +29,7 @@ const Event = ({ event, user, setCurrentEvent, history }) => {
         {
           event.users_attending.map(user => {
             return (
-              <div className='event-attendee'>
+              <div key={ user.id } className='event-attendee'>
                 <p className='event-attendee-item'>{ user.first_name }</p>
                 <p className='event-attendee-item'>{ user.age }</p>
                 <p className='event-attendee-item'>{ user.occupation }</p>

@@ -147,7 +147,7 @@ class EventCard extends Component {
     return (
       <Fragment>
         <option value={ null }></option>
-        { hours.map(hour => <option value={ hour }>{ hour }</option>) }
+        { hours.map(hour => <option key={ hour } value={ hour }>{ hour }</option>) }
       </Fragment>
     )
   }
@@ -157,7 +157,7 @@ class EventCard extends Component {
     return (
       <Fragment>
         <option value={ null }></option>
-        { minutes.map(minute => <option value={ minute }>{ minute === 0 ? '00' : minute }</option>) }
+        { minutes.map(minute => <option key={ minute } value={ minute }>{ minute === 0 ? '00' : minute }</option>) }
       </Fragment>
     )
   }
@@ -282,7 +282,7 @@ class EventCard extends Component {
         {
           currentEvent.users_attending.map(user => {
             return (
-              <div className='event-card-user'>
+              <div key={ user.id } className='event-card-user'>
                 <p className='event-card-user-item'>{ `${user.first_name}  |  ${user.age}  |  ${user.gender}` }</p>
                 <p className='event-card-user-item'>{ `"${user.bio}"` }</p>
                 <p className='event-card-user-item'>{ `${user.occupation}` }</p>
