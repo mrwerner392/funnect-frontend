@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 
-class Message extends Component {
+const Message = ({ message: {content, sender} }) => {
 
-  render() {
-    const { message: {content, sender} } = this.props
-
-    return (
-      <div className='message'>
-        { <p><span>{ `${sender}: ` }</span>{ content }</p> }
-      </div>
-    )
-  }
+  return (
+    <div className='message'>
+      { <p><span>{ `${sender}: ` }</span>{ content }</p> }
+    </div>
+  )
 
 }
 
