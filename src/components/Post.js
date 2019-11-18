@@ -97,6 +97,12 @@ const Post = props => {
       return (
         <Fragment>
           <p className='post-interested-footer-text'>You and { interestedIds.length - 1 } others are interested</p>
+
+          {/* currently not rendering the 'not interested' button below
+          so that users can't remove their interest from a post, but
+          functionality is in place if deciding later that it is wanted.
+          Just need to uncomment the code below to render the button. */}
+
           {/*<button id='post-interested-footer-button' onClick={ () => handleNotInterestedClick(post) }>{ "I'm Not Interested" }</button>*/}
         </Fragment>
       )
