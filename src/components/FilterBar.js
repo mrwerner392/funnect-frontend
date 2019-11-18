@@ -27,7 +27,6 @@ const FilterBar = props => {
           history } = props
 
   const handleUserFilterClick = contentType => {
-
     setContentType(contentType)
 
     if (contentType === 'user-posts') {
@@ -43,7 +42,6 @@ const FilterBar = props => {
       }
       history.push(`/${user.username}/events`)
     }
-
   }
 
   const handleAvailablePostsFilterChange = evt => {
