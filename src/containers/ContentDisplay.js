@@ -32,11 +32,7 @@ const ContentDisplay = props => {
       ? topicFilteredPosts.filter(post => post.neighborhood.name === neighborhoodFilter)
       : topicFilteredPosts
 
-    return neighborhoodAndTopicFilteredPosts.map(post => {
-      return (
-        <Post key={ post.id } post={ post } />
-      )
-    })
+    return neighborhoodAndTopicFilteredPosts.map(post => <Post key={ post.id } post={ post } />)
   }
 
   const renderMyPosts = () => {

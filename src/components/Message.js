@@ -4,7 +4,7 @@ const Message = ({ message: {content, sender} }) => {
 
   return (
     <div className='message'>
-      { <p><span>{ `${sender}: ` }</span>{ content }</p> }
+      <p><span>{ `${sender}: ` }</span>{ content }</p>
     </div>
   )
 
