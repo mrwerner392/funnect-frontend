@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { newEventAttendingSeen } from '../actions/eventsImAttendingActions';
 import { setCurrentEvent } from '../actions/currentEventActions'
 
-const EventNotification = (props) => {
+const EventNotification = props => {
 
   const { user,
           eventWaiting,
