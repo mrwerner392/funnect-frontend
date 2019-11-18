@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { setUser } from '../actions/userActions';
@@ -45,7 +45,7 @@ class ProfileInfoEditForm extends Component {
                     college,
                     occupation,
                     interests},
-            props: {user, dispatch, setUser} } = this
+            props: {user, setUser} } = this
     const userInterests = user.interests.map(interest => interest.name)
     const new_interests =
               interests.sort().join('') === userInterests.sort().join('')

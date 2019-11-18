@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAvailablePostsTopicFilter, setAvailablePostsNeighborhoodFilter } from '../actions/availablePostsActions';
 import { toggleNewInterestedUsersExist } from '../actions/myCreatedPostsActions';

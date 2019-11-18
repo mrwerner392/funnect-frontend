@@ -41,7 +41,6 @@ class App extends Component {
   // action cable response handler -- new user interested in my post
   handleNewPostInterest = ({ post, interested_user }) => {
     const { user,
-            currentPost,
             createdPosts,
             toggleHasNewInfo,
             addNewInterestedUser,
@@ -88,7 +87,6 @@ class App extends Component {
   // action cable response handler -- new message in one of my events
   handleNewMessage = (message, event) => {
     const { user,
-            currentEvent,
             eventsHosting,
             eventsAttending,
             addEventHostingMessage,
@@ -149,7 +147,7 @@ class App extends Component {
   }
 
   handleNewEvent = event => {
-    const { user, newEventExists, newEventAttending } = this.props
+    const { user, newEventAttending } = this.props
     const attendingIds = event.users_attending.map(user => user.id)
     if (attendingIds.includes(user.id)) {
       newEventAttending(event)
@@ -257,8 +255,7 @@ class App extends Component {
   render() {
     const { props: {eventsAttending: {newEventExists} },
             renderActionCables,
-            renderContent,
-            handleNewPost } = this
+            renderContent } = this
 
     return (
       <div className='App'>
@@ -300,11 +297,11 @@ class App extends Component {
                   />
           <Route exact
                   path='/:slug/posts/:postSlug'
-                  render={ renderProps => <PostCard renderProps={ renderProps } /> }
+                  render={ () => <PostCard /> }
                   />
           <Route exact
                   path='/:slug/events/:eventSlug'
-                  render={ renderProps => <EventCard renderProps={ renderProps } /> }
+                  render={ () => <EventCard /> }
                   />
           <Route component={ NotFound } />
         </Switch>
@@ -319,8 +316,6 @@ const mapStateToProps = state => {
     createdPosts: state.createdPosts,
     eventsHosting: state.eventsHosting,
     eventsAttending: state.eventsAttending,
-    currentEvent: state.currentEvent,
-    currentPost: state.currentPost
   }
 }
 

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { clearUser, toggleHasNewInfo } from '../actions/userActions';
 import { clearAvailablePosts, showPostsWaiting } from '../actions/availablePostsActions';
 import { clearPostsInterestedIn } from '../actions/postsImInterestedInActions';
-import { clearCreatedPosts, clearNewInterestedUsersExist } from '../actions/myCreatedPostsActions';
+import { clearCreatedPosts } from '../actions/myCreatedPostsActions';
 import { clearEventsHosting } from '../actions/eventsImHostingActions';
 import { clearEventsAttending } from '../actions/eventsImAttendingActions';
 import { clearTopics } from '../actions/topicsActions';

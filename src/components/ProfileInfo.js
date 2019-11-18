@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setContentType } from '../actions/contentTypeActions';
 

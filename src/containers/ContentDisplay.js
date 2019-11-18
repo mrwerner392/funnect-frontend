@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import ProfileInfo from '../components/ProfileInfo';
 import ProfileInfoEditForm from '../components/ProfileInfoEditForm';
 import Post from '../components/Post';
@@ -9,8 +8,7 @@ import { showPostsWaiting } from '../actions/availablePostsActions'
 
 const ContentDisplay = props => {
 
-  const { user,
-          contentType,
+  const { contentType,
           availablePosts,
           createdPosts,
           createdPostsFilter,
@@ -121,7 +119,6 @@ const ContentDisplay = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
     availablePosts: state.availablePosts.posts,
     postsWaiting: state.availablePosts.postsWaiting,
     topicFilter: state.availablePosts.topicFilter,

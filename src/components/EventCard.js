@@ -223,7 +223,6 @@ class EventCard extends Component {
   renderLocation = () => {
     const { props: {user, currentEvent},
             state: {location, hostIsEditingLocation},
-            renderLocationEdit,
             handleEditLocationClick,
             handleEventEditing,
             handleSaveLocationEdit } = this
@@ -299,7 +298,7 @@ class EventCard extends Component {
   }
 
   renderEvent = () => {
-    const { props: {renderProps, currentEvent},
+    const { props: {currentEvent},
             renderTime,
             renderLocation,
             renderUsers } = this

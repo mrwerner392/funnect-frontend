@@ -128,7 +128,7 @@ class PostCard extends Component {
 
   renderPost = () => {
     const { state: {attendees},
-            props: {renderProps, currentPost},
+            props: {currentPost},
             handleCreateEvent, renderInterestedUsers } = this
 
     return (

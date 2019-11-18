@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { newMessageOnEventImHosting } from '../actions/eventsImHostingActions'
-import { newMessageOnEventImAttending } from '../actions/eventsImAttendingActions'
 
 const URL = 'http://localhost:3000'
 
