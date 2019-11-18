@@ -4,14 +4,15 @@ import { withRouter } from 'react-router-dom';
 import { newEventAttendingSeen } from '../actions/eventsImAttendingActions';
 import { setCurrentEvent } from '../actions/currentEventActions'
 
-class EventNotification extends Component {
+const EventNotification = (props) => {
 
-  handleClick = direction => {
-    const { user,
-            eventWaiting,
-            newEventAttendingSeen,
-            setCurrentEvent,
-            history } = this.props
+  const { user,
+          eventWaiting,
+          newEventAttendingSeen,
+          setCurrentEvent,
+          history } = props
+
+  const handleClick = direction => {
     newEventAttendingSeen()
     if (direction === 'go') {
       setCurrentEvent(eventWaiting)
@@ -19,16 +20,13 @@ class EventNotification extends Component {
     }
   }
 
-  render() {
-    const { handleClick } = this
-    return (
-      <div className='event-noti'>
-        <p>You have been invited to a new event!</p>
-        <button className='event-noti-button' onClick={ () => handleClick('go') }>Go to Event</button>
-        <button className='event-noti-button' onClick={ () => handleClick('stay') }>Ok</button>
-      </div>
-    )
-  }
+  return (
+    <div className='event-noti'>
+      <p>You have been invited to a new event!</p>
+      <button className='event-noti-button' onClick={ () => handleClick('go') }>Go to Event</button>
+      <button className='event-noti-button' onClick={ () => handleClick('stay') }>Ok</button>
+    </div>
+  )
 
 }
 
