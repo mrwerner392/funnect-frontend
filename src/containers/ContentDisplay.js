@@ -7,29 +7,41 @@ import Post from '../components/Post';
 import Event from '../components/Event';
 import { showPostsWaiting } from '../actions/availablePostsActions'
 
-class ContentDisplay extends Component {
+const ContentDisplay = props => {
 
-  renderAvailablePosts = () => {
-    let { availablePosts, topicFilter, neighborhoodFilter } = this.props
+  const { user,
+          contentType,
+          availablePosts,
+          createdPosts,
+          createdPostsFilter,
+          postsInterestedIn,
+          postsInterestedInFilter,
+          eventsHosting,
+          eventsHostingFilter,
+          eventsAttending,
+          eventsAttendingFilter,
+          topicFilter,
+          neighborhoodFilter,
+          postsWaiting,
+          showPostsWaiting } = props
 
-    availablePosts = topicFilter
+  const renderAvailablePosts = () => {
+    const topicFilteredPosts = topicFilter
       ? availablePosts.filter(post => post.topic.name === topicFilter)
       : availablePosts
 
-    availablePosts = neighborhoodFilter
-      ? availablePosts.filter(post => post.neighborhood.name === neighborhoodFilter)
-      : availablePosts
+    const neighborhoodAndTopicFilteredPosts = neighborhoodFilter
+      ? topicFilteredPosts.filter(post => post.neighborhood.name === neighborhoodFilter)
+      : topicFilteredPosts
 
-    return availablePosts.map(post => {
+    return neighborhoodAndTopicFilteredPosts.map(post => {
       return (
         <Post key={ post.id } post={ post } />
       )
     })
   }
 
-  renderMyPosts = () => {
-    const { renderCreatedPosts, renderPostsInterestedIn } = this
-
+  const renderMyPosts = () => {
     return (
       <Fragment>
         { renderCreatedPosts() }
@@ -38,27 +50,19 @@ class ContentDisplay extends Component {
     )
   }
 
-  renderCreatedPosts = () => {
-    const { user, createdPosts, createdPostsFilter } = this.props
+  const renderCreatedPosts = () => {
     const posts = createdPosts.filter(post => post.status === createdPostsFilter)
 
-    return posts.map(post => {
-      return (
-        <Post key={ post.id } post={ post } />
-      )
-    })
+    return posts.map(post => <Post key={ post.id } post={ post } />)
   }
 
-  renderPostsInterestedIn = () => {
-    const { postsInterestedIn, postsInterestedInFilter } = this.props
+  const renderPostsInterestedIn = () => {
     const posts = postsInterestedIn.filter(post => post.status === postsInterestedInFilter)
 
     return posts.map(post => <Post key={ post.id } post={ post } />)
   }
 
-  renderMyEvents = () => {
-    const { renderEventsHosting, renderEventsAttending } = this
-
+  const renderMyEvents = () => {
     return (
       <Fragment>
         { renderEventsHosting() }
@@ -67,38 +71,29 @@ class ContentDisplay extends Component {
     )
   }
 
-  renderEventsHosting = () => {
-    const { user, eventsHosting, eventsHostingFilter } = this.props
+  const renderEventsHosting = () => {
     const events = eventsHosting.filter(event => event.status === eventsHostingFilter)
 
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
-  renderEventsAttending = () => {
-    const { user, eventsAttending, eventsAttendingFilter } = this.props
+  const renderEventsAttending = () => {
     const events = eventsAttending.filter(event => event.status === eventsAttendingFilter)
 
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
-  handleNewPostsNotificationClick = () => {
-    const { showPostsWaiting } = this.props
+  const handleNewPostsNotificationClick = () => {
     showPostsWaiting()
   }
 
-  renderNewPostsNotification = () => {
-    const { props: {postsWaiting}, handleNewPostsNotificationClick } = this
+  const renderNewPostsNotification = () => {
     return postsWaiting.length
             ? <button id='new-posts-button' onClick={ handleNewPostsNotificationClick }>{ `${postsWaiting.length} new posts`}</button>
             : null
   }
 
-  renderContent = () => {
-    const { props: {user, contentType},
-            renderAvailablePosts,
-            renderMyPosts,
-            renderMyEvents } = this
-
+  const renderContent = () => {
     switch (contentType) {
       case 'user':
         return <ProfileInfo />
@@ -115,19 +110,12 @@ class ContentDisplay extends Component {
     }
   }
 
-
-  render() {
-    const { props: {contentType},
-            renderNewPostsNotification,
-            renderContent } = this
-
-    return (
-      <div id='content-display'>
-        { contentType === 'posts' ? renderNewPostsNotification() : null }
-        { renderContent() }
-      </div>
-    )
-  }
+  return (
+    <div id='content-display'>
+      { contentType === 'posts' ? renderNewPostsNotification() : null }
+      { renderContent() }
+    </div>
+  )
 
 }
 
