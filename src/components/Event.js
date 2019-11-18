@@ -3,29 +3,22 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setCurrentEvent } from '../actions/currentEventActions';
 
-class Event extends Component {
+const Event = ({ event, user, setCurrentEvent, history }) => {
 
-  handleViewEventClick = () => {
-    const { event, user: {username}, setCurrentEvent, history } = this.props
+  const handleViewEventClick = () => {
     setCurrentEvent(event)
-    history.push(`/${username}/events/${event.id}`)
+    history.push(`/${user.username}/events/${event.id}`)
   }
 
-  renderNotification = () => {
-
-    // NOT WORKING PROPERLY
-    // newMessagesExist is not a key on each event in redux
-    // need to make this key in order for this to work
-    const { event } = this.props
+  // NOT WORKING PROPERLY
+  // newMessagesExist is not a key on each event in redux
+  // need to make this key in order for this to work
+  const renderNotification = () => {
     const newMessages = !!event.newMessagesExist
-    console.log(event);
-    console.log(event.newMessagesExist);
     return newMessages ? <p className='event-message-noti'>New messages</p> : null
   }
 
-  renderAttendees = () => {
-    const { event, user } = this.props
-
+  const renderAttendees = () => {
     return (
       <Fragment>
         <div className='event-attendee'>
@@ -48,44 +41,38 @@ class Event extends Component {
     )
   }
 
-  render() {
-    const { props: {event},
-            handleViewEventClick,
-            renderNotification,
-            renderAttendees } = this
-    return (
-      <Fragment>
-        { renderNotification() }
-        <div id='event'>
-          <div id='event-header'>
-            <p className='event-header-item'>{ event.today_or_tomorrow }</p>
-            <p className='event-header-item'>
-              {
-                event.time_hour
-                ?
-                `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}`
-                :
-                'Time TBD'
-              }
-            </p>
-            <p className='event-header-item'>
-              { event.location ? event.location : 'Location TBD' }
-            </p>
-          </div>
-          <p id='event-description'>{ event.description }</p>
-          <div id='event-users'>
-            <h4 id='event-attendees-label'>Attendees</h4>
-            <div id='event-attendees-list'>
-              { renderAttendees() }
-            </div>
-          </div>
-          <div id='event-footer'>
-            <button id='view-event-button' onClick={ handleViewEventClick } >View Event</button>
+  return (
+    <Fragment>
+      { renderNotification() }
+      <div id='event'>
+        <div id='event-header'>
+          <p className='event-header-item'>{ event.today_or_tomorrow }</p>
+          <p className='event-header-item'>
+            {
+              event.time_hour
+              ?
+              `${event.time_hour}:${event.time_minute < 10 ? '0' + event.time_minute : event.time_minute} ${event.time_am_pm}`
+              :
+              'Time TBD'
+            }
+          </p>
+          <p className='event-header-item'>
+            { event.location ? event.location : 'Location TBD' }
+          </p>
+        </div>
+        <p id='event-description'>{ event.description }</p>
+        <div id='event-users'>
+          <h4 id='event-attendees-label'>Attendees</h4>
+          <div id='event-attendees-list'>
+            { renderAttendees() }
           </div>
         </div>
-      </Fragment>
-    )
-  }
+        <div id='event-footer'>
+          <button id='view-event-button' onClick={ handleViewEventClick } >View Event</button>
+        </div>
+      </div>
+    </Fragment>
+  )
 
 }
 
