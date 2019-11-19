@@ -137,13 +137,13 @@ class App extends Component {
 
   }
 
-  handleNewEvent = event => {
-    const { user, newEventAttending } = this.props
-    const attendingIds = event.users_attending.map(user => user.id)
-    if (attendingIds.includes(user.id)) {
-      newEventAttending(event)
-    }
-  }
+  // handleNewEvent = event => {
+  //   const { user, newEventAttending } = this.props
+  //   const attendingIds = event.users_attending.map(user => user.id)
+  //   if (attendingIds.includes(user.id)) {
+  //     newEventAttending(event)
+  //   }
+  // }
 
   renderActionCables = () => {
     const { props: {createdPosts, eventsHosting, eventsAttending},
@@ -170,9 +170,9 @@ class App extends Component {
                 onReceived={ message => handleNewMessage(message, event) } />
           ))
         }
-        <ActionCableConsumer
+        { /* <ActionCableConsumer
             channel={ {channel: 'EventsChannel'} }
-            onReceived={ handleNewEvent }/>
+            onReceived={ handleNewEvent }/> */ }
       </Fragment>
     )
   }
