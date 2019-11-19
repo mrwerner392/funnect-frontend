@@ -4,9 +4,7 @@ import { addPostWaiting } from '../actions/availablePostsActions';
 import { addCreatedPost } from '../actions/myCreatedPostsActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 
-const PostChannelCable = props => {
-
-  const { user, addPostWaiting, addCreatedPost } = props
+const PostChannelCable = ({ user, addPostWaiting, addCreatedPost }) => {
 
   const handleNewPost = post => {
     if (user.id && post.user.id !== user.id) {
@@ -18,8 +16,8 @@ const PostChannelCable = props => {
 
   return (
     <ActionCableConsumer
-    channel={ {channel: 'PostsChannel'} }
-    onReceived={ handleNewPost } />
+        channel={ {channel: 'PostsChannel'} }
+        onReceived={ handleNewPost } />
   )
 
 }
