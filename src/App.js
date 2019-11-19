@@ -18,7 +18,7 @@ import { getCreatedPosts, addNewInterestedUser, clearNewInterestedUsers, toggleN
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting, addEventHostingMessage, toggleEventsHostingNewMessagesExist } from './actions/eventsImHostingActions';
 import { getEventsAttending, addEventAttendingMessage,
-toggleEventsAttendingNewMessagesExist, newEventAttending } from './actions/eventsImAttendingActions';
+toggleEventsAttendingNewMessagesExist } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
@@ -138,14 +138,6 @@ class App extends Component {
 
   }
 
-  // handleNewEvent = event => {
-  //   const { user, newEventAttending } = this.props
-  //   const attendingIds = event.users_attending.map(user => user.id)
-  //   if (attendingIds.includes(user.id)) {
-  //     newEventAttending(event)
-  //   }
-  // }
-
   renderActionCables = () => {
     const { props: {createdPosts, eventsHosting, eventsAttending},
             handleNewPostInterest,
@@ -171,9 +163,6 @@ class App extends Component {
                 onReceived={ message => handleNewMessage(message, event) } />
           ))
         }
-        { /* <ActionCableConsumer
-            channel={ {channel: 'EventsChannel'} }
-            onReceived={ handleNewEvent }/> */ }
       </Fragment>
     )
   }
@@ -332,7 +321,6 @@ const mapDispatchToProps = {
   addCurrentEventMessage,
   toggleEventsHostingNewMessagesExist,
   toggleEventsAttendingNewMessagesExist,
-  newEventAttending
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
