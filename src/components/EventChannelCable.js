@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { newEventAttending } from 'eventsImAttendingActions';
+import { newEventAttending } from '../actions/eventsImAttendingActions';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 
 const EventChannelCable = ({ user, newEventAttending }) => {
 
   const handleNewEvent = event => {
-    const { user, newEventAttending } = this.props
     const attendingIds = event.users_attending.map(user => user.id)
     if (attendingIds.includes(user.id)) {
       newEventAttending(event)

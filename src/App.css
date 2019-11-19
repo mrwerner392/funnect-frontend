@@ -336,7 +336,8 @@ button:hover {
   padding-right: 7%;
   font-size: 100%;
   background-color: tomato;
-  max-height: 3.5%;
+  /* min-height: 3.5%; */
+  /* max-height: 4.5%; */
 }
 
 .post-header {
