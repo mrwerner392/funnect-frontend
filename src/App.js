@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import PostChannelCable from './components/PostChannelCable';
+import EventChannelCable from './components/EventChannelCable';
 import AccountFormContainer from './containers/AccountFormContainer';
 import ContentContainer from './containers/ContentContainer';
 import ProfileInfoEditForm from './components/ProfileInfoEditForm';
@@ -247,6 +248,7 @@ class App extends Component {
     return (
       <div className='App'>
         <PostChannelCable />
+        <EventChannelCable />
         { renderActionCables() }
         <NavBar />
         { newEventExists ? <EventNotification /> : null }
