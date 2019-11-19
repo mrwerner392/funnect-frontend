@@ -83,7 +83,7 @@ class PostForm extends Component {
           <input id='tomorrow' className='post-form-radio' type='radio' name='day' value='Tomorrow' checked={ day === 'Tomorrow' }/>
           <label className='post-form-radio-label' htmlFor='tomorrow'>Tomorrow</label>
         </div>
-        <p id='time-label' sclassName='post-form-p'>Time of Day:</p>
+        <p id='time-label' className='post-form-p'>Time of Day:</p>
         <input className='post-form-input' type='text' name='time_of_day' value={ time_of_day } placeholder='e.g. Late Afternoon' />
         <input className='submit' type='submit' value='Create Post'/>
       </form>

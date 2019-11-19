@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import NavBar from './components/NavBar'
+import NavBar from './components/NavBar';
+import PostChannelCable from './components/PostChannelCable';
 import AccountFormContainer from './containers/AccountFormContainer';
 import ContentContainer from './containers/ContentContainer';
 import ProfileInfoEditForm from './components/ProfileInfoEditForm';
@@ -11,8 +12,8 @@ import EventCard from './components/EventCard';
 import EventNotification from './components/EventNotification';
 import NotFound from './components/NotFound';
 import { getUser, toggleHasNewInfo } from './actions/userActions';
-import { getAvailablePosts, addPostWaiting } from './actions/availablePostsActions';
-import { getCreatedPosts, addCreatedPost, addNewInterestedUser, clearNewInterestedUsers, toggleNewInterestedUsersExist } from './actions/myCreatedPostsActions';
+import { getAvailablePosts } from './actions/availablePostsActions';
+import { getCreatedPosts, addNewInterestedUser, clearNewInterestedUsers, toggleNewInterestedUsersExist } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting, addEventHostingMessage, toggleEventsHostingNewMessagesExist } from './actions/eventsImHostingActions';
 import { getEventsAttending, addEventAttendingMessage,
@@ -27,16 +28,6 @@ import { ActionCableConsumer } from 'react-actioncable-provider';
 import './App.css';
 
 class App extends Component {
-
-  // action cable response handler -- new posts
-  handleNewPost = post => {
-    const { user, addPostWaiting, addCreatedPost } = this.props
-    if (user.id && post.user.id !== user.id) {
-      addPostWaiting(post)
-    } else if (user.id && post.user.id === user.id) {
-      addCreatedPost(post)
-    }
-  }
 
   // action cable response handler -- new user interested in my post
   handleNewPostInterest = ({ post, interested_user }) => {
@@ -156,7 +147,6 @@ class App extends Component {
 
   renderActionCables = () => {
     const { props: {createdPosts, eventsHosting, eventsAttending},
-            handleNewPost,
             handleNewPostInterest,
             handleNewMessage,
             handleNewEvent } = this
@@ -164,9 +154,6 @@ class App extends Component {
 
     return (
       <Fragment>
-        <ActionCableConsumer
-            channel={ {channel: 'PostsChannel'} }
-            onReceived={ handleNewPost } />
         {
           createdPosts.posts.map(post => (
             <ActionCableConsumer
@@ -259,6 +246,7 @@ class App extends Component {
 
     return (
       <div className='App'>
+        <PostChannelCable />
         { renderActionCables() }
         <NavBar />
         { newEventExists ? <EventNotification /> : null }
@@ -332,8 +320,6 @@ const mapDispatchToProps = {
   getCurrentEvent,
   getCurrentPost,
   setContentType,
-  addPostWaiting,
-  addCreatedPost,
   addNewInterestedUser,
   addNewInterestedUserCurrentPost,
   clearNewInterestedUsers,
