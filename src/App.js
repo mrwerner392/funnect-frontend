@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import PostChannelCable from './components/PostChannelCable';
 import EventChannelCable from './components/EventChannelCable';
 import PostInterestChannelCable from './components/PostInterestChannelCable';
+import EventChatChannelCable from './components/EventChatChannelCable';
 import AccountFormContainer from './containers/AccountFormContainer';
 import ContentContainer from './containers/ContentContainer';
 import ProfileInfoEditForm from './components/ProfileInfoEditForm';
@@ -32,66 +33,66 @@ import './App.css';
 class App extends Component {
 
   // action cable response handler -- new message in one of my events
-  handleNewMessage = (message, event) => {
-    const { user,
-            eventsHosting,
-            eventsAttending,
-            addEventHostingMessage,
-            addEventAttendingMessage,
-            addCurrentEventMessage,
-            toggleEventsHostingNewMessagesExist,
-            toggleEventsAttendingNewMessagesExist,
-            toggleHasNewInfo,
-            history } = this.props
-
-    if (event.user.id === user.id) {
-      addEventHostingMessage(message, event.id)
-    } else {
-      addEventAttendingMessage(message, event.id)
-    }
-
-
-    // logic for if and when to show notifications
-
-    const location = history.location.pathname
-    if (location === `/${user.username}/events/${event.id}`) {
-      // if user is viewing the event that has new message, add message there
-        // current message being viewed held separately in state
-      addCurrentEventMessage(message)
-    } else {
-
-      // if not already viewing the event, determine if we need to show
-      // a new messages notification or if one already exists
-      if (location !== `/${user.username}/events`) {
-        const newMessagesAlreadyExist = (
-          eventsHosting.newMessagesExist || eventsAttending.newMessagesExist
-        )
-
-        if (!newMessagesAlreadyExist) {
-          event.user.id === user.id
-                ? toggleEventsHostingNewMessagesExist()
-                : toggleEventsAttendingNewMessagesExist()
-        }
-
-      }
-    }
-
-    if (!user.hasNewInfo) {
-      const location = history.location.pathname
-      switch (location) {
-        case `/${user.username}`:
-        case `/${user.username}/events`:
-        case `/${user.username}/events/${event.id}`:
-          break
-        default:
-          // toggle user has new info to true if false -- will result in
-          // 'new info' notification in nav bar
-          toggleHasNewInfo()
-          break
-      }
-    }
-
-  }
+  // handleNewMessage = (message, event) => {
+  //   const { user,
+  //           eventsHosting,
+  //           eventsAttending,
+  //           addEventHostingMessage,
+  //           addEventAttendingMessage,
+  //           addCurrentEventMessage,
+  //           toggleEventsHostingNewMessagesExist,
+  //           toggleEventsAttendingNewMessagesExist,
+  //           toggleHasNewInfo,
+  //           history } = this.props
+  //
+  //   if (event.user.id === user.id) {
+  //     addEventHostingMessage(message, event.id)
+  //   } else {
+  //     addEventAttendingMessage(message, event.id)
+  //   }
+  //
+  //
+  //   // logic for if and when to show notifications
+  //
+  //   const location = history.location.pathname
+  //   if (location === `/${user.username}/events/${event.id}`) {
+  //     // if user is viewing the event that has new message, add message there
+  //       // current message being viewed held separately in state
+  //     addCurrentEventMessage(message)
+  //   } else {
+  //
+  //     // if not already viewing the event, determine if we need to show
+  //     // a new messages notification or if one already exists
+  //     if (location !== `/${user.username}/events`) {
+  //       const newMessagesAlreadyExist = (
+  //         eventsHosting.newMessagesExist || eventsAttending.newMessagesExist
+  //       )
+  //
+  //       if (!newMessagesAlreadyExist) {
+  //         event.user.id === user.id
+  //               ? toggleEventsHostingNewMessagesExist()
+  //               : toggleEventsAttendingNewMessagesExist()
+  //       }
+  //
+  //     }
+  //   }
+  //
+  //   if (!user.hasNewInfo) {
+  //     const location = history.location.pathname
+  //     switch (location) {
+  //       case `/${user.username}`:
+  //       case `/${user.username}/events`:
+  //       case `/${user.username}/events/${event.id}`:
+  //         break
+  //       default:
+  //         // toggle user has new info to true if false -- will result in
+  //         // 'new info' notification in nav bar
+  //         toggleHasNewInfo()
+  //         break
+  //     }
+  //   }
+  //
+  // }
 
   renderActionCables = () => {
     const { props: {createdPosts, eventsHosting, eventsAttending},
@@ -102,14 +103,14 @@ class App extends Component {
 
     return (
       <Fragment>
-        {
+        {/*
           allEvents.map(event => (
             <ActionCableConsumer
                 key={ event.id }
                 channel={ {channel: 'EventChatsChannel', event_id: event.id} }
                 onReceived={ message => handleNewMessage(message, event) } />
           ))
-        }
+        */}
       </Fragment>
     )
   }
@@ -186,6 +187,7 @@ class App extends Component {
         <PostChannelCable />
         <EventChannelCable />
         <PostInterestChannelCable />
+        <EventChatChannelCable />
         { renderActionCables() }
         <NavBar />
         { newEventExists ? <EventNotification /> : null }
