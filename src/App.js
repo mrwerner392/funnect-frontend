@@ -4,6 +4,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import PostChannelCable from './components/PostChannelCable';
 import EventChannelCable from './components/EventChannelCable';
+import PostInterestChannelCable from './components/PostInterestChannelCable';
 import AccountFormContainer from './containers/AccountFormContainer';
 import ContentContainer from './containers/ContentContainer';
 import ProfileInfoEditForm from './components/ProfileInfoEditForm';
@@ -147,14 +148,14 @@ class App extends Component {
 
     return (
       <Fragment>
-        {
+        {/*
           createdPosts.posts.map(post => (
             <ActionCableConsumer
                 key={ post.id }
                 channel={ {channel: 'PostInterestsChannel', post_id: post.id} }
                 onReceived={ handleNewPostInterest } />
           ))
-        }
+        */}
         {
           allEvents.map(event => (
             <ActionCableConsumer
@@ -238,6 +239,7 @@ class App extends Component {
       <div className='App'>
         <PostChannelCable />
         <EventChannelCable />
+        <PostInterestChannelCable />
         { renderActionCables() }
         <NavBar />
         { newEventExists ? <EventNotification /> : null }
