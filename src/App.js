@@ -15,7 +15,7 @@ import EventNotification from './components/EventNotification';
 import NotFound from './components/NotFound';
 import { getUser, toggleHasNewInfo } from './actions/userActions';
 import { getAvailablePosts } from './actions/availablePostsActions';
-import { getCreatedPosts, addNewInterestedUser, clearNewInterestedUsers, toggleNewInterestedUsersExist } from './actions/myCreatedPostsActions';
+import { getCreatedPosts } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
 import { getEventsHosting, addEventHostingMessage, toggleEventsHostingNewMessagesExist } from './actions/eventsImHostingActions';
 import { getEventsAttending, addEventAttendingMessage,
@@ -24,58 +24,12 @@ import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
 import { getCurrentEvent, addCurrentEventMessage } from './actions/currentEventActions';
-import { getCurrentPost, addNewInterestedUserCurrentPost } from './actions/currentPostActions';
+import { getCurrentPost } from './actions/currentPostActions';
 import { setContentType } from './actions/contentTypeActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import './App.css';
 
 class App extends Component {
-
-  // action cable response handler -- new user interested in my post
-  handleNewPostInterest = ({ post, interested_user }) => {
-    const { user,
-            createdPosts,
-            toggleHasNewInfo,
-            addNewInterestedUser,
-            addNewInterestedUserCurrentPost,
-            clearNewInterestedUsers,
-            toggleNewInterestedUsersExist,
-            history } = this.props
-
-    addNewInterestedUser(post, interested_user)
-
-    // logic for if and when to show notifications
-
-    const location = history.location.pathname
-    if (location === `/${user.username}/posts/${post.id}`) {
-      // if user is viewing the post that has new interest, add it there
-        // post being viewed held separately in state
-      clearNewInterestedUsers(post.id)
-      addNewInterestedUserCurrentPost(post)
-    } else {
-      if (!(createdPosts.newInterestedUsersExist
-                      || location === `/${user.username}/posts`)) {
-        // toggle to true -- will result in 'new interested users' notification
-        // in user filter bar
-        toggleNewInterestedUsersExist()
-      }
-    }
-
-    if (!user.hasNewInfo) {
-      switch (location) {
-        case `/${user.username}`:
-        case `/${user.username}/posts`:
-        case `/${user.username}/posts/${post.id}`:
-          break
-        default:
-          // toggle user has new info to true if false -- will result in
-          // 'new info' notification in nav bar
-          toggleHasNewInfo()
-          break
-      }
-    }
-
-  }
 
   // action cable response handler -- new message in one of my events
   handleNewMessage = (message, event) => {
@@ -148,14 +102,6 @@ class App extends Component {
 
     return (
       <Fragment>
-        {/*
-          createdPosts.posts.map(post => (
-            <ActionCableConsumer
-                key={ post.id }
-                channel={ {channel: 'PostInterestsChannel', post_id: post.id} }
-                onReceived={ handleNewPostInterest } />
-          ))
-        */}
         {
           allEvents.map(event => (
             <ActionCableConsumer
@@ -313,10 +259,6 @@ const mapDispatchToProps = {
   getCurrentEvent,
   getCurrentPost,
   setContentType,
-  addNewInterestedUser,
-  addNewInterestedUserCurrentPost,
-  clearNewInterestedUsers,
-  toggleNewInterestedUsersExist,
   toggleHasNewInfo,
   addEventHostingMessage,
   addEventAttendingMessage,
