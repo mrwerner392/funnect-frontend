@@ -14,106 +14,21 @@ import PostForm from './components/PostForm';
 import EventCard from './components/EventCard';
 import EventNotification from './components/EventNotification';
 import NotFound from './components/NotFound';
-import { getUser, toggleHasNewInfo } from './actions/userActions';
+import { getUser } from './actions/userActions';
 import { getAvailablePosts } from './actions/availablePostsActions';
 import { getCreatedPosts } from './actions/myCreatedPostsActions';
 import { getPostsInterestedIn } from './actions/postsImInterestedInActions';
-import { getEventsHosting, addEventHostingMessage, toggleEventsHostingNewMessagesExist } from './actions/eventsImHostingActions';
-import { getEventsAttending, addEventAttendingMessage,
-toggleEventsAttendingNewMessagesExist } from './actions/eventsImAttendingActions';
+import { getEventsHosting } from './actions/eventsImHostingActions';
+import { getEventsAttending } from './actions/eventsImAttendingActions';
 import { getTopics } from './actions/topicsActions';
 import { getNeighborhoods } from './actions/neighborhoodsActions';
 import { getInterests } from './actions/interestsActions';
-import { getCurrentEvent, addCurrentEventMessage } from './actions/currentEventActions';
+import { getCurrentEvent } from './actions/currentEventActions';
 import { getCurrentPost } from './actions/currentPostActions';
 import { setContentType } from './actions/contentTypeActions';
-import { ActionCableConsumer } from 'react-actioncable-provider';
 import './App.css';
 
 class App extends Component {
-
-  // action cable response handler -- new message in one of my events
-  // handleNewMessage = (message, event) => {
-  //   const { user,
-  //           eventsHosting,
-  //           eventsAttending,
-  //           addEventHostingMessage,
-  //           addEventAttendingMessage,
-  //           addCurrentEventMessage,
-  //           toggleEventsHostingNewMessagesExist,
-  //           toggleEventsAttendingNewMessagesExist,
-  //           toggleHasNewInfo,
-  //           history } = this.props
-  //
-  //   if (event.user.id === user.id) {
-  //     addEventHostingMessage(message, event.id)
-  //   } else {
-  //     addEventAttendingMessage(message, event.id)
-  //   }
-  //
-  //
-  //   // logic for if and when to show notifications
-  //
-  //   const location = history.location.pathname
-  //   if (location === `/${user.username}/events/${event.id}`) {
-  //     // if user is viewing the event that has new message, add message there
-  //       // current message being viewed held separately in state
-  //     addCurrentEventMessage(message)
-  //   } else {
-  //
-  //     // if not already viewing the event, determine if we need to show
-  //     // a new messages notification or if one already exists
-  //     if (location !== `/${user.username}/events`) {
-  //       const newMessagesAlreadyExist = (
-  //         eventsHosting.newMessagesExist || eventsAttending.newMessagesExist
-  //       )
-  //
-  //       if (!newMessagesAlreadyExist) {
-  //         event.user.id === user.id
-  //               ? toggleEventsHostingNewMessagesExist()
-  //               : toggleEventsAttendingNewMessagesExist()
-  //       }
-  //
-  //     }
-  //   }
-  //
-  //   if (!user.hasNewInfo) {
-  //     const location = history.location.pathname
-  //     switch (location) {
-  //       case `/${user.username}`:
-  //       case `/${user.username}/events`:
-  //       case `/${user.username}/events/${event.id}`:
-  //         break
-  //       default:
-  //         // toggle user has new info to true if false -- will result in
-  //         // 'new info' notification in nav bar
-  //         toggleHasNewInfo()
-  //         break
-  //     }
-  //   }
-  //
-  // }
-
-  renderActionCables = () => {
-    const { props: {createdPosts, eventsHosting, eventsAttending},
-            handleNewPostInterest,
-            handleNewMessage,
-            handleNewEvent } = this
-    const allEvents = [...eventsHosting.events, ...eventsAttending.events]
-
-    return (
-      <Fragment>
-        {/*
-          allEvents.map(event => (
-            <ActionCableConsumer
-                key={ event.id }
-                channel={ {channel: 'EventChatsChannel', event_id: event.id} }
-                onReceived={ message => handleNewMessage(message, event) } />
-          ))
-        */}
-      </Fragment>
-    )
-  }
 
   renderContent = renderProps => {
     const { user, history } = this.props
@@ -179,7 +94,6 @@ class App extends Component {
 
   render() {
     const { props: {eventsAttending: {newEventExists} },
-            renderActionCables,
             renderContent } = this
 
     return (
@@ -188,7 +102,6 @@ class App extends Component {
         <EventChannelCable />
         <PostInterestChannelCable />
         <EventChatChannelCable />
-        { renderActionCables() }
         <NavBar />
         { newEventExists ? <EventNotification /> : null }
         <Switch>
@@ -260,13 +173,7 @@ const mapDispatchToProps = {
   getInterests,
   getCurrentEvent,
   getCurrentPost,
-  setContentType,
-  toggleHasNewInfo,
-  addEventHostingMessage,
-  addEventAttendingMessage,
-  addCurrentEventMessage,
-  toggleEventsHostingNewMessagesExist,
-  toggleEventsAttendingNewMessagesExist,
+  setContentType
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
