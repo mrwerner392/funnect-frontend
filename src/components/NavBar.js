@@ -159,23 +159,40 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    clearUser: () => dispatch(clearUser()),
-    clearAvailablePosts: () => dispatch(clearAvailablePosts()),
-    clearPostsInterestedIn: () => dispatch(clearPostsInterestedIn()),
-    clearCreatedPosts: () => dispatch(clearCreatedPosts()),
-    clearEventsHosting: () => dispatch(clearEventsHosting()),
-    clearEventsAttending: () => dispatch(clearEventsAttending()),
-    clearTopics: () => dispatch(clearTopics()),
-    clearNeighborhoods: () => dispatch(clearNeighborhoods()),
-    setContentType: type => dispatch(setContentType(type)),
-    showPostsWaiting: () => dispatch(showPostsWaiting()),
-    toggleHasNewInfo: () => dispatch(toggleHasNewInfo()),
-    clearCurrentEvent: () => dispatch(clearCurrentEvent()),
-    clearCurrentPost: () => dispatch(clearCurrentPost()),
-    clearContentType: () => dispatch(clearContentType())
-  }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     clearUser: () => dispatch(clearUser()),
+//     clearAvailablePosts: () => dispatch(clearAvailablePosts()),
+//     clearPostsInterestedIn: () => dispatch(clearPostsInterestedIn()),
+//     clearCreatedPosts: () => dispatch(clearCreatedPosts()),
+//     clearEventsHosting: () => dispatch(clearEventsHosting()),
+//     clearEventsAttending: () => dispatch(clearEventsAttending()),
+//     clearTopics: () => dispatch(clearTopics()),
+//     clearNeighborhoods: () => dispatch(clearNeighborhoods()),
+//     setContentType: type => dispatch(setContentType(type)),
+//     showPostsWaiting: () => dispatch(showPostsWaiting()),
+//     toggleHasNewInfo: () => dispatch(toggleHasNewInfo()),
+//     clearCurrentEvent: () => dispatch(clearCurrentEvent()),
+//     clearCurrentPost: () => dispatch(clearCurrentPost()),
+//     clearContentType: () => dispatch(clearContentType())
+//   }
+// }
+
+const mapDispatchToProps = {
+  clearUser,
+  clearAvailablePosts,
+  clearPostsInterestedIn,
+  clearCreatedPosts,
+  clearEventsHosting,
+  clearEventsAttending,
+  clearTopics,
+  clearNeighborhoods,
+  setContentType,
+  showPostsWaiting,
+  toggleHasNewInfo,
+  clearCurrentEvent,
+  clearCurrentPost,
+  clearContentType
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar))
