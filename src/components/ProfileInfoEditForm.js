@@ -79,6 +79,7 @@ class ProfileInfoEditForm extends Component {
 
   renderInterests = () => {
     const { state: {interests}, handleRemoveInterest } = this
+    console.log(interests);
     return interests.map((interest, index) => (
       <p className='acct-form-interest' key={ interest }>
         { interest }
@@ -110,7 +111,6 @@ class ProfileInfoEditForm extends Component {
   }
 
   render() {
-    console.log(this.state.interests);
     const { state: {username,
                     first_name,
                     age,
@@ -179,7 +179,7 @@ class ProfileInfoEditForm extends Component {
               })
             }
           </select>
-          <p>{ renderInterests() }</p>
+          { renderInterests() }
           <input type='submit' className='submit'/>
         </form>
         <p className='acct-form-footer'>
@@ -204,11 +204,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return{
-    setUser: user => dispatch(setUser(user)),
-    setContentType: type => dispatch(setContentType(type))
-  }
+const mapDispatchToProps = {
+    setUser,
+    setContentType
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileInfoEditForm);
