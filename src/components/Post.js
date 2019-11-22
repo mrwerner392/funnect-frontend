@@ -144,7 +144,6 @@ const Post = props => {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     user: state.user,
     eventsHosting: state.eventsHosting.events,

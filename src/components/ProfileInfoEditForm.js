@@ -79,7 +79,6 @@ class ProfileInfoEditForm extends Component {
 
   renderInterests = () => {
     const { state: {interests}, handleRemoveInterest } = this
-    console.log(interests);
     return interests.map((interest, index) => (
       <p className='acct-form-interest' key={ interest }>
         { interest }

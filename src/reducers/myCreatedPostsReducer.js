@@ -20,7 +20,6 @@ export default (state = {posts: [], newInterestedUsersExist: false, filter: 'act
         filter: 'active'
       }
     case 'ADD_NEW_INTERESTED_USER':
-      console.log(action.post.interested_users);
       return {
         ...state,
         posts: state.posts.map(post => {
