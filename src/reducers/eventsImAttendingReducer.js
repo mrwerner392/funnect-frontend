@@ -14,7 +14,6 @@ export default (state = {events: [], eventWaiting: {}, newEventExists: false, ne
         newEventExists: false
       }
     case 'NEW_EVENT_ATTENDING':
-      console.log('reducer');
       return {
         ...state,
         events: [

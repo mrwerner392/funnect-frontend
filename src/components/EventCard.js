@@ -62,7 +62,6 @@ class EventCard extends Component {
   }
 
   handleEventEditing = evt => {
-    console.log(evt.target);
     this.setState({
       [evt.target.name]: evt.target.value,
       errors: null,
