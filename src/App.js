@@ -30,6 +30,7 @@ import './App.css';
 
 class App extends Component {
 
+  // check slug before routing
   renderContent = renderProps => {
     const { user, history } = this.props
     const slug = renderProps.match.params.slug
@@ -44,6 +45,7 @@ class App extends Component {
     }
   }
 
+  // fetch all major content on page load
   componentDidMount() {
     const { getUser,
             getAvailablePosts,
