@@ -33,6 +33,7 @@ const NavBar = props => {
           clearContentType,
           history } = props
 
+  // if logged in route to available posts page
   const handleFunnectClick = () => {
     if (user.username) {
       handlePostsWaiting()
@@ -43,6 +44,7 @@ const NavBar = props => {
     }
   }
 
+  // handle username, 'Posts', and 'New Post' click
   const handleNavBarButtonClick = type => {
     if (type !== 'create') {
       setContentType(type)
@@ -65,12 +67,14 @@ const NavBar = props => {
     }
   }
 
+  // if they click 'new posts' noti
   const handlePostsWaiting = () => {
     if (postsWaiting.length) {
       showPostsWaiting()
     }
   }
 
+  // turn off new info noti on username button
   const handleNewInfo = () => {
     if (user.hasNewInfo) {
       toggleHasNewInfo()
