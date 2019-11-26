@@ -4,8 +4,10 @@ import { addPostWaiting } from '../actions/availablePostsActions';
 import { addCreatedPost } from '../actions/myCreatedPostsActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 
+// listen for new posts broadcast via Action Cable
 const PostChannelCable = ({ user, addPostWaiting, addCreatedPost }) => {
 
+  // handle a newly broadcast post
   const handleNewPost = post => {
     if (user.id && post.user.id !== user.id) {
       addPostWaiting(post)
