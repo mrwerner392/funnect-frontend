@@ -23,6 +23,7 @@ const ContentDisplay = props => {
           postsWaiting,
           showPostsWaiting } = props
 
+  // render the available posts accounting for filters
   const renderAvailablePosts = () => {
     const topicFilteredPosts = topicFilter
       ? availablePosts.filter(post => post.topic.name === topicFilter)
@@ -35,6 +36,7 @@ const ContentDisplay = props => {
     return neighborhoodAndTopicFilteredPosts.map(post => <Post key={ post.id } post={ post } />)
   }
 
+  // render the user's created posts and posts they're interested in
   const renderMyPosts = () => {
     return (
       <Fragment>
@@ -45,17 +47,20 @@ const ContentDisplay = props => {
   }
 
   const renderCreatedPosts = () => {
+    // filter for active or old
     const posts = createdPosts.filter(post => post.status === createdPostsFilter)
 
     return posts.map(post => <Post key={ post.id } post={ post } />)
   }
 
   const renderPostsInterestedIn = () => {
+    // filter for active or old
     const posts = postsInterestedIn.filter(post => post.status === postsInterestedInFilter)
 
     return posts.map(post => <Post key={ post.id } post={ post } />)
   }
 
+  // render the events the user is hosting or attending
   const renderMyEvents = () => {
     return (
       <Fragment>
@@ -66,21 +71,25 @@ const ContentDisplay = props => {
   }
 
   const renderEventsHosting = () => {
+    // filter for active or old
     const events = eventsHosting.filter(event => event.status === eventsHostingFilter)
 
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
   const renderEventsAttending = () => {
+    // filter for active or old
     const events = eventsAttending.filter(event => event.status === eventsAttendingFilter)
 
     return events.map(event => <Event key={ event.id } event={ event } />)
   }
 
+  // if user clicks on 'new posts' button
   const handleNewPostsNotificationClick = () => {
     showPostsWaiting()
   }
 
+  // show 'new posts' button
   const renderNewPostsNotification = () => {
     return postsWaiting.length
             ? <button id='new-posts-button' onClick={ handleNewPostsNotificationClick }>{ `${postsWaiting.length} new posts`}</button>
