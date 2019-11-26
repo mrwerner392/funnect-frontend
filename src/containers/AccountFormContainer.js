@@ -20,6 +20,7 @@ class FormContainer extends Component {
     errors: null
   }
 
+  // login fetch to backend
   handleLoginRequest = ({ username, password }) => {
     const { setUser,
             getAvailablePosts,
@@ -65,6 +66,7 @@ class FormContainer extends Component {
     })
   }
 
+  // create user fetch to backend
   handleCreateUserRequest = (user) => {
     const { setUser,
             getAvailablePosts,
