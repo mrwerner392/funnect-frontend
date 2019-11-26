@@ -7,6 +7,7 @@ import { setEventsHostingFilter } from '../actions/eventsImHostingActions';
 import { setEventsAttendingFilter } from '../actions/eventsImAttendingActions';
 import { clearAvailablePostsFilter } from '../actions/availablePostsActions';
 
+// some pages have a second filter bar below the main filter bar
 const  SubFilterBar = props => {
 
   const { user,
@@ -20,14 +21,18 @@ const  SubFilterBar = props => {
           setEventsAttendingFilter,
           history } = props
 
+  // if user clicks 'edit profile'
   const handleEditProfileClick = () => {
     history.push(`/${user.username}/edit`)
   }
 
+  // clears topic and neighborhood filters from available posts page
   const handleClearFilterClick = () => {
     clearAvailablePostsFilter()
   }
 
+  // filter to either show active or old posts based on user click
+    // if user is viewing their events or posts
   const handleMyPostsOrEventsSubFilterClick = filter => {
     switch (contentType) {
       case 'user-posts':
@@ -43,14 +48,17 @@ const  SubFilterBar = props => {
     }
   }
 
+  // on user profile page
   const renderUserSubFilterBar = () => {
     return <button className='user-sub-filter' onClick={ handleEditProfileClick }>Edit Profile</button>
   }
 
+  // on main posts page
   const renderAvailablePostsSubFilterBar = () => {
     return <button className='clear-filter-button' onClick={ handleClearFilterClick }>Clear Filters</button>
   }
 
+  // on user's posts or events pages
   const renderMyPostsOrEventsSubFilterBar = () => {
     const filter = contentType === 'user-posts' ? postFilter : eventFilter
 
