@@ -14,6 +14,7 @@ const ProfileInfo = props => {
           occupation,
           interests } = props.user
 
+  // helper for displaying this user's profile info
   const renderInterests = () => {
     const interestNames = interests.map(interest => interest.name)
     return interestNames.join(', ')
