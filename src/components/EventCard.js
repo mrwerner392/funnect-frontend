@@ -12,6 +12,7 @@ const URL = 'http://localhost:3000'
 
 class EventCard extends Component {
 
+  // local state for when event host updates event time and location
   state = {
     time_hour: null,
     time_minute: null,
@@ -22,6 +23,7 @@ class EventCard extends Component {
     errors: null
   }
 
+  // when user clicks 'back to events' button
   handleBackToEventsClick = () => {
     const { user,
             eventsHostingNewMessagesExist,
@@ -33,6 +35,10 @@ class EventCard extends Component {
             setContentType,
             history } = this.props
 
+    // prevents new messages noti from showing in user filter bar
+    // (because user is going to his/her events page where they will
+    // see the new messages, so noti not necessary)
+
     if (eventsHostingNewMessagesExist) {
       toggleEventsHostingNewMessagesExist()
     }
@@ -41,6 +47,10 @@ class EventCard extends Component {
       toggleEventsAttendingNewMessagesExist()
     }
 
+    // if user has new info because of new messages but doesn't
+    // have new interested users on his/her posts, then remove the
+    // new info noti in user nav bar
+    // (user will have new info if has new messages OR new interested users)
     if (user.hasNewInfo && !newInterestedUsersExist) {
       toggleHasNewInfo()
     }
