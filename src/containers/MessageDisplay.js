@@ -7,6 +7,7 @@ import { addCurrentEventMessage } from '../actions/currentEventActions'
 
 class MessageDisplay extends Component {
 
+  // ref used to keep display scrolled to bottom
   displayRef = createRef()
 
   renderMessages = () => {
@@ -14,16 +15,19 @@ class MessageDisplay extends Component {
     return currentEvent.messages.map(message => <Message key={ message.id } message={ message } />)
   }
 
+  // make sure display is scrolled down so user sees newest messages
   scrollAllTheWayDown = () => {
     const display = this.displayRef.current
     display.scrollTop = display.scrollHeight
   }
 
+  // scroll display all the way down on mount
   componentDidMount() {
     const { scrollAllTheWayDown } = this
     scrollAllTheWayDown()
   }
 
+  // scroll display all the way down on update
   componentDidUpdate() {
     const { scrollAllTheWayDown } = this
     scrollAllTheWayDown()
@@ -31,7 +35,7 @@ class MessageDisplay extends Component {
 
   render() {
     const { renderMessages, displayRef } = this
-    
+
     return (
       <div id='message-display' ref={ displayRef }>
         { renderMessages() }
