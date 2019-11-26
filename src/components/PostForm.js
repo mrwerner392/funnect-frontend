@@ -6,6 +6,7 @@ import { setContentType } from '../actions/contentTypeActions';
 
 class PostForm extends Component {
 
+  // local state to hold form input values
   state = {
     neighborhood: '',
     topic: '',
