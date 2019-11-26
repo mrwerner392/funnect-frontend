@@ -6,6 +6,7 @@ import { addNewInterestedUser, clearNewInterestedUsers, toggleNewInterestedUsers
 import { addNewInterestedUserCurrentPost } from '../actions/currentPostActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 
+// listen for new interests on posts broadcast via Action Cable
 const PostInterestChannelCable = props => {
 
   const { user,
@@ -17,6 +18,8 @@ const PostInterestChannelCable = props => {
           toggleNewInterestedUsersExist,
           history } = props
 
+  // update redux state properly such that notis are rendered appropriately
+  // based on a new interest in a post
   const handleNewPostInterest = ({ post, interested_user }) => {
 
     addNewInterestedUser(post, interested_user)
