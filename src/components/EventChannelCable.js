@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { newEventAttending } from '../actions/eventsImAttendingActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 
-// Action Cable for all events web socket channel
+// Listen for and handle new events broadcast via Action Cable
 const EventChannelCable = ({ user, newEventAttending }) => {
 
   // update redux state with new event if this user was invited

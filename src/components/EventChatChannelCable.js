@@ -7,6 +7,8 @@ import { addCurrentEventMessage } from '../actions/currentEventActions';
 import { toggleHasNewInfo } from '../actions/userActions';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 
+
+// Listen for and handle new event chat messages broadcast via Action Cable
 const EventChatChannelCable = props => {
 
   const { user,
@@ -20,6 +22,7 @@ const EventChatChannelCable = props => {
           toggleHasNewInfo,
           history } = props
 
+  // Add new message to proper places in redux state
   const handleNewMessage = (message, event) => {
 
     if (event.user.id === user.id) {
@@ -34,7 +37,7 @@ const EventChatChannelCable = props => {
     const location = history.location.pathname
     if (location === `/${user.username}/events/${event.id}`) {
       // if user is viewing the event that has new message, add message there
-        // current message being viewed held separately in state
+        // current message being viewed held separately in state from all events
       addCurrentEventMessage(message)
     } else {
 
@@ -63,7 +66,7 @@ const EventChatChannelCable = props => {
           break
         default:
           // toggle user has new info to true if false -- will result in
-          // 'new info' notification in nav bar
+          // '(+)' notification in nav bar
           toggleHasNewInfo()
           break
       }
