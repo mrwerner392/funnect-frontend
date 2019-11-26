@@ -97,12 +97,14 @@ const NavBar = props => {
     history.push('/login');
   }
 
+  // show # new posts in Posts navbar button
   const renderPostsWaitingCount = () => {
     return postsWaiting.length
               ? <span id='new-posts'>{ `(${postsWaiting.length})` }</span>
               : null
   }
 
+  // show '+' in username navbar button if there are notis
   const renderNewInfoMessage = () => {
     return user.hasNewInfo
               ? <span id='new-info'>(+)</span>

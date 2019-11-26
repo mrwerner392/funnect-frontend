@@ -5,6 +5,7 @@ import { setCurrentEvent } from '../actions/currentEventActions';
 
 const Event = ({ event, user, setCurrentEvent, history }) => {
 
+  // when user clicks 'view event' button on event --> to event card
   const handleViewEventClick = () => {
     setCurrentEvent(event)
     history.push(`/${user.username}/events/${event.id}`)
@@ -18,6 +19,7 @@ const Event = ({ event, user, setCurrentEvent, history }) => {
     return newMessages ? <p className='event-message-noti'>New messages</p> : null
   }
 
+  // show all the event attendees including the host
   const renderAttendees = () => {
     return (
       <Fragment>

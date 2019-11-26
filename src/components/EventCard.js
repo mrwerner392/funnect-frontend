@@ -12,6 +12,7 @@ const URL = 'http://localhost:3000'
 
 class EventCard extends Component {
 
+  // local state for when event host updates event time and location
   state = {
     time_hour: null,
     time_minute: null,
@@ -22,6 +23,7 @@ class EventCard extends Component {
     errors: null
   }
 
+  // when user clicks 'back to events' button
   handleBackToEventsClick = () => {
     const { user,
             eventsHostingNewMessagesExist,
@@ -33,6 +35,10 @@ class EventCard extends Component {
             setContentType,
             history } = this.props
 
+    // prevents new messages noti from showing in user filter bar
+    // (because user is going to his/her events page where they will
+    // see the new messages, so noti not necessary)
+
     if (eventsHostingNewMessagesExist) {
       toggleEventsHostingNewMessagesExist()
     }
@@ -41,6 +47,10 @@ class EventCard extends Component {
       toggleEventsAttendingNewMessagesExist()
     }
 
+    // if user has new info because of new messages but doesn't
+    // have new interested users on his/her posts, then remove the
+    // new info noti in user nav bar
+    // (user will have new info if has new messages OR new interested users)
     if (user.hasNewInfo && !newInterestedUsersExist) {
       toggleHasNewInfo()
     }
@@ -49,18 +59,21 @@ class EventCard extends Component {
     history.push(`/${user.username}/events`)
   }
 
+  // only applies if user is host
   handleEditTimeClick = () => {
     this.setState({
       hostIsEditingTime: true
     })
   }
 
+  // only applies if user is host
   handleEditLocationClick = () => {
     this.setState({
       hostIsEditingLocation: true
     })
   }
 
+  // only applies if user is host
   handleEventEditing = evt => {
     this.setState({
       [evt.target.name]: evt.target.value,
@@ -68,6 +81,7 @@ class EventCard extends Component {
     })
   }
 
+  // only applies if user is host
   handleSaveTimeEdit = () => {
     const { state: {time_hour, time_minute, time_am_pm},
             props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
@@ -107,6 +121,7 @@ class EventCard extends Component {
     }
   }
 
+  // only applies if user is host
   handleSaveLocationEdit = () => {
     const { state: {location},
             props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
@@ -138,6 +153,7 @@ class EventCard extends Component {
     }
   }
 
+  // only applies if user is host
   renderTimeHourSelect = () => {
     let hours = []
     for (let i = 1; i <= 12; i++) {
@@ -151,6 +167,7 @@ class EventCard extends Component {
     )
   }
 
+  // only applies if user is host
   renderTimeMinuteSelect = () => {
     let minutes = [0, 15, 30, 45]
     return (
@@ -161,6 +178,7 @@ class EventCard extends Component {
     )
   }
 
+  // only applies if user is host
   renderTimeEdit = () => {
     const { state: {time_hour, time_minute, time_am_pm},
             renderTimeHourSelect, renderTimeMinuteSelect, handleEventEditing } = this
@@ -266,6 +284,7 @@ class EventCard extends Component {
     return interestNames.join(', ')
   }
 
+  // render event attendees including the host
   renderUsers = () => {
     const { props: {currentEvent, currentEvent: {user}}, renderUserInterests } = this
     return (

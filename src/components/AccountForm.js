@@ -15,6 +15,7 @@ class AccountForm extends Component {
     interests: [],
   }
 
+  // when user makes changes to form
   handleChange = evt => {
     if (evt.target.name === 'interests') {
       const interest = evt.target.value
@@ -30,18 +31,21 @@ class AccountForm extends Component {
     };
   }
 
+  // if formType is login
   handleLoginSubmit = evt => {
     evt.preventDefault();
     const { username, password } = this.state
     this.props.handleLoginRequest({ username, password })
   }
 
+  // if formType is create profile
   handleCreateSubmit = evt => {
     evt.preventDefault();
     const { username, password, first_name, age, gender, bio, college, occupation, interests } = this.state
     this.props.handleCreateUserRequest({ username, password, first_name, age, gender, bio, college, occupation, interests })
   }
 
+  // when user removes an interest from their list of interests
   handleRemoveInterest = index => {
     this.setState(prevState => {
       return {
@@ -53,6 +57,7 @@ class AccountForm extends Component {
     })
   }
 
+  // show the interests the user currently has and has added
   renderInterests = () => {
     const { state: {interests}, handleRemoveInterest } = this
     return interests.map((interest, index) => (
@@ -63,6 +68,7 @@ class AccountForm extends Component {
     ))
   }
 
+  // if formType is create profile render extra inputs
   renderCreateProfileFormInputs = () => {
     const { state: {first_name,
                     age,
