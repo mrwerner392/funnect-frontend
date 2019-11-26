@@ -24,16 +24,21 @@ const Post = props => {
           eventsAttending,
           history } = props
 
+  // if user clicks the 'I'm Interested' button
   const handleInterestedClick = post => {
     addPostInterestedIn(post.id, user.id)
     removeAvailablePost(post.id)
   }
 
-  const handleNotInterestedClick = post => {
-    addAvailablePost(post, user.id)
-    removePostInterestedIn(post.id, user.id)
-  }
+  // // NOT CURRENTLY IN USE
+  // // not rendering the 'not interested' button, so this event
+  // // handler will never get called
+  // const handleNotInterestedClick = post => {
+  //   addAvailablePost(post, user.id)
+  //   removePostInterestedIn(post.id, user.id)
+  // }
 
+  // if the creator of the post clicks the 'manage post' button
   const handleManagePostClick = () => {
     setCurrentPost(post)
 
@@ -44,6 +49,7 @@ const Post = props => {
     history.push(`/${user.username}/posts/${post.id}`)
   }
 
+  // if user clicks 'view event for this post' button
   const handleGoToEventClick = postId => {
     const allEvents = [...eventsHosting, ...eventsAttending]
     const event = allEvents.find(event => event.post.id === postId)
@@ -52,6 +58,8 @@ const Post = props => {
     history.push(`/${user.username}/events/${event.id}`)
   }
 
+  // is the user is the creator of the post and new people have shown
+  // interest, render a noti
   const renderNotification = () => {
     const { post } = props
     const numNew = post.newInterestedUsers ? post.newInterestedUsers.length : 0
@@ -65,11 +73,13 @@ const Post = props => {
               null
   }
 
+  // helper for showing interested users' profile info
   const renderUserInterests = interests => {
     const interestNames = interests.map(interest => interest.name)
     return interestNames.join(', ')
   }
 
+  // 3 possible footers depending on how the user is connected to the post
   const renderPostFooter = () => {
     const interestedIds = post.interested_users.map(user => user.id)
 
@@ -78,6 +88,7 @@ const Post = props => {
     }
 
     if (post.user.id === user.id) {
+      // if user was the creator of the post
       const allEvents = [...eventsHosting, ...eventsAttending]
       const postIdsWithAnEvent = allEvents.map(event => event.post.id)
 
@@ -87,6 +98,10 @@ const Post = props => {
           {
             postIdsWithAnEvent.includes(post.id)
             ?
+
+            //TODO: would be nice to render this 'view event for this post'
+            // button for all users who were invited to the event by the host,
+            // as opposed to just for the host as it currently is
             <button className='my-post-footer-button' onClick={ () => handleGoToEventClick(post.id) }>View Event for This Post</button>
             :
             <button className='my-post-footer-button' onClick={ handleManagePostClick }>Manage Post</button>

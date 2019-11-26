@@ -12,6 +12,8 @@ const EventNotification = props => {
           setCurrentEvent,
           history } = props
 
+  // when user clicks on the new event notification, remove it and either
+  // reroute or stay on same page
   const handleClick = direction => {
     newEventAttendingSeen()
     if (direction === 'go') {

@@ -26,6 +26,8 @@ const FilterBar = props => {
           setAvailablePostsNeighborhoodFilter,
           history } = props
 
+  // if the user clicks on 'Posts' or 'Events' in the user filter bar
+    // handles rerouting and removing notis
   const handleUserFilterClick = contentType => {
     setContentType(contentType)
 
@@ -44,6 +46,8 @@ const FilterBar = props => {
     }
   }
 
+  // if user changes the topic or neighborhood filters in
+  // the available posts filter bar
   const handleAvailablePostsFilterChange = evt => {
     const { name, value } = evt.target
     name === 'topics'
@@ -51,12 +55,15 @@ const FilterBar = props => {
         : setAvailablePostsNeighborhoodFilter(value)
   }
 
+  // show that the user's post(s) have new interested users
+  // in 'Posts' filter bar button
   const renderNewInterestedUsersNotification = () => {
     return newInterestedUsersExist
               ? <span id='new-interesteds'>(New Interesteds)</span>
               : null
   }
 
+  // show that the user has new messages in 'Events' filter bar button
   const renderNewMessagesNotification = () => {
     const showNotification = eventsHostingNewMessagesExist || eventsAttendingNewMessagesExist
 
@@ -65,6 +72,8 @@ const FilterBar = props => {
               : null
   }
 
+  // user filter bar shows when user is on a page specific to them
+    // i.e. their profile, posts, events, etc.
   const renderUserFilterBar = () => {
     // buttons here for page redirect, not actual filtering
     return (
@@ -85,6 +94,7 @@ const FilterBar = props => {
     )
   }
 
+  // renders when user clicks 'Posts' in nav bar
   const renderAvailablePostsFilterBar = () => {
     return (
       <Fragment>
@@ -120,6 +130,8 @@ const FilterBar = props => {
     )
   }
 
+  // render appropriate filter bar depending on what type
+  // type of content the user is viewing
   const renderFilterBar = () => {
     switch (contentType) {
       case 'user':

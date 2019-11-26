@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 const URL = 'http://localhost:3000'
 
+// for messaging in event chats
 class MessageForm extends Component {
 
   state = {

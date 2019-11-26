@@ -11,10 +11,14 @@ const URL = 'http://localhost:3000'
 
 class PostCard extends Component {
 
+  // local state to keep track of which interested users the post creator
+  // wants to invite to an event
   state = {
     attendees: []
   }
 
+  // create event in back end, which will broadcast it back out
+  // via Action Cable
   handleCreateEvent = postId => {
     const { props: {addEvent, user, history, setCurrentEvent},
             state: {attendees} } = this
@@ -40,6 +44,8 @@ class PostCard extends Component {
     })
   }
 
+  // add the chosen user to the attendees in local state so they will
+  // be included when user clicks 'create event'
   handleAddToEventList = id => {
     this.setState(prevState => {
       return {
@@ -48,6 +54,7 @@ class PostCard extends Component {
     })
   }
 
+  // remove the chosen user from local state attendees
   handleRemoveFromEventList = userId => {
     this.setState(prevState => {
       return {
@@ -56,6 +63,7 @@ class PostCard extends Component {
     })
   }
 
+  // handle noti cleanup and rerouting if user clicks 'back to my posts'
   handleBackToPostsClick = () => {
     const { user,
             newInterestedUsersExist,
@@ -82,6 +90,7 @@ class PostCard extends Component {
     history.push(`/${user.username}/posts`)
   }
 
+  // helper for diplaying interested users' profile info
   renderUserInterests = interests => {
     const interestNames = interests.map(interest => interest.name)
     return interestNames.join(', ')

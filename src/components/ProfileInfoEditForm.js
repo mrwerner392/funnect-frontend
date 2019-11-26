@@ -8,6 +8,7 @@ const URL = 'http://localhost:3000'
 
 class ProfileInfoEditForm extends Component {
 
+  // local state to hold form input values
   state = {
     username: '',
     first_name: '',
@@ -66,6 +67,7 @@ class ProfileInfoEditForm extends Component {
     .then(user => setUser(user))
   }
 
+  // users can remove interests after selecting them, handled here
   handleRemoveInterest = index => {
     this.setState(prevState => {
       return {
@@ -87,6 +89,7 @@ class ProfileInfoEditForm extends Component {
     ))
   }
 
+  // initialize form with user's current information
   componentDidMount() {
     const { username,
             first_name,
