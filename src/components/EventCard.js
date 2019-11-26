@@ -59,18 +59,21 @@ class EventCard extends Component {
     history.push(`/${user.username}/events`)
   }
 
+  // only applies if user is host
   handleEditTimeClick = () => {
     this.setState({
       hostIsEditingTime: true
     })
   }
 
+  // only applies if user is host
   handleEditLocationClick = () => {
     this.setState({
       hostIsEditingLocation: true
     })
   }
 
+  // only applies if user is host
   handleEventEditing = evt => {
     this.setState({
       [evt.target.name]: evt.target.value,
@@ -78,6 +81,7 @@ class EventCard extends Component {
     })
   }
 
+  // only applies if user is host
   handleSaveTimeEdit = () => {
     const { state: {time_hour, time_minute, time_am_pm},
             props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
@@ -117,6 +121,7 @@ class EventCard extends Component {
     }
   }
 
+  // only applies if user is host
   handleSaveLocationEdit = () => {
     const { state: {location},
             props: {currentEvent, updateEventHosting, updateCurrentEvent} } = this
@@ -148,6 +153,7 @@ class EventCard extends Component {
     }
   }
 
+  // only applies if user is host
   renderTimeHourSelect = () => {
     let hours = []
     for (let i = 1; i <= 12; i++) {
@@ -161,6 +167,7 @@ class EventCard extends Component {
     )
   }
 
+  // only applies if user is host
   renderTimeMinuteSelect = () => {
     let minutes = [0, 15, 30, 45]
     return (
@@ -171,6 +178,7 @@ class EventCard extends Component {
     )
   }
 
+  // only applies if user is host
   renderTimeEdit = () => {
     const { state: {time_hour, time_minute, time_am_pm},
             renderTimeHourSelect, renderTimeMinuteSelect, handleEventEditing } = this
@@ -276,6 +284,7 @@ class EventCard extends Component {
     return interestNames.join(', ')
   }
 
+  // render event attendees including the host
   renderUsers = () => {
     const { props: {currentEvent, currentEvent: {user}}, renderUserInterests } = this
     return (
