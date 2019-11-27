@@ -1,68 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Funnect
 
-## Available Scripts
+This is the frontend repository for Funnect. You can find the backend repository [here](https://github.com/mrwerner392/funnect-backend).
 
-In the project directory, you can run:
+## Summary
 
-### `yarn start`
+The motivation behind this app is to use technology as a means of driving in-person interactions. Through this app, users can make a post about something they would like to do with other people. This could be a coffee chat about their favorite topic, walking dogs in the park, after work drinks, etc. Other users can then express interest in the post. If the creator of a post has interest from other users, they can make an event and invite the interested users of their choosing. Attending users can then chat through the event's page to set up a specific time and location.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+To test locally, follow these steps:
 
-### `yarn test`
+1. Open a terminal window, clone this repository to your local machine and navigate into the directory
+2. Run `npm install`
+3. Run `npm start`
+  - Default port is 3001, but can use any port besides 3000 (reserved for rails server)
+  - This should automatically open a browser window containing the application
+4. In a new terminal window, clone the backend repository to your local machine (found [here](https://github.com/mrwerner392/funnect-backend)) and navigate into the directory
+5. Run `bundle install`
+6. Run `rails db:create && rails db:migrate && rails db:seed`
+  - There are some seeds initialized but add to or adjust these as you'd like!
+7. Run `rails s`
+  - Make sure this is running on port 3000 (should by default)
+8. Find your browser window containing the app and enjoy!
+  - Note that for best testing, it is recommended to open two browser windows -- one in a private browser -- and log in to two separate accounts. This app leverages web sockets for live updates and notifications which can only be tested locally using two separate accounts at the same time.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Check back soon for the link to the live application!
