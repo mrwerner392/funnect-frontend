@@ -22,7 +22,7 @@ To test locally, follow these steps:
 7. Run `rails s`
   - Make sure this is running on port 3000 (should by default)
 8. Find your browser window containing the app and enjoy!
-  - Note that for best testing, it is recommended to open two browser windows -- one in a private browser -- and log in to two separate accounts. This app leverages web sockets for live updates and notifications which can only be tested locally using two separate accounts at the same time.
+  - Note that for best testing, it is recommended to open two browser windows -- one in a private browser -- and log in to two separate accounts (you can access sample account usernames and passwords in the seeds file or create your own accounts). This app leverages web sockets for live updates and notifications which can only be tested locally using two separate accounts at the same time.
 
 Check back soon for the link to the live application!
 
@@ -81,4 +81,4 @@ Check back soon for the link to the live application!
 
 ## Author
 
-This application -- across the full stack -- was planned, designed, and created by [Matt Werner](https://github.com/mrwerner392).
+This application -- across the entire stack -- was planned, designed, and created by [Matt Werner](https://github.com/mrwerner392).
