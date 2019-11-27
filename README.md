@@ -71,3 +71,14 @@ Check back soon for the link to the live application!
   - If you get invited to an event, a notification will appear at the top of the page
 - Note that some notifications will only appear when you are navigated away from the relevant page
   - For example, if you are on your profile page already, you will not get a notification in the nav bar that you have updates
+
+## Technologies
+
+- React / React Router
+- Redux / Redux Thunk
+- React Action Cable Provider / Web Sockets
+- Vanilla CSS
+
+## Author
+
+This application -- across the full stack -- was planned, designed, and created by [Matt Werner](https://github.com/mrwerner392).
