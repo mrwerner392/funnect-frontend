@@ -16,12 +16,14 @@ To test locally, follow these steps:
   - Default port is 3001, but can use any port besides 3000 (reserved for rails server)
   - This should automatically open a browser window containing the application
 4. In a new terminal window, clone the backend repository to your local machine (found [here](https://github.com/mrwerner392/funnect-backend)) and navigate into the directory
-5. Run `bundle install`
-6. Run `rails db:create && rails db:migrate && rails db:seed`
+5. Open the backend repository in the editor of your choice and add a file in the root directory called '.env'
+6. In this file, create a JWT_SECRET_KEY with `JWT_SECRET_KEY='<your key here>'`
+7. Back in the terminal run `bundle install`
+8. Run `rails db:create && rails db:migrate && rails db:seed`
   - There are some seeds initialized but add to or adjust these as you'd like!
-7. Run `rails s`
+9. Run `rails s`
   - Make sure this is running on port 3000 (should by default)
-8. Find your browser window containing the app and enjoy!
+10. Find your browser window containing the app and enjoy!
   - Note that for best testing, it is recommended to open two browser windows -- one in a private browser -- and log in to two separate accounts (you can access sample account usernames and passwords in the seeds file or create your own accounts). This app leverages web sockets for live updates and notifications which can only be tested locally using two separate accounts at the same time.
 
 Check back soon for the link to the live application!
