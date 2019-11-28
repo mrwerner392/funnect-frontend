@@ -82,6 +82,11 @@ const Post = props => {
   // 3 possible footers depending on how the user is connected to the post
   const renderPostFooter = () => {
     const interestedIds = post.interested_users.map(user => user.id)
+    const allEvents = [...eventsHosting, ...eventsAttending]
+    const event = allEvents.find(event => event.post.id === post.id)
+    const attendingIds = event
+                            ? event.users_attending.map(user => user.id)
+                            : []
 
     if (post.newInterestedUsers) {
       post.newInterestedUsers.forEach(user => interestedIds.push(user.id))
@@ -89,16 +94,15 @@ const Post = props => {
 
     if (post.user.id === user.id) {
       // if user was the creator of the post
-      const allEvents = [...eventsHosting, ...eventsAttending]
-      const postIdsWithAnEvent = allEvents.map(event => event.post.id)
+      // const postIdsWithAnEvent = allEvents.map(event => event.post.id)
+      // console.log(event);
 
       return (
         <Fragment>
           <p className='my-post-footer-text'>{ interestedIds.length } users are interested</p>
           {
-            postIdsWithAnEvent.includes(post.id)
+            event
             ?
-
             //TODO: would be nice to render this 'view event for this post'
             // button for all users who were invited to the event by the host,
             // as opposed to just for the host as it currently is
@@ -111,7 +115,16 @@ const Post = props => {
     } else if (interestedIds.includes(user.id)) {
       return (
         <Fragment>
-          <p className='post-interested-footer-text'>You and { interestedIds.length - 1 } others are interested</p>
+          {
+            event && attendingIds.includes(user.id)
+            ?
+            <Fragment>
+              <p className='post-interested-footer-text-2'>You and { interestedIds.length - 1 } others are interested</p>
+              <button className='my-post-footer-button' onClick={ () => handleGoToEventClick(post.id) }>View Event for This Post</button>
+            </Fragment>
+            :
+            <p className='post-interested-footer-text'>You and { interestedIds.length - 1 } others are interested</p>
+          }
 
           {/* currently not rendering the 'not interested' button below
           so that users can't remove their interest from a post, but
