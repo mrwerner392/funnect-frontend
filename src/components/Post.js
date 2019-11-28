@@ -103,9 +103,6 @@ const Post = props => {
           {
             event
             ?
-            //TODO: would be nice to render this 'view event for this post'
-            // button for all users who were invited to the event by the host,
-            // as opposed to just for the host as it currently is
             <button className='my-post-footer-button' onClick={ () => handleGoToEventClick(post.id) }>View Event for This Post</button>
             :
             <button className='my-post-footer-button' onClick={ handleManagePostClick }>Manage Post</button>
