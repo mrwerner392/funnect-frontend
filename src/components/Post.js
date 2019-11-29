@@ -94,18 +94,12 @@ const Post = props => {
 
     if (post.user.id === user.id) {
       // if user was the creator of the post
-      // const postIdsWithAnEvent = allEvents.map(event => event.post.id)
-      // console.log(event);
-
       return (
         <Fragment>
           <p className='my-post-footer-text'>{ interestedIds.length } users are interested</p>
           {
             event
             ?
-            //TODO: would be nice to render this 'view event for this post'
-            // button for all users who were invited to the event by the host,
-            // as opposed to just for the host as it currently is
             <button className='my-post-footer-button' onClick={ () => handleGoToEventClick(post.id) }>View Event for This Post</button>
             :
             <button className='my-post-footer-button' onClick={ handleManagePostClick }>Manage Post</button>
@@ -113,6 +107,7 @@ const Post = props => {
         </Fragment>
       )
     } else if (interestedIds.includes(user.id)) {
+      // if user is interested in this post
       return (
         <Fragment>
           {
@@ -135,6 +130,8 @@ const Post = props => {
         </Fragment>
       )
     } else {
+      // if this is a post that is available to the user (user did not
+      // create it and is not yet interested in it)
       return (
         <Fragment>
           <p className='available-footer-text'>{ interestedIds.length } users are interested</p>
