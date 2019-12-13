@@ -20,6 +20,7 @@ import currentPostReducer from './reducers/currentPostReducer';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// each key here is a key in state
 const reducer = combineReducers({
   user: userReducer,
   availablePosts: availablePostsReducer,

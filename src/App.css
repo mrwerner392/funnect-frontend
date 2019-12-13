@@ -80,7 +80,7 @@ button:hover {
   background-color: #039600;
   padding: 1%;
   border: none;
-  font-size: 175%;
+  font-size: 100%;
   color: white;
 }
 
@@ -185,7 +185,7 @@ button:hover {
   flex-grow: 1;
   border-radius: 0;
   text-align-last: center;
-  font-size: 175%;
+  font-size: 100%;
   background-color: #ff8a00;
   color: white;
   border: 1px solid white;
@@ -193,7 +193,7 @@ button:hover {
 
 .clear-filter-button {
   flex-grow: 1;
-  font-size: 150%;
+  font-size: 100%;
   background-color: #ffb55e;
   color: white;
   border: 1px solid white;
@@ -209,7 +209,7 @@ button:hover {
   flex-grow: 1;
   border-radius: 0;
   text-align-last: center;
-  font-size: 175%;
+  font-size: 100%;
   background-color: #ff8a00;
   border: 1px solid white;
   color: white;
@@ -244,7 +244,7 @@ button:hover {
   flex-grow: 1;
   border-radius: 0;
   text-align-last: center;
-  font-size: 175%;
+  font-size: 100%;
   background-color: #ff8a00;
 }
 
@@ -256,7 +256,7 @@ button:hover {
 .user-sub-filter {
   width: 1vw;
   flex-grow: 1;
-  font-size: 150%;
+  font-size: 100%;
   background-color: #ffb55e;
   border: 1px solid white;
   color: white;
@@ -268,7 +268,7 @@ button:hover {
 
 #user-sub-filter-button {
   margin: auto;
-  font-size: 150%;
+  font-size: 100%;
   background-color: #ffb55e;
   color: white;
 }
@@ -576,14 +576,14 @@ button:hover {
 }
 
 .profile-info-label {
-  font-size: 1.7em;
+  font-size: 1.5em;
   padding-top: 3%;
   padding-bottom: 2%;
   background-color: white;
 }
 
 .profile-info-item {
-  font-size: 1.3em;
+  font-size: 1.1em;
   padding-bottom: 2%;
   background-color: white;
 }
